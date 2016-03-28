@@ -14,5 +14,7 @@ public interface PersonService {
 	public Person getPersonById(int id);
 
 	public void removePerson(int id);
+	
+	public Person loginUser(String username, String password);
 
 }

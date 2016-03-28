@@ -50,4 +50,11 @@ public class PersonServiceImpl implements PersonService {
 
 	}
 
+	@Override
+	@Transactional
+	public Person loginUser(String username, String password) {
+		this.personDAO.getPersonById(2);
+		return null;
+	}
+
 }
