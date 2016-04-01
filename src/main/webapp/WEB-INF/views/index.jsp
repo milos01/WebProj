@@ -18,9 +18,63 @@ body {
 </style>
 </head>
 <body ng-app="app">
+	<!-- Modal for registration -->
+	<div id="registerModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width:400px">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Register</h4>
+				</div>
+				<form action="register" method="POST">
+				<input class="form-control" name="email" type="text"
+					id="regEmail" placeholder="Email"
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
+					ng-model="reg_email_model">
+					
+					<input class="form-control" name="firstName" type="text"
+					id="firstName" placeholder="First name"
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+					ng-model="first_name_model"> 
+					
+					<input class="form-control" name="lastName" type="text"
+					id="lastName" placeholder="Last name"
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+					ng-model="username_model"> 
+					
+					<input class="form-control" name="password" type="password"
+					id="regPassword" placeholder="Password"
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+					ng-model="reg_password_model">
+					
+					<input class="form-control" name="regRePassword" type="password"
+					id="regRePassword" placeholder="Retype password"
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+					ng-model="reg_repassword_model">  
+					
+				<div class="modal-footer" style="margin-top:15px;">
+					<button type="submit" class="btn btn-success">Register</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+			</div>
+
+		</div>
+	</div>
+	<c:out value="${message}" />
+	<!-- End modal for registration -->
 	<c:if test="${!empty errorMessage}">
-		<div class="alert alert-danger" id="errorAlert" style="text-align:center;position:absolute;width:100%">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%">
 			<strong>${errorMessage}</strong>
+		</div>
+	</c:if>
+	<c:if test="${!empty successMessage}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%">
+			<strong>${successMessage}</strong>
 		</div>
 	</c:if>
 	<div class="container" style="width: 500px; color: black"
@@ -33,11 +87,12 @@ body {
 			<p style="margin-top: -30px; font-family: 'Lobster Two', cursive;">Quest
 				For Chef</p>
 			<form action="login" method="POST">
-				<input class="form-control" name="username" type="text"
-					id="username" placeholder="Username"
+				<input class="form-control" name="loginEmail" type="text"
+					id="email" placeholder="Email"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
-					ng-model="username_model"> <input class="form-control"
-					name="password" type="password" id="password"
+					ng-model="email_model"> 
+					<input class="form-control"
+					name="loginPassword" type="password" id="password"
 					placeholder="Password"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 					ng-model="password_model"> <input class="btn btn-default"
@@ -45,8 +100,8 @@ body {
 					style="float: left; margin-left: 100px; margin-top: 15px"
 					ng-click="loginSubmit_model()" />
 				<p
-					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px">Sign
-					up</p>
+					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px"
+					data-toggle="modal" data-target="#registerModal">Sign up</p>
 			</form>
 		</div>
 	</div>

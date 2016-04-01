@@ -2,19 +2,25 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
-import com.packtpub.springmvc.model.Person;
+import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.model.VerificationToken;
 
 public interface PersonService {
-	public void addPerson(Person p);
+	
+	public void createVerificationTokenForUser(User user, String token);
+	
+	public void addPerson(User p);
 
-	public void updatePerson(Person p);
+	public void updatePerson(User p);
+	
+	public VerificationToken getVerificationToken(String token);
 
-	public List<Person> listPersons();
+	public List<User> listPersons();
 
-	public Person getPersonById(int id);
+	public User getPersonById(int id);
 
 	public void removePerson(int id);
 	
-	public Person loginUser(String username, String password);
+	public User loginUser(String username, String password);
 
 }

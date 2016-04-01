@@ -2,16 +2,16 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
-import com.packtpub.springmvc.model.Person;
+import com.packtpub.springmvc.model.User;
 
 public interface PersonDAO {
-	public void addPerson(Person p);
+	public void addPerson(User p);
 
-	public void updatePerson(Person p);
+	public void updatePerson(User p);
 
-	public List<Person> listPersons();
+	public List<User> listPersons();
 
-	public Person getPersonById(int id);
+	public User getPersonById(int id);
 
 	public void removePerson(int id);
 }

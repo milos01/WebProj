@@ -2,43 +2,47 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.packtpub.springmvc.dao.PersonDAO;
-import com.packtpub.springmvc.model.Person;
+import com.packtpub.springmvc.dao.TokenDAO;
+import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.model.VerificationToken;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
+	@Autowired
 	private PersonDAO personDAO;
+	
+	@Autowired
+	private TokenDAO tokenDAO;
 
-	public void setPersonDAO(PersonDAO personDAO) {
-		this.personDAO = personDAO;
-	}
-
+	
 	@Override
 	@Transactional
-	public void addPerson(Person p) {
+	public void addPerson(User p) {
 		this.personDAO.addPerson(p);
 	}
 
 	@Override
 	@Transactional
-	public void updatePerson(Person p) {
-		// TODO Auto-generated method stub
+	public void updatePerson(User p) {
+		this.personDAO.updatePerson(p);
 
 	}
 
 	@Override
 	@Transactional
-	public List<Person> listPersons() {
+	public List<User> listPersons() {
 		return this.personDAO.listPersons();
 	}
 
 	@Override
 	@Transactional
-	public Person getPersonById(int id) {
+	public User getPersonById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -52,9 +56,23 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public Person loginUser(String username, String password) {
+	public User loginUser(String username, String password) {
 		this.personDAO.getPersonById(2);
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public VerificationToken getVerificationToken(String token) {
+		System.out.println("aaaaa");
+		return this.tokenDAO.findByToken(token);
+	}
+
+	@Override
+	@Transactional
+	public void createVerificationTokenForUser(User user, String token) {
+		final VerificationToken myToken = new VerificationToken(token, user);
+		tokenDAO.saveVerificationTokenForUser(myToken);
 	}
 
 }
