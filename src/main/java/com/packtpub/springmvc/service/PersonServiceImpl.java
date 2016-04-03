@@ -74,5 +74,11 @@ public class PersonServiceImpl implements PersonService {
 		final VerificationToken myToken = new VerificationToken(token, user);
 		tokenDAO.saveVerificationTokenForUser(myToken);
 	}
+	
+	@Override
+	@Transactional
+	public void updateVerificationToken(VerificationToken token) {
+		tokenDAO.updateVerificationToken(token);
+	}
 
 }

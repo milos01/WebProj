@@ -47,4 +47,10 @@ public class TokenDAOImpl implements TokenDAO {
 //				
 	}
 
+	@Override
+	public void updateVerificationToken(VerificationToken token) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(token);
+	}
+
 }

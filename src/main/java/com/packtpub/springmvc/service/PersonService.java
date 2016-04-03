@@ -23,4 +23,6 @@ public interface PersonService {
 	
 	public User loginUser(String username, String password);
 
+	public void updateVerificationToken(VerificationToken token);
+
 }

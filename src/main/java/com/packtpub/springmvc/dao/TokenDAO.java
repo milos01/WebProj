@@ -10,4 +10,7 @@ public interface TokenDAO {
 	 
 	 public void saveVerificationTokenForUser(VerificationToken Token);
 
+	 public void updateVerificationToken(VerificationToken token);
+	 
+
 }

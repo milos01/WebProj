@@ -63,7 +63,12 @@ body {
 
 		</div>
 	</div>
-	<c:out value="${message}" />
+	<c:if test="${!empty token}">
+		<div class="alert alert-warning" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%">
+			<strong>Click <a href="resendRegistrationToken/${token}">here</a> to update your token</strong>
+		</div>
+	</c:if>
 	<!-- End modal for registration -->
 	<c:if test="${!empty errorMessage}">
 		<div class="alert alert-danger" id="errorAlert"
