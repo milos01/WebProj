@@ -13,14 +13,24 @@
 	rel='stylesheet' type='text/css'>
 <style>
 body {
-	background: #e6e6e6;
+	background: #f5f5f5;
 }
 </style>
 </head>
-<body ng-app="app">
+<body>
+	<c:if test="${errors.errorCount gt 0}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%">
+			<c:forEach items="${errors.allErrors}" var="error">
+				<strong>${error.defaultMessage}</strong>
+				<br />
+			</c:forEach>
+		</div>
+	</c:if>
+
 	<!-- Modal for registration -->
 	<div id="registerModal" class="modal fade" role="dialog">
-		<div class="modal-dialog" style="width:400px">
+		<div class="modal-dialog" style="width: 400px">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -29,44 +39,42 @@ body {
 					<h4 class="modal-title">Register</h4>
 				</div>
 				<form action="register" method="POST">
-				<input class="form-control" name="email" type="text"
-					id="regEmail" placeholder="Email"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
-					ng-model="reg_email_model">
-					
-					<input class="form-control" name="firstName" type="text"
-					id="firstName" placeholder="First name"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					ng-model="first_name_model"> 
-					
-					<input class="form-control" name="lastName" type="text"
-					id="lastName" placeholder="Last name"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					ng-model="username_model"> 
-					
-					<input class="form-control" name="password" type="password"
-					id="regPassword" placeholder="Password"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					ng-model="reg_password_model">
-					
-					<input class="form-control" name="regRePassword" type="password"
-					id="regRePassword" placeholder="Retype password"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					ng-model="reg_repassword_model">  
-					
-				<div class="modal-footer" style="margin-top:15px;">
-					<button type="submit" class="btn btn-success">Register</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</form>
+					<input class="form-control" name="email" type="text" id="regEmail"
+						placeholder="Email"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+
+					<input class="form-control" type="text" id="firstName"
+						placeholder="First name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						path="firstName" /> 
+					<input class="form-control" name="lastName"
+						type="text" id="lastName" placeholder="Last name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						ng-model="username_model" /> <input class="form-control"
+						type="password" id="regPassword" name="password"
+						placeholder="Password"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						ng-model="reg_password_model" />
+
+					<div class="modal-footer" style="margin-top: 15px;">
+						<button type="submit" class="btn btn-success"
+							style="background: #1ab394">Register</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</form>
 			</div>
 
 		</div>
 	</div>
 	<c:if test="${!empty token}">
-		<div class="alert alert-warning" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%">
-			<strong>Click <a href="resendRegistrationToken/${token}">here</a> to update your token</strong>
+		<div class="container" id="expiredToken"
+			style="text-align: center; position: absolute; width: 100%; height: 50px; border-bottom: 1px solid #ccc; padding: 15px; background: #fff">
+			<strong>Your request has expired, click <a
+				href="resendRegistrationToken/${token}">here</a> to resend
+				activation link.
+			</strong>
+			<button id="tokenButton" type="button" class="close"
+				style="position: absolute; right: 10px">&times;</button>
 		</div>
 	</c:if>
 	<!-- End modal for registration -->
@@ -92,18 +100,16 @@ body {
 			<p style="margin-top: -30px; font-family: 'Lobster Two', cursive;">Quest
 				For Chef</p>
 			<form action="login" method="POST">
-				<input class="form-control" name="loginEmail" type="text"
-					id="email" placeholder="Email"
+				<input class="form-control" name="loginEmail" type="text" id="email"
+					placeholder="Email"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
-					ng-model="email_model"> 
-					<input class="form-control"
-					name="loginPassword" type="password" id="password"
+					ng-model="email_model" path="loginEmail" />
+				<input class="form-control" name="loginPassword" type="password"
 					placeholder="Password"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					ng-model="password_model"> <input class="btn btn-default"
+					path="loginPassword" /> <input class="btn btn-default"
 					name="loginSubmit" type="submit" value="Sign in"
-					style="float: left; margin-left: 100px; margin-top: 15px"
-					ng-click="loginSubmit_model()" />
+					style="float: left; margin-left: 100px; margin-top: 15px" />
 				<p
 					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px"
 					data-toggle="modal" data-target="#registerModal">Sign up</p>

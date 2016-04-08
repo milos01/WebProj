@@ -2,11 +2,13 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.model.VerificationToken;
 
 @Repository
 public class PersonDAOImpl implements PersonDAO {
@@ -41,9 +43,17 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
-	public User getPersonById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getPerson(String email) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 =  session.createQuery("FROM User u WHERE u.email = :string_email");
+		query1.setParameter("string_email",email);
+		List<User> userList = query1.list();
+		User tk = null;
+		for ( User users: userList ) {
+		   tk = users;
+		}
+		return tk; 
+		
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public User getPersonById(int id) {
+	public User getPerson(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,9 +56,12 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public User loginUser(String username, String password) {
-		this.personDAO.getPersonById(2);
-		return null;
+	public User loginUser(String email, String password) {
+		if(this.personDAO.getPerson(email) == null){
+			return null;
+		}
+		
+		return this.personDAO.getPerson(email);
 	}
 
 	@Override

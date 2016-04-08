@@ -2,10 +2,16 @@ package com.packtpub.springmvc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Entity bean with JPA annotations Hibernate provides JPA implementation
@@ -23,18 +29,27 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotBlank(message = "First name must not be empty")
 	private String firstName;
-
+	
+	@NotBlank(message = "Last name must not be empty")
 	private String lastName;
-
+	
+	@NotBlank(message = "Email must not be empty")
+	@Email
 	private String email;
 
+	@NotBlank(message = "Password must not be empty")
 	@Column(length = 60)
 	private String password;
 
 	private boolean enabled;
 
 	private boolean tokenExpired;
+	
+	@OneToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
+	@JoinColumn(nullable=false, name = "role_id")
+	private Role role;
 
 	public User() {
 		super();
@@ -96,5 +111,13 @@ public class User {
 
 	public void setTokenExpired(boolean tokenExpired) {
 		this.tokenExpired = tokenExpired;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

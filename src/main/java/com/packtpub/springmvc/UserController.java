@@ -2,23 +2,26 @@ package com.packtpub.springmvc;
 
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.core.SpringVersion;
 
 import com.packtpub.springmvc.event.OnRegistrationCompleteEvent;
 import com.packtpub.springmvc.model.User;
@@ -30,6 +33,7 @@ public class UserController {
 
 	private PersonService personService;
 	
+	
 	final Calendar cal = Calendar.getInstance();
 
 	@Autowired(required = true)
@@ -39,17 +43,39 @@ public class UserController {
 	}
 	@Autowired
     private ApplicationEventPublisher eventPublisher;
+	
+	@Autowired
+    private JavaMailSender mailSender;
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String userLogin(@RequestParam String username,@RequestParam String password, Model model, RedirectAttributes redirectAttributes){
-		if(username.equals("") || password.equals("")){
+	public String userLogin(@RequestParam String loginEmail,@RequestParam String loginPassword, Model model, RedirectAttributes redirectAttributes, HttpSession session){
+		if(loginEmail.equals("") || loginPassword.equals("")){
 			redirectAttributes.addFlashAttribute("errorMessage", "Username and password must not be empty");
+			return "redirect:/";
 		}
-//		personService.loginUser(username, password);
-		return "redirect:/";
+		User u = personService.loginUser(loginEmail, loginPassword);
+		if (u == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "User not exists!");
+			return "redirect:/";
+		}else{
+			if (u.getPassword().equals(loginPassword)) {
+				session.setAttribute("logedUser",u);
+				return "redirect:/home";
+			}else{
+				redirectAttributes.addFlashAttribute("errorMessage", "Check your password!");
+				return "redirect:/";
+			}
+		}
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("User") User u, final HttpServletRequest request,RedirectAttributes redirectAttributes) {
+	public String registerUser(  @ModelAttribute("User") @Valid User u, BindingResult bindres, final HttpServletRequest request,RedirectAttributes redirectAttributes) {
+		if (bindres.hasErrors()) {
+			redirectAttributes.addFlashAttribute("errors", bindres);
+			return "redirect:/";
+		}else{
+			System.out.println("NEMA ERORRA");
+		}
+		
 		this.personService.addPerson(u);
 		final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 		System.out.println(appUrl);
@@ -96,26 +122,37 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/resendRegistrationToken/{token}", method = RequestMethod.GET)
-    @ResponseBody
-    public String resendRegistrationToken(@PathVariable("token")String token) {
+    public String resendRegistrationToken(@PathVariable("token")String token, final HttpServletRequest request) {
 		final VerificationToken verificationToken = personService.getVerificationToken(token);
+		
+		cal.add(Calendar.DATE, 1);
 		verificationToken.setExpiryDate(cal.getTime());
+		cal.add(Calendar.DATE, -1); 
 		personService.updateVerificationToken(verificationToken);
-		System.out.println(token + "jeea");
+		
+		User user = verificationToken.getUser();
+		user.setTokenExpired(false);
 //        final VerificationToken newToken = userService.generateNewVerificationToken(existingToken);
 //        final User user = userService.getUser(newToken.getToken());
-//        final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-//        final SimpleMailMessage email = constructResendVerificationTokenEmail(appUrl, request.getLocale(), newToken, user);
-//        mailSender.send(email);
-//
-//        return new GenericResponse(messages.getMessage("message.resendToken", null, request.getLocale()));
+        final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        final SimpleMailMessage email = constructResendVerificationTokenEmail(appUrl, request.getLocale(), user, token);
+        mailSender.send(email);
 		return "redirect:/";
     }
 	
-	@RequestMapping(value = "/persons", method = RequestMethod.GET)
-    public String listPersons(Model model) {
-        model.addAttribute("person", new User());
-        model.addAttribute("listPersons", this.personService.listPersons());
-        return "register";
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session ) {
+        session.removeAttribute("logedUser");
+        return "redirect:/";
     }
+	
+	 private final SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final User user, final String token) {
+	        final String confirmationUrl = contextPath + "/regitrationConfirm.html?token=" + token;
+	        final SimpleMailMessage email = new SimpleMailMessage();
+	        email.setSubject("Resend Registration Token");
+	        email.setText("New token." + " \r\n" + confirmationUrl);
+	        email.setTo(user.getEmail());
+	        email.setFrom("milos94@gmail.com");
+	        return email;
+	    }
 }
