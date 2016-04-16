@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${logedUser.firstName}'s page</title>
+<title>${logedUser.firstName}'spage</title>
 <link href="../springmvc/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="../springmvc/resources/font-awesome/css/font-awesome.css"
@@ -17,6 +17,41 @@
 <link href="../springmvc/resources/css/style.css" rel="stylesheet">
 </head>
 <body>
+	<!-- Update user modal-->
+	<div id="updateUserModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width: 400px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update info</h4>
+				</div>
+				<form action="register" method="POST">
+					<input class="form-control" name="email" type="text" id="regEmail"
+						placeholder="Email"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+
+					<input class="form-control" type="text" id="firstName"
+						placeholder="First name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						name="firstName" /> <input class="form-control" name="lastName"
+						type="text" id="lastName" placeholder="Last name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						ng-model="username_model" /> <input class="form-control"
+						type="password" id="regPassword" name="password"
+						placeholder="Password"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						ng-model="reg_password_model" />
+
+					<div class="modal-footer" style="margin-top: 15px;">
+						<button type="submit" class="btn btn-success"
+							style="background: #1ab394">Update</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End update user -->
 	<div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 		<div class="sidebar-collapse">
@@ -45,8 +80,9 @@
 					<c:when test="${logedUser.role.roleName == 'Regular user'}">
 						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
 								<span class="nav-label">Add friends</span></a></li>
-						<li><a href="layouts.html"><i class="fa fa-wrench"></i> <span
-								class="nav-label">Update profile</span></a></li>
+						<li><a href="#"><i class="fa fa-wrench"></i> <span
+								class="nav-label" data-toggle="modal"
+								data-target="#updateUserModal">Update profile</span></a></li>
 					</c:when>
 				</c:choose>
 
@@ -97,79 +133,25 @@
 											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 										</div>
 									</div>
-									<div class="ibox-content ibox-heading">
+									<div class="ibox-content ibox-heading"
+										style="background-color: #fff">
 										<h3>
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
 									</div>
 									<div class="ibox-content">
 										<div class="feed-activity-list">
-
-											<div class="feed-element">
+											<c:forEach var="restaurant" items="${restaurants}">
+												<div class="feed-element">
 												<div>
-													<small class="pull-right text-navy">1m ago</small> <strong>Testone restaurant</strong>
+													<small class="pull-right">1m ago</small> <strong><a
+														href="restaurant/1" style="color: #676a6c">${restaurant.name}</a></strong>
 													<div>Lorem Ipsum is simply dummy text of the printing
 														and typesetting industry. Lorem Ipsum</div>
-													<small class="text-muted">Open 9 am -
-														11 pm</small>
+													<small class="text-muted">Open 9 am - 11 pm</small>
 												</div>
 											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">2m ago</small> <strong>Testwo restaurant</strong>
-													<div>There are many variations of passages of Lorem
-														Ipsum available</div>
-													<small class="text-muted">Open 8 am -
-														12 pm</small>
-												</div>
-											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testthree restaurant</strong>
-													<div>Contrary to popular belief, Lorem Ipsum</div>
-													<small class="text-muted">Open 10 am -
-														01 am</small>
-												</div>
-											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testfour restaurant</strong>
-													<div>The generated Lorem Ipsum is therefore</div>
-													<small class="text-muted">Open 9 am -
-														11 pm</small>
-												</div>
-											</div>
-
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testfive restaurant</strong>
-													<div>All the Lorem Ipsum generators on the Internet
-														tend to repeat</div>
-													<small class="text-muted">Open 9 am -
-														9 pm</small>
-												</div>
-											</div>
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testsix restaurant</strong>
-													<div>The standard chunk of Lorem Ipsum used</div>
-													<small class="text-muted">Open 10 am -
-														01 pm</small>
-												</div>
-											</div>
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testseven restaurant</strong>
-													<div>200 Latin words, combined with a handful</div>
-													<small class="text-muted">Open 8 am -
-														10 pm</small>
-												</div>
-											</div>
-
+											</c:forEach>
 										</div>
 									</div>
 								</div>
@@ -178,7 +160,7 @@
 								<div class="ibox" style="margin-top: 30px">
 									<div class="ibox-content">
 										<div class="ibox-content ibox-heading"
-											style="margin-left: -10px">
+											style="background-color: #fff">
 											<h3>
 												<i class="fa fa-history"></i> Recent visits
 											</h3>
@@ -376,7 +358,7 @@
 							</div>
 						</div>
 					</div>
-					</c:when>
+				</c:when>
 			</c:choose>
 		</div>
 		<!-- Mainly scripts -->

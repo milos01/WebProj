@@ -14,6 +14,7 @@
 	<context:component-scan base-package="com.packtpub.springmvc.dao" />
 	<context:component-scan base-package="com.packtpub.springmvc.service" />
 	<context:component-scan base-package="com.packtpub.springmvc.event" />
+	<context:component-scan base-package="com.packtpub.springmvc.model" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -36,7 +37,7 @@
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" />
 		<beans:property name="username" value="milosa942@gmail.com" />
-		<beans:property name="password" value="ferarrif2" />
+		<beans:property name="password" value="mikasumaher" />
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
@@ -72,6 +73,8 @@
 				<beans:value>com.packtpub.springmvc.model.VerificationToken
 				</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Role</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Staff</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Restaurant</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -79,7 +82,7 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
-				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>-->
+				<!--<beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>-->
 			</beans:props>
 		</beans:property>
 	</beans:bean>

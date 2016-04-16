@@ -1,6 +1,7 @@
 package com.packtpub.springmvc;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.core.SpringVersion;
 
 import com.packtpub.springmvc.event.OnRegistrationCompleteEvent;
+import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 import com.packtpub.springmvc.service.PersonService;
@@ -48,7 +50,7 @@ public class UserController {
     private JavaMailSender mailSender;
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String userLogin(@RequestParam String loginEmail,@RequestParam String loginPassword, Model model, RedirectAttributes redirectAttributes, HttpSession session){
+	public String userLogin(@RequestParam String loginEmail,@RequestParam String loginPassword, Model model, RedirectAttributes redirectAttributes, HttpSession session,HttpServletRequest request){
 		if(loginEmail.equals("") || loginPassword.equals("")){
 			redirectAttributes.addFlashAttribute("errorMessage", "Username and password must not be empty");
 			return "redirect:/";
@@ -59,6 +61,7 @@ public class UserController {
 			return "redirect:/";
 		}else{
 			if (u.getPassword().equals(loginPassword)) {
+				
 				session.setAttribute("logedUser",u);
 				return "redirect:/home";
 			}else{
@@ -86,14 +89,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/regitrationConfirm", method = RequestMethod.GET)
     public String confirmRegistration(final Locale locale, final Model model, @RequestParam("token") final String token, RedirectAttributes redirectAttributes) {
-		System.out.println(token);
+		System.out.println(token+"yo men");
         final VerificationToken verificationToken = personService.getVerificationToken(token);
         if (verificationToken == null) {
             final String message = "Invalid token";
             redirectAttributes.addFlashAttribute("errorMessage", message);
             return "redirect:/";
         }
-
+        System.out.println(verificationToken.getUser().getEmail());
         final User user = verificationToken.getUser();
         
         System.out.println(verificationToken.getExpiryDate());

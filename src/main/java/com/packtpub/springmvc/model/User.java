@@ -1,5 +1,6 @@
 package com.packtpub.springmvc.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +36,7 @@ public class User {
 	@NotBlank(message = "Last name must not be empty")
 	private String lastName;
 	
+
 	@NotBlank(message = "Email must not be empty")
 	@Email
 	private String email;

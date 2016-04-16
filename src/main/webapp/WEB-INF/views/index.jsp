@@ -32,7 +32,7 @@ body {
 	<div id="registerModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
 
-			<!-- Modal content-->
+			<!-- Register modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -46,7 +46,7 @@ body {
 					<input class="form-control" type="text" id="firstName"
 						placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						path="firstName" /> 
+						name="firstName" /> 
 					<input class="form-control" name="lastName"
 						type="text" id="lastName" placeholder="Last name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"

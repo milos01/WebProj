@@ -2,6 +2,7 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
+import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -24,5 +25,7 @@ public interface PersonService {
 	public User loginUser(String username, String password);
 
 	public void updateVerificationToken(VerificationToken token);
+	
+	public List<Restaurant> listRestaurants();
 
 }

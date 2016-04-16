@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.packtpub.springmvc.dao.PersonDAO;
+import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
+import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -19,6 +21,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private TokenDAO tokenDAO;
+	
+	@Autowired
+	private RestaurantDAO restaurantDAO;
 
 	
 	@Override
@@ -67,7 +72,6 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	@Transactional
 	public VerificationToken getVerificationToken(String token) {
-		System.out.println("aaaaa");
 		return this.tokenDAO.findByToken(token);
 	}
 
@@ -82,6 +86,12 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void updateVerificationToken(VerificationToken token) {
 		tokenDAO.updateVerificationToken(token);
+	}
+
+	@Override
+	@Transactional
+	public List<Restaurant> listRestaurants() {
+		return this.restaurantDAO.listRestaurants();
 	}
 
 }

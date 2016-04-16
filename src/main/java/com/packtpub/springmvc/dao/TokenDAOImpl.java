@@ -25,10 +25,11 @@ public class TokenDAOImpl implements TokenDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query1 =  session.createQuery("FROM VerificationToken vt WHERE vt.token = :string_token");
 		query1.setParameter("string_token",token);
-		System.out.println(query1.getFirstResult());
+		System.out.println(token);
 		List<VerificationToken> tokenList = query1.list();
 		VerificationToken tk = null;
 		for ( VerificationToken tokens: tokenList ) {
+			System.out.println("suriiiiiiiiii");
 		   tk = tokens;
 		}
 		return tk; 

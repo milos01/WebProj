@@ -62,7 +62,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + " \r\n" + confirmationUrl);
-        email.setFrom("milos94@gmail.com");
+        email.setFrom("milos942@gmail.com");
         return email;
         
     }
