@@ -2,6 +2,7 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.model.VerificationToken;
 
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
@@ -43,9 +45,16 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	}
 
 	@Override
-	public User getRestaurant(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Restaurant getRestaurant(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 =  session.createQuery("FROM Restaurant rs WHERE rs.id = :id");
+		query1.setParameter("id",id);
+		List<Restaurant> restaurantList = query1.list();
+		Restaurant rs = null;
+		for ( Restaurant restaurant: restaurantList ) {
+		   rs = restaurant;
+		}
+		return rs; 
 	}
 
 	@Override

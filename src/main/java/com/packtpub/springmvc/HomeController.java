@@ -51,7 +51,6 @@ public class HomeController {
 		}
 		List<Restaurant> restaurants = this.personService.listRestaurants();
 		model.addAttribute("restaurants", restaurants);
-		
 		return "home";
 	}
 	

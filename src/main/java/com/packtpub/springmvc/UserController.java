@@ -87,6 +87,13 @@ public class UserController {
         return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST)
+	public String updateUser( @ModelAttribute("User") User u,@PathVariable("id")int id , RedirectAttributes redirectAttributes, HttpSession session){
+		personService.updatePerson((User)session.getAttribute("logedUser"),u);
+		return "redirect:/home";
+	}
+	 
+	
 	@RequestMapping(value = "/regitrationConfirm", method = RequestMethod.GET)
     public String confirmRegistration(final Locale locale, final Model model, @RequestParam("token") final String token, RedirectAttributes redirectAttributes) {
 		System.out.println(token+"yo men");
@@ -106,12 +113,12 @@ public class UserController {
             model.addAttribute("expired", true);
             redirectAttributes.addFlashAttribute("token", token);
             user.setTokenExpired(true);
-            personService.updatePerson(user);
+            personService.updatePerson(user,user.getId());
             return "redirect:/";
         }
         if(!user.isEnabled()){
         	 user.setEnabled(true);
-             personService.updatePerson(user);
+//             personService.updatePerson(user, user.getId());
              System.out.println("promenjen");
              redirectAttributes.addFlashAttribute("successMessage", "You activated account");
      		return "redirect:/";

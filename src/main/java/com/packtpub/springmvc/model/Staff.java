@@ -59,6 +59,8 @@ public class Staff {
 	@JoinColumn(nullable=false, name = "restaurant_id")
 	private Restaurant restaurant;
 	
+	
+	
 	@Column(length = 60)
 	private String password;
 
@@ -141,5 +143,4 @@ public class Staff {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }

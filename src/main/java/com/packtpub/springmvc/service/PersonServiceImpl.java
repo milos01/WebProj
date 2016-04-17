@@ -34,8 +34,8 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public void updatePerson(User p) {
-		this.personDAO.updatePerson(p);
+	public void updatePerson(User p, User u) {
+		personDAO.updatePerson(p, u);
 
 	}
 
@@ -94,4 +94,9 @@ public class PersonServiceImpl implements PersonService {
 		return this.restaurantDAO.listRestaurants();
 	}
 
+	@Override
+	@Transactional
+	public Restaurant getRestaurant(int id) {
+		return this.restaurantDAO.getRestaurant(id);
+	}
 }

@@ -29,7 +29,6 @@ public class TokenDAOImpl implements TokenDAO {
 		List<VerificationToken> tokenList = query1.list();
 		VerificationToken tk = null;
 		for ( VerificationToken tokens: tokenList ) {
-			System.out.println("suriiiiiiiiii");
 		   tk = tokens;
 		}
 		return tk; 

@@ -7,7 +7,7 @@ import com.packtpub.springmvc.model.User;
 public interface PersonDAO {
 	public void addPerson(User p);
 
-	public void updatePerson(User p);
+	public void updatePerson(User p, User u);
 
 	public List<User> listPersons();
 

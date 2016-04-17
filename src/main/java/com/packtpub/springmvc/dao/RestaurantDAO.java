@@ -12,7 +12,7 @@ public interface RestaurantDAO {
 
 	public List<Restaurant> listRestaurants();
 
-	public User getRestaurant(int id);
+	public Restaurant getRestaurant(int id);
 
 	public void removeRestaurant(int id);
 

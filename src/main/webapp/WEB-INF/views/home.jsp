@@ -25,22 +25,23 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Update info</h4>
 				</div>
-				<form action="register" method="POST">
+				<form action="updateUser/${logedUser.id}" method="POST">
 					<input class="form-control" name="email" type="text" id="regEmail"
 						placeholder="Email"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" value="${logedUser.email}">
 
 					<input class="form-control" type="text" id="firstName"
 						placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" /> <input class="form-control" name="lastName"
-						type="text" id="lastName" placeholder="Last name"
+						name="firstName" ; value="${logedUser.firstName}" /> <input
+						class="form-control" name="lastName" type="text" id="lastName"
+						placeholder="Last name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						ng-model="username_model" /> <input class="form-control"
-						type="password" id="regPassword" name="password"
+						ng-model="username_model" value="${logedUser.lastName}" /> <input class="form-control"
+						type="text" id="regPassword" name="password"
 						placeholder="Password"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						ng-model="reg_password_model" />
+						ng-model="reg_password_model" value="${logedUser.password}" />
 
 					<div class="modal-footer" style="margin-top: 15px;">
 						<button type="submit" class="btn btn-success"
@@ -143,14 +144,14 @@
 										<div class="feed-activity-list">
 											<c:forEach var="restaurant" items="${restaurants}">
 												<div class="feed-element">
-												<div>
-													<small class="pull-right">1m ago</small> <strong><a
-														href="restaurant/1" style="color: #676a6c">${restaurant.name}</a></strong>
-													<div>Lorem Ipsum is simply dummy text of the printing
-														and typesetting industry. Lorem Ipsum</div>
-													<small class="text-muted">Open 9 am - 11 pm</small>
+													<div>
+														<small class="pull-right">1m ago</small> <strong><a
+															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
+														<div>Lorem Ipsum is simply dummy text of the
+															printing and typesetting industry. Lorem Ipsum</div>
+														<small class="text-muted">Open 9 am - 11 pm</small>
+													</div>
 												</div>
-											</div>
 											</c:forEach>
 										</div>
 									</div>
