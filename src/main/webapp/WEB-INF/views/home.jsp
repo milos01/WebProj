@@ -141,6 +141,7 @@
 
 				</nav>
 			</div>
+			<!-- Regular user central part -->
 			<c:choose>
 				<c:when test="${logedUser.role.roleName == 'Regular user'}">
 					<div class="wrapper wrapper-content">
@@ -518,6 +519,12 @@
 				
 						</div>
 					</div>
+					
+				</c:when>
+			</c:choose>
+			<!-- Manager central part -->
+			<c:choose>
+				<c:when test="${logedUser.role.roleName == 'Manager'}">
 					
 				</c:when>
 			</c:choose>
