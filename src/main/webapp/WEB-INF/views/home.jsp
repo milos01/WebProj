@@ -16,9 +16,9 @@
 <link href="../springmvc/resources/css/animate.css" rel="stylesheet">
 <link href="../springmvc/resources/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="App">
 	<!-- Update user modal-->
-	<div id="updateUserModal" class="modal fade" role="dialog">
+	<div id="updateUserModal" class="modal fade" role="dialog" ng-controller="updateUserController">
 		<div class="modal-dialog" style="width: 400px">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -33,15 +33,15 @@
 					<input class="form-control" type="text" id="firstName"
 						placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" ; value="${logedUser.firstName}" /> <input
+						name="firstName" ; value="${logedUser.firstName}"/> <input
 						class="form-control" name="lastName" type="text" id="lastName"
 						placeholder="Last name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						ng-model="username_model" value="${logedUser.lastName}" /> <input class="form-control"
+						 value="${logedUser.lastName}" /> <input class="form-control"
 						type="text" id="regPassword" name="password"
 						placeholder="Password"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						ng-model="reg_password_model" value="${logedUser.password}" />
+						 value="${logedUser.password}" />
 
 					<div class="modal-footer" style="margin-top: 15px;">
 						<button type="submit" class="btn btn-success"
@@ -413,6 +413,9 @@
 
 		<!-- Sparkline demo data  -->
 		<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
 
 		<script>
 			$(document).ready(

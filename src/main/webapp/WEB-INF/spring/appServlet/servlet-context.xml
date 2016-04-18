@@ -37,7 +37,6 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" />
-		<beans:property name="username" value="milosa942@gmail.com" />
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
@@ -60,7 +59,6 @@
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/questforchef" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="andric01" />
 	</beans:bean>
 	
 	<!-- Hibernate 4 SessionFactory Bean definition -->

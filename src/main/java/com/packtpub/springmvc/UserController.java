@@ -113,7 +113,7 @@ public class UserController {
             model.addAttribute("expired", true);
             redirectAttributes.addFlashAttribute("token", token);
             user.setTokenExpired(true);
-            personService.updatePerson(user,user.getId());
+//            personService.updatePerson(user,user.getId());
             return "redirect:/";
         }
         if(!user.isEnabled()){
