@@ -71,12 +71,14 @@
 					</div>
 					<div class="logo-element">QFC</div>
 				</li>
+				<!-- Admin side menu -->
 				<c:choose>
 					<c:when test="${logedUser.role.roleName == 'Admin'}">
-						<li><a href="layouts.html"><i class="fa fa-plus"></i> <span
+						<li><a data-toggle="modal" data-target="#registerRestaurantModal"><i class="fa fa-plus"></i> <span
 								class="nav-label">Add restaurant</span></a></li>
 					</c:when>
 				</c:choose>
+				<!-- Regular user side menu -->
 				<c:choose>
 					<c:when test="${logedUser.role.roleName == 'Regular user'}">
 						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
@@ -85,6 +87,23 @@
 								class="nav-label" data-toggle="modal"
 								data-target="#updateUserModal">Update profile</span></a></li>
 					</c:when>
+				</c:choose>
+				<!-- Manager side menu -->
+				<c:choose>
+						<c:when test="${logedUser.role.roleName	 == 'Manager'}">
+							
+								
+									<li class="promeniCent" rel="panel1" class="active"><a><i class="fa fa-share-square-o"></i> <span
+										class="nav-label">Update restaurant</span></a></li>
+									<li class="promeniCent" rel="panel2"><a ><i class="fa fa-users"></i>
+									<span
+										class="nav-label">Employees</span></a></li>
+									<li class="promeniCent" rel="panel3"><a><i class="fa fa-line-chart"></i> <span
+										class="nav-label">Reports</span></a></li>
+								
+	
+	
+						</c:when>
 				</c:choose>
 
 				<li><a href="grid_options.html"><i class="fa fa-user"></i>
@@ -359,6 +378,147 @@
 							</div>
 						</div>
 					</div>
+				</c:when>
+			</c:choose>
+			<!-- Admin central part -->
+			<c:choose>
+				<c:when test="${logedUser.role.roleName == 'Admin'}">
+					<!-- List of restaurants -->
+					<div class="wrapper wrapper-content">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="ibox float-e-margins">
+									<div class="ibox-title">
+										<h5>Restaurants</h5>
+										<div class="ibox-tools">
+											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+										</div>
+									</div>
+									<div class="ibox-content ibox-heading">
+										<h3>
+											<i class="fa fa-glass"></i> Restaurant list
+										</h3>
+									</div>
+									<div class="ibox-content">
+										<div class="feed-activity-list">
+
+											<div class="feed-element">
+												<div>
+													<small class="pull-right text-navy">1m ago</small> <strong>Testone restaurant</strong>
+													<div>Lorem Ipsum is simply dummy text of the printing
+														and typesetting industry. Lorem Ipsum</div>
+													<small class="text-muted">Open 9 am -
+														11 pm</small>
+												</div>
+											</div>
+
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">2m ago</small> <strong>Testwo restaurant</strong>
+													<div>There are many variations of passages of Lorem
+														Ipsum available</div>
+													<small class="text-muted">Open 8 am -
+														12 pm</small>
+												</div>
+											</div>
+
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">5m ago</small> <strong>Testthree restaurant</strong>
+													<div>Contrary to popular belief, Lorem Ipsum</div>
+													<small class="text-muted">Open 10 am -
+														01 am</small>
+												</div>
+											</div>
+
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">5m ago</small> <strong>Testfour restaurant</strong>
+													<div>The generated Lorem Ipsum is therefore</div>
+													<small class="text-muted">Open 9 am -
+														11 pm</small>
+												</div>
+											</div>
+
+
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">5m ago</small> <strong>Testfive restaurant</strong>
+													<div>All the Lorem Ipsum generators on the Internet
+														tend to repeat</div>
+													<small class="text-muted">Open 9 am -
+														9 pm</small>
+												</div>
+											</div>
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">5m ago</small> <strong>Testsix restaurant</strong>
+													<div>The standard chunk of Lorem Ipsum used</div>
+													<small class="text-muted">Open 10 am -
+														01 pm</small>
+												</div>
+											</div>
+											<div class="feed-element">
+												<div>
+													<small class="pull-right">5m ago</small> <strong>Testseven restaurant</strong>
+													<div>200 Latin words, combined with a handful</div>
+													<small class="text-muted">Open 8 am -
+														10 pm</small>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>	
+					
+					<!-- Modal for restaurant registration -->
+					<div id="registerRestaurantModal" class="modal fade" role="dialog">
+						<div class="modal-dialog" style="width: 400px">
+				
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Register restaurant</h4>
+								</div>
+								<form action="register" method="POST">
+									<input class="form-control" type="text" id="name" name="name"
+										placeholder="Restaurant name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"/>
+                                    
+									<!-- <input class="form-control" type="text" id="restType"
+										placeholder="Restaurant type"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/> --> 
+									<input class="form-control"
+										type="text" id="address" placeholder="Address" name="address"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/> 
+									<input class="form-control"
+										type="text" id="manName"
+										placeholder="Manager's first name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/>
+									<input class="form-control"
+										type="text" id="manLastName"
+										placeholder="Manager's last name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/>
+
+									<div class="modal-footer" style="margin-top: 15px;">
+										<button type="submit" class="btn btn-success"
+											style="background: #1ab394">Register</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</form>
+							</div>
+				
+						</div>
+					</div>
+					
 				</c:when>
 			</c:choose>
 		</div>
