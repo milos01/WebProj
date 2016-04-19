@@ -1,5 +1,8 @@
 package com.packtpub.springmvc;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,8 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.service.PersonService;
 
@@ -51,7 +57,49 @@ public class HomeController {
 		}
 		List<Restaurant> restaurants = this.personService.listRestaurants();
 		model.addAttribute("restaurants", restaurants);
+		
+		User u = (User) session.getAttribute("logedUser");
+		if (u.getRole().getRoleName().equalsIgnoreCase("Manager")){
+			Staff s = this.personService.getStaff(u.getEmail());
+			Restaurant restaurant = this.personService.getRestaurant(s.getRestaurant().getId());
+			model.addAttribute("restoran", restaurant);
+			model.addAttribute("menadzer",s);
+		}
+		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/addNewStaff",method = RequestMethod.POST)
+	public String addNewStaff(@ModelAttribute("radnik") Staff staff,@RequestParam("role_id") String rol,@RequestParam("birth_day")String bd,@RequestParam("restaurant_id")String idR) {
+		
+		Role temp = this.personService.getRole(Integer.parseInt(rol));
+		Restaurant temp2 = this.personService.getRestaurant(Integer.parseInt(idR));
+		staff.setRole(temp);
+		staff.setRestaurant(temp2);
+		
+		try {
+			Date tempDate = getFormatedDate(bd);
+			staff.setBirth_date(tempDate);
+			this.personService.addNewStaff(staff);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/editRestaurant",method = RequestMethod.POST)
+	public String editRestaurant(@ModelAttribute("restoran1") Restaurant rest){
+		this.personService.updateRestaurant(rest);
+		
+		return "redirect:/home";
+	}
+	
+	public Date getFormatedDate(String date) throws ParseException{
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsed = format.parse(date);
+        Date sql = new Date(parsed.getTime());
+		return sql;
 	}
 	
 }

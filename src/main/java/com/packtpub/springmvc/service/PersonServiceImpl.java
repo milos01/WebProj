@@ -8,8 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
+import com.packtpub.springmvc.dao.RoleDAO;
+import com.packtpub.springmvc.dao.StaffDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
 import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -24,6 +28,12 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private RestaurantDAO restaurantDAO;
+	
+	@Autowired
+	private StaffDAO staffDAO;
+	
+	@Autowired
+	private RoleDAO roleDAO;
 
 	
 	@Override
@@ -98,5 +108,31 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public Restaurant getRestaurant(int id) {
 		return this.restaurantDAO.getRestaurant(id);
+	}
+
+	@Override
+	@Transactional
+	public Staff getStaff(String email) {
+		return this.staffDAO.getStaff(email);
+	}
+
+	@Override
+	@Transactional
+	public void addNewStaff(Staff s) {
+		this.staffDAO.addStaff(s);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateRestaurant(Restaurant r) {
+		this.restaurantDAO.updateRestaurant(r);
+		
+	}
+
+	@Override
+	@Transactional
+	public Role getRole(int id) {
+		return this.roleDAO.getRole(id);
 	}
 }

@@ -15,6 +15,56 @@
 
 <link href="../springmvc/resources/css/animate.css" rel="stylesheet">
 <link href="../springmvc/resources/css/style.css" rel="stylesheet">
+
+<style type="text/css">
+	.panel {
+	display: none;
+}
+.panel.active{
+	display: block;
+}
+.InfoResto td{
+	padding: 5px;
+	font-family: cursive;
+	font-size: 14px;	
+}
+.star{
+	font-size:24px;
+}
+.ikonice{
+	width: 40px;
+	
+}
+.Contact{
+	position:absolute;
+	top:350px;
+	width: 192px;
+}
+.Contact td{
+	padding: 5px;
+	margin-left:10px;
+	
+}
+.Contact tr{
+	padding-left: 10px;
+	
+}
+#info{
+	font-size: 28px;
+	font-family: fantasy;
+	
+}
+#map {
+     	margin:auto auto;
+     	
+        height: 100%;
+        position: absolute;
+        top: 143px;
+        left: 240px;
+        width: 600px;
+      }
+</style>
+
 </head>
 <body ng-app="App">
 	<!-- Update user modal-->
@@ -524,8 +574,244 @@
 			</c:choose>
 			<!-- Manager central part -->
 			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Manager'}">
-					
+					<c:when test="${logedUser.role.roleName == 'Manager'}">
+						
+						<div class="tab-panels" style="height: 100%;background-color: #F3F3F4">
+						
+							<!-- Kartica za restoran  -->
+							<div style="background-color: #F3F3F4;height: 100%" id="panel1" class="panel active">
+								<h1 style="margin-top:7px;margin-left:40px;font-family: cursive;font-family: fantasy;font-size: 44px;">${restoran.name}</h1>
+								<div style="border-radius:5px;border:1px solid #C0C0C0;width: 192px;margin-top: 15px;float:left;">
+									<table class="InfoResto" >
+									
+										<caption id="info" text-align="center">Info</caption>
+										
+										<tr>
+											<td class="ikonice"><i class="fa fa-map-marker"></i></td>
+											<td>${restoran.address}</td>
+										</tr>
+										<tr>
+											<td class="ikonice"><i class="fa fa-bars"></i></td>
+											<td>Vegan</td>
+										</tr>
+		
+										<tr>
+											<td class="ikonice"><i class="fa fa-clock-o"></i></td>
+											<td>${restoran.open_hours}</td>
+										</tr>
+										<tr>
+											<td colspan="2"><div class="rating">
+													<span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+												</div>
+											</td>
+										</tr>
+										
+									</table>
+								</div>
+								
+								<div  class="Contact" style="border:1px solid #C0C0C0;border-radius:5px;float:left;">
+									<table>
+										<caption style="font-family: fantasy;font-size: 28px;">Contact</caption>
+										<tr>
+											<td><i class="fa fa-user"></i>
+											</td>
+											<td>${menadzer.firstName} ${menadzer.lastName}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-phone"></i>
+											</td>
+											<td>${restoran.phone}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-envelope"></i>
+											</td>
+											<td>${restoran.email}</td>
+										</tr>
+										
+									</table>
+								</div>
+								
+								<div id="map" style="height: 352px;float:right;"></div>
+								<script type="text/javascript">
+							   		 var map;
+							    	 var marker;
+							    
+									 function initMap() {
+								     	map = new google.maps.Map(document.getElementById('map'), {
+								     	center: {lat: -34.397, lng: 150.644},
+								    	 zoom: 16
+								     	});
+								     	var geocoder = new google.maps.Geocoder();
+								     	geocodeAddress(geocoder, map);
+						
+										}
+									 function geocodeAddress(geocoder, resultsMap) {
+									  	var address = "${restoran.address}"+","+"${restoran.city}"+",Srbija";
+									 	 geocoder.geocode({'address': address}, function(results, status) {
+									   		 if (status === google.maps.GeocoderStatus.OK) {
+									    		  resultsMap.setCenter(results[0].geometry.location);
+									     	 var marker = new google.maps.Marker({
+									       		 map: resultsMap,
+									       		 position: results[0].geometry.location,
+									       		 title: '${restoran.name}'
+									       		
+									      	});
+									    	} else {
+									    		 alert('Geocode was not successful for the following reason: ' + status);
+									   		 }
+									  		});
+									 }
+								</script>
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgytjuG18KoFhq97_uz71KSTGrtOFt6p8&signed_in=true&callback=initMap"
+						        	async defer></script>
+		        					
+		        				<button data-toggle="modal" data-target="#editInfoRestaurant" class="btn btn-primary btn-md" style="position: absolute;top:500px;">Edit</button>	
+		        				
+		        				<div id="editInfoRestaurant" class="modal fade" role="dialog">
+									<div class="modal-dialog" style="width: 400px">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Edit information</h4>
+											</div>
+											<form action="editRestaurant" method="POST">
+												<input class="form-control" name="name" type="text" id="restaurantName"
+													placeholder="Name"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" value="${restoran.name}">
+							
+												<input class="form-control" type="text" id="address"
+													placeholder="address"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													name="address" value="${restoran.address}" />
+													<input class="form-control" type="text" id="address"
+													placeholder="City"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													name="city" value="${restoran.city}" />
+													 <input
+													class="form-control" name="desription" type="text" id="desription"
+													placeholder="description" value="${restoran.desription}" 
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/> <input class="form-control"
+													type="text" id="phone" name="phone"
+													placeholder="phone"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													 value="${restoran.phone}"/>
+													
+													<input class="form-control"
+													type="text" id="open_hours" name="open_hours"
+													placeholder="open hours"  value="${restoran.open_hours}"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/>
+													
+																									
+													<input class="form-control"
+													type="text" id="shoeNum" name="reon_num"
+													placeholder="Reon number" value="${restoran.reon_num}"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/>
+													
+		
+													
+													<input type="hidden" name="id" value="${restoran.id}">
+													<input type="hidden" name="email" value="${restoran.email}">
+													<input type="hidden" name="rate" value="${restoran.rate}">
+													
+												<div class="modal-footer" style="margin-top: 15px;">
+													<button type="submit" class="btn btn-success"
+														style="background: #1ab394">Save</button>
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!--  Edit restoran end -->
+							</div>
+							
+							
+							<!-- Kartica za zaposlene  -->
+							<div style="background-color: #F3F3F4;height: 100%" id="panel2" class="panel">
+								
+								<button data-toggle="modal" data-target="#addNewStaff"  class="btn btn-primary btn-md">Add staff</button>
+								<!-- ZAPOSLENI RESTORANA start -->
+								<div id="addNewStaff" class="modal fade" role="dialog">
+									<div class="modal-dialog" style="width: 400px">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Add new staff</h4>
+											</div>
+											<form action="addNewStaff" method="POST">
+												<input class="form-control" name="firstName" type="text" id="firstName"
+													placeholder="First name"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"">
+							
+												<input class="form-control" type="text" id="lastName"
+													placeholder="Last name"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													name="lastName"; /> <input
+													class="form-control" name="email" type="text" id="email"
+													placeholder="Email"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/> <input class="form-control"
+													type="password" id="regPassword" name="password"
+													placeholder="Password"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/>
+													
+													<select  class="form-control"
+													id="role" name="role_id"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													value=1>
+														<option value=0>Role</option>
+														<option value=3>Cook</option>
+														<option value=6>Waiter</option>
+														<option value=4>Barman</option>
+													</select>
+													<input class="form-control"
+													type="date" id="birthDay" name="birth_day"
+													placeholder="Shoe number" maxlength="2"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/>
+													
+																									
+													<input class="form-control"
+													type="text" id="shoeNum" name="shoe_num"
+													placeholder="Shoe number" maxlength="2"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													/>
+													
+													<select  class="form-control"
+													id="conNum" name="con_num"
+													placeholder="Shoe number"
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+													value=1>
+														<option>Dress size</option>
+														<option>S</option>
+														<option>L</option>
+														<option>M</option>
+														<option>XL</option>
+														<option>2XL</option>
+														<option>3XL</option>
+													</select>
+													
+													<input type="hidden" name="restaurant_id" value="${restoran.id}">
+													
+												<div class="modal-footer" style="margin-top: 15px;">
+													<button type="submit" class="btn btn-success"
+														style="background: #1ab394">Save</button>
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- ZAPOSLENI RESTORANA End -->
+							</div>
+							
+							<!-- Kartica za izvestaje -->
+							<div style="background-color: #F3F3F4;height: 100%" id="panel3" class="panel">IZVESTAJI</div>
+						</div>
 				</c:when>
 			</c:choose>
 		</div>
@@ -580,6 +866,28 @@
 
 		<!-- Sparkline demo data  -->
 		<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
+		
+		<!-- Promena centralnog diva -->
+		<script type="text/javascript">
+			$(function() {
+				
+				$('.promeniCent').on('click',function(){
+					
+					$('.promeniCent.active').removeClass('active');
+					$(this).addClass('active');
+					
+					var panelToSHow = $(this).attr('rel');
+					
+					$('.panel.active').show(100,function(){
+						$(this).removeClass('active');
+						$('#'+panelToSHow).hide(100,function(){
+							$(this).addClass('active');
+						});
+					});
+				});
+			});
+		</script>
+		
 		<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>

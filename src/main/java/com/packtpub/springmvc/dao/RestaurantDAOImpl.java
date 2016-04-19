@@ -63,4 +63,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
 	}
 
+	@Override
+	public void updateRestaurant(Restaurant res) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(res);
+	}
+
 }
