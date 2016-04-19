@@ -3,6 +3,8 @@ package com.packtpub.springmvc.service;
 import java.util.List;
 
 import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -29,5 +31,13 @@ public interface PersonService {
 	public List<Restaurant> listRestaurants();
 
 	public Restaurant getRestaurant(int id);
+	
+	public Staff getStaff(String email);
+	
+	public void addNewStaff(Staff s);
+	
+	public void updateRestaurant(Restaurant r);
+	
+	public Role getRole(int id);
 
 }

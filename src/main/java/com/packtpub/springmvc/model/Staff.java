@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -42,23 +43,25 @@ public class Staff {
 	@Email
 	private String email;
 	
+	
 	@OneToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false, name = "role_id")
+	@NotNull
 	private Role role;
 	
-	@NotBlank(message = "Please select a cache name.")
+	@NotNull
 	private Date birth_date;
 
 	@NotBlank(message = "Please select a cache name.")
 	private String con_num;
 	
-	@NotBlank(message = "Please select a cache name.")
+	@NotNull
 	private int shoe_num;
 	
 	@ManyToOne(targetEntity = Restaurant.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false, name = "restaurant_id")
+	@NotNull
 	private Restaurant restaurant;
-	
 	
 	
 	@Column(length = 60)

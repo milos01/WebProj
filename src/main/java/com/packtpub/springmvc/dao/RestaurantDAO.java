@@ -15,5 +15,7 @@ public interface RestaurantDAO {
 	public Restaurant getRestaurant(int id);
 
 	public void removeRestaurant(int id);
+	
+	public void updateRestaurant(Restaurant r);
 
 }

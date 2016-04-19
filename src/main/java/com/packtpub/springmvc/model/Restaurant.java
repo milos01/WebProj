@@ -1,17 +1,16 @@
 package com.packtpub.springmvc.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,6 +29,9 @@ public class Restaurant {
 	private String address;
 	
 	@NotBlank(message = "Please select a cache name.")
+	private String city;
+	
+	@NotNull
 	private int rate;
 	
 	@NotBlank(message = "Please select a cache name.")
@@ -43,6 +45,9 @@ public class Restaurant {
 	
 	@NotBlank(message = "Please select a cache name.")
 	private String open_hours;
+	
+	@NotNull
+	private int reon_num;
 	
 	@OneToMany(mappedBy="restaurant")
 	private Set<Staff> staff = new HashSet<Staff>();
@@ -118,5 +123,25 @@ public class Restaurant {
 	public void setStaff(Set<Staff> staff) {
 		this.staff = staff;
 	}
+
+	public int getReon_num() {
+		return reon_num;
+	}
+
+	public void setReon_num(int reon_num) {
+		this.reon_num = reon_num;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	
+	
+	
 	
 }
