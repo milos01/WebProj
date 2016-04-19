@@ -198,15 +198,9 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="ibox float-e-margins">
-									<div class="ibox-title">
-										<h5>Restaurants</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-										</div>
-									</div>
 									<div class="ibox-content ibox-heading"
-										style="background-color: #fff">
-										<h3>
+										style="background-color: #fff;">
+										<h3 style="margin-top:22px;">
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
 									</div>
@@ -228,14 +222,14 @@
 								</div>
 							</div>
 							<div class="col-lg-6">
-								<div class="ibox" style="margin-top: 30px">
+								<div class="ibox" style="">
 									<div class="ibox-content">
 										<div class="ibox-content ibox-heading"
-											style="background-color: #fff">
+											style="background-color: #fff;border-top:none;">
 											<h3>
 												<i class="fa fa-history"></i> Recent visits
 											</h3>
-										</div>
+										</div	>
 										<div class="table-responsive">
 											<table class="table table-striped">
 
@@ -439,14 +433,8 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="ibox float-e-margins">
-									<div class="ibox-title">
-										<h5>Restaurants</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-										</div>
-									</div>
-									<div class="ibox-content ibox-heading">
-										<h3>
+									<div class="ibox-content ibox-heading" style="background-color:#fff;">
+										<h3 style="margin-top:22px;">
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
 									</div>
