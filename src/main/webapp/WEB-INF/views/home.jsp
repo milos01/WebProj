@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${logedUser.firstName}'spage</title>
+<title>${logedUser.firstName}'s page</title>
 <link href="../springmvc/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="../springmvc/resources/font-awesome/css/font-awesome.css"
