@@ -25,6 +25,9 @@ public class RerstaurantController {
 
 	@RequestMapping("/restaurant/{id}")
 	public String restaurantHome(@PathVariable(value = "id") final int id, RedirectAttributes redirectAttributes,Model model, HttpSession session) {
+		if(null == session.getAttribute("logedUser")){
+			return "redirect:/";
+		}
 		redirectAttributes.addFlashAttribute("id", id);
 		Restaurant restaurant = this.personService.getRestaurant(id);
 		model.addAttribute("restaurant", restaurant);

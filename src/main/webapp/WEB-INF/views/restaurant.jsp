@@ -14,16 +14,20 @@
 
 <link href="../resources/css/animate.css" rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <style type="text/css">
-.starrr { display: inline-block; }
+.starrr {
+	display: inline-block;
+}
 
 .starrr i {
-  font-size: 16px;
-  padding: 0 1px;
-  cursor: pointer;
-  color: #ffd119;
-}	
+	font-size: 16px;
+	padding: 0 1px;
+	cursor: pointer;
+	color: #ffd119;
+}
 </style>
 <body>
 	<!-- Update user modal-->
@@ -57,6 +61,48 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End update user -->
+	<!-- Staff list modal-->
+	<div id="staffListModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width:490px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Staff list</h4>
+				</div>
+				<c:forEach var="staff" items="${restaurant.staff}">
+					<div class="row">
+						<div class="col-lg-4" style="width:500px;heigh:300px;">
+							<div class="contact-box" style="border:none">
+								<a href="profile.html">
+									<div class="col-sm-4" style="width:23%">
+										<div class="text-center">
+											<img alt="image" class="img-circle m-t-xs img-responsive"
+												src="../resources/img/${staff.picture}">
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<h3>
+											<strong>${staff.firstName} ${staff.lastName}</strong>
+											
+										</h3>
+										<p>
+											<i class="fa fa-map-marker"></i> ${staff.role.roleName}
+										</p>
+										<p>
+											<i class="fa fa-envelope"></i> ${staff.email}
+										</p>
+										
+									</div>
+									<div class="clearfix"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -181,7 +227,7 @@
 												<div class="starrr"></div>
 
 												<div>
-													
+
 													<h1 class="product-main-price">${restaurant.email}</h1>
 												</div>
 												<hr>
@@ -204,15 +250,20 @@
 													<dd>${restaurant.address}</dd>
 													<dt>City</dt>
 													<dd>${restaurant.city}</dd>
-													<dt>Phone</dd>
-													<dd>${restaurant.phone}</dt>
-													<dt>Open hours</dd>
-													<dd>${restaurant.open_hours}</dt>
+													<dt>Phone
+													</dd>
+													<dd>${restaurant.phone}
+													</dt>
+													<dt>Open hours
+													</dd>
+													<dd>${restaurant.open_hours}
+													</dt>
 												</dl>
 												<div class="text-right">
 													<div class="btn-group">
-														<button class="btn btn-white btn-sm">
-															<i class="fa fa-star"></i> Add to wishlist
+														<button class="btn btn-white btn-sm" data-toggle="modal"
+															data-target="#staffListModal">
+															<i class="fa fa-star"></i> Staff list
 														</button>
 														<button class="btn btn-white btn-sm">
 															<i class="fa fa-envelope"></i> Contact with author
@@ -282,23 +333,24 @@
 	<script src="../resources/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 
 
-	<script
-		src="../resources/five-star-rating-master/dist/starrr.js"></script>
+	<script src="../resources/five-star-rating-master/dist/starrr.js"></script>
 
 	<script type="text/javascript">
-	var el = document.querySelector('#el');
+		var el = document.querySelector('#el');
 
-	// current rating, or initial rating
-	var currentRating = 0;
+		// current rating, or initial rating
+		var currentRating = 0;
 
-	// max rating, i.e. number of stars you want
-	var maxRating= 5;
+		// max rating, i.e. number of stars you want
+		var maxRating = 5;
 
-	// callback to run after setting the rating
-	var callback = function(rating) { alert(rating); };
+		// callback to run after setting the rating
+		var callback = function(rating) {
+			alert(rating);
+		};
 
-	// rating instance
-	var myRating = rating(el, currentRating, maxRating, callback);
+		// rating instance
+		var myRating = rating(el, currentRating, maxRating, callback);
 	</script>
 	<!-- Promena centralnog diva -->
 	<script type="text/javascript">
@@ -323,13 +375,12 @@
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
-		
+
 	<script>
-		
 		$(document)
 				.ready(
 						function() {
-							
+
 							$('.chart').easyPieChart({
 								barColor : '#f8ac59',
 								//                scaleColor: false,

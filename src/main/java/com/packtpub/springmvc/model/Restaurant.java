@@ -3,6 +3,7 @@ package com.packtpub.springmvc.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,8 +50,8 @@ public class Restaurant {
 	@NotNull
 	private int reon_num;
 	
-	@OneToMany(mappedBy="restaurant")
-	private Set<Staff> staff = new HashSet<Staff>();
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	private Set<Staff> staff;
 
 	public int getId() {
 		return id;

@@ -59,13 +59,16 @@ public class Staff {
 	private int shoe_num;
 	
 	@ManyToOne(targetEntity = Restaurant.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable=false, name = "restaurant_id")
+	@JoinColumn(name = "restaurant_id")
 	@NotNull
 	private Restaurant restaurant;
 	
 	
 	@Column(length = 60)
 	private String password;
+	
+	@Column(name = "picture_path", columnDefinition = "varchar(15) default 'def.jpg'")
+	private String picture;
 
 	public int getId() {
 		return id;
@@ -146,4 +149,14 @@ public class Staff {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
+	
 }
