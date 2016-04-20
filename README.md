@@ -1,2 +1,2 @@
-# QuestForChef
-Web app for place reservation in your favourite restaurant
+# tim06
+Tim 6 iz predmeta ISA i MRS generacija 2016
