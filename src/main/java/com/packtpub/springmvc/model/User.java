@@ -1,6 +1,8 @@
 package com.packtpub.springmvc.model;
 
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -53,6 +57,20 @@ public class User {
 	@JoinColumn(nullable=false, name = "role_id")
 	private Role role;
 
+	@ManyToMany
+	@JoinTable(name="Friends",
+	 joinColumns=@JoinColumn(name="starter_friend"),
+	 inverseJoinColumns=@JoinColumn(name="terminal_friend")
+	)
+	private Set<User> starter_friend;
+
+	@ManyToMany
+	@JoinTable(name="Friends",
+	 joinColumns=@JoinColumn(name="terminal_friend"),
+	 inverseJoinColumns=@JoinColumn(name="starter_friend")
+	)
+	private Set<User> terminal_friend;
+	
 	public User() {
 		super();
 		this.enabled = false;
@@ -122,4 +140,22 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	public Set<User> getStarter_friend() {
+		return starter_friend;
+	}
+
+	public void setStarter_friend(Set<User> starter_friend) {
+		this.starter_friend = starter_friend;
+	}
+
+	public Set<User> getTerminal_friend() {
+		return terminal_friend;
+	}
+
+	public void setTerminal_friend(Set<User> terminal_friend) {
+		this.terminal_friend = terminal_friend;
+	}
+	
+	
 }
