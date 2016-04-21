@@ -3,8 +3,11 @@ package com.packtpub.springmvc;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -62,6 +65,19 @@ public class HomeController {
 		if (u.getRole().getRoleName().equalsIgnoreCase("Manager")){
 			Staff s = this.personService.getStaff(u.getEmail());
 			Restaurant restaurant = this.personService.getRestaurant(s.getRestaurant().getId());
+			
+			Set<Staff> temp = restaurant.getStaff();
+			List<Staff> staffList = new ArrayList<Staff>();
+			
+			for(Staff st: temp){
+				
+				if (st.getRole().getId()!=5){
+					staffList.add(st);
+				}
+//				System.out.println(st.getFirstName());
+			}
+			model.addAttribute("staffList",staffList);
+			
 			model.addAttribute("restoran", restaurant);
 			model.addAttribute("menadzer",s);
 		}
