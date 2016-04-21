@@ -23,10 +23,10 @@ public class Restaurant {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = "Please select a cache name.")
+	@NotBlank(message = "Restaurant name must not be empty")
 	private String name;
 	
-	@NotBlank(message = "Please select a cache name.")
+	@NotBlank(message = "Restaurant address must not be empty")
 	private String address;
 	
 	@NotBlank(message = "Please select a cache name.")

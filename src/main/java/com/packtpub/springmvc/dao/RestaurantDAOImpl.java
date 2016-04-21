@@ -23,14 +23,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	}
 
 	@Override
-	public void addPerson(Restaurant res) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updatePerson(Restaurant res) {
-		// TODO Auto-generated method stub
+	public void addRestaurant(Restaurant res) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(res);
 
 	}
 	

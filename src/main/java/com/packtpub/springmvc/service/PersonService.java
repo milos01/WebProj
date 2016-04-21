@@ -39,5 +39,9 @@ public interface PersonService {
 	public void updateRestaurant(Restaurant r);
 	
 	public Role getRole(int id);
+	
+	public void addRestaurant(Restaurant r);
+	
+	public List<Staff> listStaffs();
 
 }

@@ -8,7 +8,7 @@ public interface StaffDAO {
 	
 	public void addStaff(Staff s);
 	
-	public void updateStaff(Staff a);
+	public void updateStaff(Staff s, Staff u);
 
 	public List<Staff> listStaffs();
 	

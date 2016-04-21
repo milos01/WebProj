@@ -29,15 +29,24 @@ public class StaffDAOImpl implements StaffDAO {
 	}
 
 	@Override
-	public void updateStaff(Staff a) {
-		// TODO Auto-generated method stub
+	public void updateStaff(Staff s, Staff u) {
+		Session session = this.sessionFactory.getCurrentSession();
+		s.setFirstName(u.getFirstName());
+		s.setLastName(u.getLastName());
+		s.setPassword(u.getPassword());
+		session.merge(s);
 
 	}
 
 	@Override
 	public List<Staff> listStaffs() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = this.sessionFactory.getCurrentSession();
+
+		@SuppressWarnings("unchecked")
+		List<Staff> staffsList = session.createQuery("from Staff").list();
+		// for(Person p : personsList){
+		// }
+		return staffsList;
 	}
 
 	@Override

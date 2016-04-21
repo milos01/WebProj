@@ -135,4 +135,16 @@ public class PersonServiceImpl implements PersonService {
 	public Role getRole(int id) {
 		return this.roleDAO.getRole(id);
 	}
+	
+	@Override
+	@Transactional
+	public void addRestaurant(Restaurant r){
+		this.restaurantDAO.addRestaurant(r);
+	}
+
+	@Override
+	@Transactional
+	public List<Staff> listStaffs() {
+		return this.staffDAO.listStaffs();
+	}
 }

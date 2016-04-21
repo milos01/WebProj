@@ -6,9 +6,7 @@ import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
 
 public interface RestaurantDAO {
-	public void addPerson(Restaurant res);
-
-	public void updatePerson(Restaurant res);
+	public void addRestaurant(Restaurant res);
 
 	public List<Restaurant> listRestaurants();
 

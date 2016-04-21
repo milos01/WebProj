@@ -104,6 +104,42 @@
 		</div>
 	</div>
 	<!-- End update user -->
+	<!-- Update staff modal-->
+	<div id="updateUserModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width: 400px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update info</h4>
+				</div>
+				<form action="updateStaff/${logedUser.id}" method="POST">
+					<input class="form-control" name="email" type="text" id="regEmail"
+						placeholder="Email"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" value="${logedUser.email}">
+
+					<input class="form-control" type="text" id="firstName"
+						placeholder="First name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						name="firstName" ; value="${logedUser.firstName}"/> <input
+						class="form-control" name="lastName" type="text" id="lastName"
+						placeholder="Last name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						 value="${logedUser.lastName}" /> <input class="form-control"
+						type="text" id="regPassword" name="password"
+						placeholder="Password"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						 value="${logedUser.password}" />
+
+					<div class="modal-footer" style="margin-top: 15px;">
+						<button type="submit" class="btn btn-success"
+							style="background: #1ab394">Update</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End update staff -->
 	<div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 		<div class="sidebar-collapse">
@@ -135,6 +171,18 @@
 					<c:when test="${logedUser.role.roleName == 'Regular user'}">
 						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
 								<span class="nav-label">Add friends</span></a></li>
+						<li><a href="#"><i class="fa fa-wrench"></i> <span
+								class="nav-label" data-toggle="modal"
+								data-target="#updateUserModal">Update profile</span></a></li>
+					</c:when>
+				</c:choose>
+				<!-- Waiter side menu -->
+				<c:choose>
+					<c:when test="${logedUser.role.roleName == 'Waiter'}">
+						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
+								<span class="nav-label">Shift schedule</span></a></li>
+						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
+								<span class="nav-label">Order's inbox</span></a></li>
 						<li><a href="#"><i class="fa fa-wrench"></i> <span
 								class="nav-label" data-toggle="modal"
 								data-target="#updateUserModal">Update profile</span></a></li>
@@ -336,128 +384,130 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="ibox float-e-margins">
-									<div class="ibox-content ibox-heading"
-										style="background-color: #fff;">
-										<h3 style="margin-top: 22px;">
+									<div class="ibox-title">
+										<h5>Restaurants</h5>
+										<div class="ibox-tools">
+											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+										</div>
+									</div>
+									<div class="ibox-content ibox-heading">
+										<h3>
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
 									</div>
 									<div class="ibox-content">
 										<div class="feed-activity-list">
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right text-navy">1m ago</small> <strong>Testone
-														restaurant</strong>
-													<div>Lorem Ipsum is simply dummy text of the printing
-														and typesetting industry. Lorem Ipsum</div>
-													<small class="text-muted">Open 9 am - 11 pm</small>
+											<c:forEach var="restaurant" items="${restaurants}">
+												<div class="feed-element">
+													<div>
+														<small class="pull-right">1m ago</small> <strong><a
+															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
+														<div>Lorem Ipsum is simply dummy text of the
+															printing and typesetting industry. Lorem Ipsum</div>
+														<small class="text-muted">Open 9 am - 11 pm</small>
+													</div>
 												</div>
-											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">2m ago</small> <strong>Testwo
-														restaurant</strong>
-													<div>There are many variations of passages of Lorem
-														Ipsum available</div>
-													<small class="text-muted">Open 8 am - 12 pm</small>
-												</div>
-											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testthree
-														restaurant</strong>
-													<div>Contrary to popular belief, Lorem Ipsum</div>
-													<small class="text-muted">Open 10 am - 01 am</small>
-												</div>
-											</div>
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testfour
-														restaurant</strong>
-													<div>The generated Lorem Ipsum is therefore</div>
-													<small class="text-muted">Open 9 am - 11 pm</small>
-												</div>
-											</div>
-
-
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testfive
-														restaurant</strong>
-													<div>All the Lorem Ipsum generators on the Internet
-														tend to repeat</div>
-													<small class="text-muted">Open 9 am - 9 pm</small>
-												</div>
-											</div>
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testsix
-														restaurant</strong>
-													<div>The standard chunk of Lorem Ipsum used</div>
-													<small class="text-muted">Open 10 am - 01 pm</small>
-												</div>
-											</div>
-											<div class="feed-element">
-												<div>
-													<small class="pull-right">5m ago</small> <strong>Testseven
-														restaurant</strong>
-													<div>200 Latin words, combined with a handful</div>
-													<small class="text-muted">Open 8 am - 10 pm</small>
-												</div>
-											</div>
-
+											</c:forEach>
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>	
 						</div>
 					</div>
 
 					<!-- Modal for restaurant registration -->
 					<div id="registerRestaurantModal" class="modal fade" role="dialog">
 						<div class="modal-dialog" style="width: 400px">
-
+				
 							<!-- Modal content-->
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h4 class="modal-title">Register restaurant</h4>
 								</div>
-								<form action="register" method="POST">
+								<form action="registerRestaurant" method="POST">
 									<input class="form-control" type="text" id="name" name="name"
 										placeholder="Restaurant name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" />
-
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"/>
+                                    
 									<!-- <input class="form-control" type="text" id="restType"
 										placeholder="Restaurant type"
 										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/> -->
-									<input class="form-control" type="text" id="address"
-										placeholder="Address" name="address"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-									<input class="form-control" type="text" id="manName"
+										/> --> 
+									<input class="form-control"
+										type="text" id="address" placeholder="Address" name="address"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/> 
+									<input class="form-control"
+										type="text" id="manName" name="manName"
 										placeholder="Manager's first name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-									<input class="form-control" type="text" id="manLastName"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/>
+									<input class="form-control"
+										type="text" id="manLastName" name="manLastName"
 										placeholder="Manager's last name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/>
+										
+									<input class="form-control"
+										type="text" id="manEmail" name="manEmail"
+										placeholder="Manager's email"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										/>
 
 									<div class="modal-footer" style="margin-top: 15px;">
 										<button type="submit" class="btn btn-success"
 											style="background: #1ab394">Register</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
 							</div>
-
+				
 						</div>
 					</div>
 
+				</c:when>
+			</c:choose>
+			<!-- Waiter central part -->
+			<c:choose>
+				<c:when test="${logedUser.role.roleName == 'Waiter'}">
+					<!-- List of restaurants -->
+					<div class="wrapper wrapper-content">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="ibox float-e-margins">
+									<div class="ibox-title">
+										<h5>Restaurants</h5>
+										<div class="ibox-tools">
+											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+										</div>
+									</div>
+									<div class="ibox-content ibox-heading">
+										<h3>
+											<i class="fa fa-glass"></i> Restaurant list
+										</h3>
+									</div>
+									<div class="ibox-content">
+										<div class="feed-activity-list">
+											<c:forEach var="restaurant" items="${restaurants}">
+												<div class="feed-element">
+													<div>
+														<small class="pull-right">1m ago</small> <strong><a
+															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
+														<div>Lorem Ipsum is simply dummy text of the
+															printing and typesetting industry. Lorem Ipsum</div>
+														<small class="text-muted">Open 9 am - 11 pm</small>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>	
+					
+					
 				</c:when>
 			</c:choose>
 			<!-- Manager central part -->
