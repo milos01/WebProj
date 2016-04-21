@@ -55,15 +55,7 @@
 	font-family: fantasy;
 	
 }
-#map {
-     	margin:auto auto;
-     	
-        height: 100%;
-        position: absolute;
-        top: 143px;
-        left: 240px;
-        width: 600px;
-      }
+
       
 .staffInfo {
 	margin-left: 25px;
@@ -575,58 +567,86 @@
 						
 							<!-- Kartica za restoran  -->
 							<div style="background-color: #F3F3F4;height: 100%" id="panel1" class="panel active">
-								<h1 style="margin-top:7px;margin-left:40px;font-family: cursive;font-family: fantasy;font-size: 44px;">${restoran.name}</h1>
-								<div style="border-radius:5px;border:1px solid #C0C0C0;width: 192px;margin-top: 15px;float:left;">
-									<table class="InfoResto" >
-									
-										<caption id="info" text-align="center">Info</caption>
-										
-										<tr>
-											<td class="ikonice"><i class="fa fa-map-marker"></i></td>
-											<td>${restoran.address}</td>
-										</tr>
-										<tr>
-											<td class="ikonice"><i class="fa fa-bars"></i></td>
-											<td>Vegan</td>
-										</tr>
-		
-										<tr>
-											<td class="ikonice"><i class="fa fa-clock-o"></i></td>
-											<td>${restoran.open_hours}</td>
-										</tr>
-										<tr>
-											<td colspan="2"><div class="rating">
-													<span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+							
+							
+								<div class="wrapper wrapper-content animated fadeInRight">
+									<div class="row">
+										<div class="col-lg-12">
+			
+											<div class="ibox product-detail">
+												<div class="ibox-content">
+			
+													<div class="row">
+														<div class="col-md-5">
+			
+			
+															<div  style="height: 400px">
+			 													<div id="map" style="height: 100%"></div>
+													
+															</div>
+			
+														</div>
+														<div class="col-md-7">
+			
+															<h2 class="font-bold m-b-xs">${restoran.name}</h2>
+															<small>Vegan</small>
+															<hr>
+															<div class="starrr"></div>
+			
+															<div>
+			
+																<h1 class="product-main-price">${restoran.email}</h1>
+															</div>
+															<hr>
+															<h4>Restaurant description</h4>
+			
+															<div class="small text-muted">
+																${restoran.desription}
+																<!-- It is a long established fact that a reader will be
+																distracted by the readable content of a page when looking
+																at its layout. The point of using Lorem Ipsum is that it
+																has a more-or-less normal distribution of letters, as
+																opposed to using 'Content here, content here', making it
+																look like readable English. <br /> <br /> There are many
+																variations of passages of Lorem Ipsum available, but the
+																majority have suffered alteration in some form, by injected
+																humour, or randomised words which don't look even slightly
+																believable.-->
+															</div>
+															<dl class="dl-horizontal m-t-md small">
+																<dt>Address</dt>
+																<dd>${restoran.address}</dd>
+																<dt>City</dt>
+																<dd>${restoran.city}</dd>
+																<dt>Phone
+																</dd>
+																<dd>${restoran.phone}
+																</dt>
+																<dt>Open hours
+																</dd>
+																<dd>${restoran.open_hours}
+																</dt>
+															</dl>
+															<div class="text-right">
+																<div class="btn-group">
+																	<button class="btn btn-white btn-sm" data-toggle="modal" data-target="#editInfoRestaurant">
+																		<i class="fa fa-list"></i> Edit
+ Edit
+																	</button>
+																</div>
+															</div>
+			
+			
+														</div>
+													</div>
+			
 												</div>
-											</td>
-										</tr>
-										
-									</table>
+											</div>
+			
+										</div>
+									</div>
 								</div>
 								
-								<div  class="Contact" style="border:1px solid #C0C0C0;border-radius:5px;float:left;">
-									<table>
-										<caption style="font-family: fantasy;font-size: 28px;">Contact</caption>
-										<tr>
-											<td><i class="fa fa-user"></i>
-											</td>
-											<td>${menadzer.firstName} ${menadzer.lastName}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-phone"></i>
-											</td>
-											<td>${restoran.phone}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-envelope"></i>
-											</td>
-											<td>${restoran.email}</td>
-										</tr>
-										
-									</table>
-								</div>
-								
-								<div id="map" style="height: 352px;float:right;"></div>
 								<script type="text/javascript">
 							   		 var map;
 							    	 var marker;
@@ -660,8 +680,6 @@
 								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgytjuG18KoFhq97_uz71KSTGrtOFt6p8&signed_in=true&callback=initMap"
 						        	async defer></script>
 		        					
-		        				<button data-toggle="modal" data-target="#editInfoRestaurant" class="btn btn-primary btn-md" style="position: absolute;top:500px;">Edit</button>	
-		        				
 		        				<div id="editInfoRestaurant" class="modal fade" role="dialog">
 									<div class="modal-dialog" style="width: 400px">
 										<div class="modal-content">
@@ -762,7 +780,6 @@
 															<div class="clearfix"></div>
 													</div>
 												</div>
-											
 	
 											</c:forEach>
 										</div>
