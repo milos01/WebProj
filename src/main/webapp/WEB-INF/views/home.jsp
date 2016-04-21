@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,6 +64,12 @@
         left: 240px;
         width: 600px;
       }
+      
+.staffInfo {
+	margin-left: 25px;
+	font-family: Times New Roman;
+	font-size: 14px;
+	}
 </style>
 
 </head>
@@ -664,35 +671,35 @@
 											</div>
 											<form action="editRestaurant" method="POST">
 												<input class="form-control" name="name" type="text" id="restaurantName"
-													placeholder="Name"
+													placeholder="Name" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" value="${restoran.name}">
 							
 												<input class="form-control" type="text" id="address"
-													placeholder="address"
+													placeholder="address" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													name="address" value="${restoran.address}" />
 													<input class="form-control" type="text" id="address"
-													placeholder="City"
+													placeholder="City" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													name="city" value="${restoran.city}" />
 													 <input
 													class="form-control" name="desription" type="text" id="desription"
-													placeholder="description" value="${restoran.desription}" 
+													placeholder="description" required value="${restoran.desription}" 
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/> <input class="form-control"
 													type="text" id="phone" name="phone"
-													placeholder="phone"
+													placeholder="phone" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													 value="${restoran.phone}"/>
 													
 													<input class="form-control"
-													type="text" id="open_hours" name="open_hours"
+													type="text" id="open_hours" name="open_hours" required
 													placeholder="open hours"  value="${restoran.open_hours}"
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/>
 													
 																									
-													<input class="form-control"
+													<input class="form-control" required
 													type="text" id="shoeNum" name="reon_num"
 													placeholder="Reon number" value="${restoran.reon_num}"
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
@@ -721,6 +728,49 @@
 							<div style="background-color: #F3F3F4;height: 100%" id="panel2" class="panel">
 								
 								<button data-toggle="modal" data-target="#addNewStaff"  class="btn btn-primary btn-md">Add staff</button>
+								
+									<!-- Listanje radnika -->
+								<c:if test="${fn:length(staffList) gt 0}">
+										
+										<div class="row" style="margin-top: 10px">
+											<c:forEach var="staffs" items="${staffList}">
+											
+												<div class="col-lg-4">
+													<div class="contact-box">
+														
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${staffs.picture} ">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong>${staffs.firstName} ${staffs.lastName}</strong>
+																</h3>
+		
+																<address>
+																	<strong>${staffs.role.roleName}</strong><br> <i class="fa fa-envelope"></i> ${staffs.email}
+																	<br> Shoe number: ${staffs.shoe_num}<br>
+																		 Dress size: ${ staffs.con_num}
+																	 <abbr
+																		title="Phone"> </br><i class="fa fa-birthday-cake" aria-hidden="true"></i>
+																		 </abbr> ${staffs.birth_date } </br>
+																		 <button class="btn btn-primary btn-md" style="background-color: #1D7AF5;border-color: #1D7AF5;position: absolute;right: 10px">Shifts</button>
+																</address>
+															</div>
+															<div class="clearfix"></div>
+													</div>
+												</div>
+											
+	
+											</c:forEach>
+										</div>
+	
+									</div>
+								</c:if>
+								
+								
 								<!-- ZAPOSLENI RESTORANA start -->
 								<div id="addNewStaff" class="modal fade" role="dialog">
 									<div class="modal-dialog" style="width: 400px">
@@ -731,41 +781,41 @@
 											</div>
 											<form action="addNewStaff" method="POST">
 												<input class="form-control" name="firstName" type="text" id="firstName"
-													placeholder="First name"
+													placeholder="First name" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"">
 							
 												<input class="form-control" type="text" id="lastName"
-													placeholder="Last name"
+													placeholder="Last name" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													name="lastName"; /> <input
-													class="form-control" name="email" type="text" id="email"
+													class="form-control" required name="email" type="email" id="email"
 													placeholder="Email"
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/> <input class="form-control"
-													type="password" id="regPassword" name="password"
+													type="password" id="regPassword" name="password" required
 													placeholder="Password"
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/>
 													
 													<select  class="form-control"
-													id="role" name="role_id"
+													id="role" name="role_id" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													value=1>
-														<option value=0>Role</option>
+														<option value="">Role</option>
 														<option value=3>Cook</option>
 														<option value=6>Waiter</option>
 														<option value=4>Barman</option>
 													</select>
 													<input class="form-control"
 													type="date" id="birthDay" name="birth_day"
-													placeholder="Shoe number" maxlength="2"
+													placeholder="Birth day"  required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/>
 													
 																									
 													<input class="form-control"
 													type="text" id="shoeNum" name="shoe_num"
-													placeholder="Shoe number" maxlength="2"
+													placeholder="Shoe number" maxlength="2" required
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 													/>
 													
@@ -773,8 +823,8 @@
 													id="conNum" name="con_num"
 													placeholder="Shoe number"
 													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-													value=1>
-														<option>Dress size</option>
+													value=1 required>
+														<option value="">Dress size</option>
 														<option>S</option>
 														<option>L</option>
 														<option>M</option>
