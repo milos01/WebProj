@@ -70,8 +70,7 @@
 </head>
 <body ng-app="App">
 	<!-- Update user modal-->
-	<div id="updateUserModal" class="modal fade" role="dialog"
-		ng-controller="updateUserController">
+	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -276,15 +275,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" ng-controller="addFriendController">
 							<div class="navbar-header">
 								<form role="search" class="navbar-form-custom"
 									action="search_results.html">
 									<div class="form-group">
-										<input type="text" placeholder="Search for friends..."
-											class="form-control" name="top-search" id="top-search"
-											style="margin-left: 20px">
+										<input ng-model="friendsSearch" type="text"
+											placeholder="Search for friends..." class="form-control"
+											name="top-search" id="top-search" style="margin-left: 20px;">
 									</div>
+									<button class="btn btn-default" type="submit" ng-show="friendsSearch.length" style="position:absolute;margin-top:-48px;left:220px">Add friend</button> 
 								</form>
 							</div>
 						</div>
@@ -686,8 +686,8 @@
 														<strong>${staffs.role.roleName}</strong><br> <i
 															class="fa fa-envelope"></i> ${staffs.email} <br>
 														Shoe number: ${staffs.shoe_num}<br> Dress size: ${ staffs.con_num}
-														<abbr title="Phone"> </br>
-														<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+														<abbr title="Phone"> </br> <i
+															class="fa fa-birthday-cake" aria-hidden="true"></i>
 														</abbr> ${staffs.birth_date } </br>
 														<button class="btn btn-primary btn-md"
 															style="background-color: #1D7AF5; border-color: #1D7AF5; position: absolute; right: 10px">Shifts</button>
