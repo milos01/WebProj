@@ -94,8 +94,10 @@ public class HomeController {
 		
 		Role temp = this.personService.getRole(Integer.parseInt(rol));
 		Restaurant temp2 = this.personService.getRestaurant(Integer.parseInt(idR));
+		staff.setPicture("def.png");
 		staff.setRole(temp);
 		staff.setRestaurant(temp2);
+		
 		
 		try {
 			Date tempDate = getFormatedDate(bd);

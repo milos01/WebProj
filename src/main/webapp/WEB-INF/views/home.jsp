@@ -594,7 +594,7 @@
 															<div class="btn-group">
 																<button class="btn btn-white btn-sm" data-toggle="modal"
 																	data-target="#editInfoRestaurant">
-																	<i class="fa fa-list"></i> Edit Edit
+																	<i class="fa fa-list"></i> Edit
 																</button>
 															</div>
 														</div>
@@ -722,7 +722,7 @@
 							class="panel">
 
 							<button data-toggle="modal" data-target="#addNewStaff"
-								class="btn btn-primary btn-md">Add staff</button>
+								class="btn btn-primary btn-md" style="margin-top:10px">Add staff</button>
 
 							<!-- Listanje radnika -->
 							<c:if test="${fn:length(staffList) gt 0}">
@@ -794,10 +794,10 @@
 											value=1>
 											<option value="">Role</option>
 											<option value=3>Cook</option>
-											<option value=6>Waiter</option>
+											<option value=7>Waiter</option>
 											<option value=4>Barman</option>
 										</select> <input class="form-control" type="date" id="birthDay"
-											name="birth_day" placeholder="Birth day" required
+											name="birth_day" placeholder="Birthday" required
 											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
 
 

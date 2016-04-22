@@ -68,6 +68,7 @@ public class Staff {
 	private String password;
 	
 	@Column(name = "picture_path", columnDefinition = "varchar(15) default 'def.jpg'")
+	@NotBlank
 	private String picture;
 
 	public int getId() {
