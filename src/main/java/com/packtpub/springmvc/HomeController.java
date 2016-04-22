@@ -90,7 +90,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/addNewStaff",method = RequestMethod.POST)
-	public String addNewStaff(@ModelAttribute("radnik") Staff staff,@RequestParam("role_id") String rol,@RequestParam("birth_day")String bd,@RequestParam("restaurant_id")String idR) {
+	public String addNewStaff(@ModelAttribute("radnik") Staff staff,@RequestParam("role_id") String rol,@RequestParam("birth_day")String bd,@RequestParam("restaurant_id")String idR,RedirectAttributes redirectAttributes) {
 		
 		Role temp = this.personService.getRole(Integer.parseInt(rol));
 		Restaurant temp2 = this.personService.getRestaurant(Integer.parseInt(idR));
@@ -106,13 +106,14 @@ public class HomeController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		redirectAttributes.addFlashAttribute("newStaffAdded", "Employees successfully added");
 		return "redirect:/home";
 	}
 	
 	@RequestMapping(value = "/editRestaurant",method = RequestMethod.POST)
-	public String editRestaurant(@ModelAttribute("restoran1") Restaurant rest){
+	public String editRestaurant(@ModelAttribute("restoran1") Restaurant rest,RedirectAttributes redirectAttributes){
 		this.personService.updateRestaurant(rest);
-		
+		redirectAttributes.addFlashAttribute("updatedRest", "Restaurant successfully updated");
 		return "redirect:/home";
 	}
 	

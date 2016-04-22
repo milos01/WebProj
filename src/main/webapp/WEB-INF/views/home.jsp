@@ -26,45 +26,10 @@
 	display: block;
 }
 
-.InfoResto td {
-	padding: 5px;
-	font-family: cursive;
-	font-size: 14px;
-}
-
 .star {
 	font-size: 24px;
 }
 
-.ikonice {
-	width: 40px;
-}
-
-.Contact {
-	position: absolute;
-	top: 350px;
-	width: 192px;
-}
-
-.Contact td {
-	padding: 5px;
-	margin-left: 10px;
-}
-
-.Contact tr {
-	padding-left: 10px;
-}
-
-#info {
-	font-size: 28px;
-	font-family: fantasy;
-}
-
-.staffInfo {
-	margin-left: 25px;
-	font-family: Times New Roman;
-	font-size: 14px;
-}
 </style>
 
 </head>
@@ -78,6 +43,21 @@
 			</c:forEach>
 		</div>
 	</c:if>
+	
+	<c:if test="${!empty newStaffAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newStaffAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty updatedRest}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${updatedRest}</strong>
+		</div>
+	</c:if>
+	
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -577,18 +557,12 @@
 															<dd>${restoran.address}</dd>
 															<dt>City</dt>
 															<dd>${restoran.city}</dd>
-															<dt>
-																Phone
-																</dd>
-															<dd>${restoran.phone}
-															
-															</dt>
-															<dt>Open hours
-															
-															</dd>
-															<dd>${restoran.open_hours}
-															
-															</dt>
+															<dt>Phone</dt>
+															<dd>${restoran.phone}</dd>
+															<dt>Open hours</dt>
+															<dd>${restoran.open_hours}</dd>
+															<dt>Rate</dt>
+															<dd><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span></dd>
 														</dl>
 														<div class="text-right">
 															<div class="btn-group">
@@ -714,7 +688,7 @@
 							</div>
 							<!--  Edit restoran end -->
 						
-															</div>
+						</div>
 
 
 						<!-- Kartica za zaposlene  -->
@@ -761,9 +735,9 @@
 
 									</c:forEach>
 								</div>
-						
+							</c:if>
 						</div>
-						</c:if>
+						
 
 
 						<!-- ZAPOSLENI RESTORANA start -->
@@ -812,8 +786,8 @@
 											value=1 required>
 											<option value="">Dress size</option>
 											<option>S</option>
-											<option>L</option>
 											<option>M</option>
+											<option>L</option>
 											<option>XL</option>
 											<option>2XL</option>
 											<option>3XL</option>

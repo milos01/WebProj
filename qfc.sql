@@ -20,3 +20,7 @@ INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName
 UPDATE `questforchef`.`Staff` SET `con_num`='cc' WHERE `id`='2';
 INSERT INTO `questforchef`.`Friends` (`terminal_friend`, `starter_friend`) VALUES ('3', '1');
 INSERT INTO `questforchef`.`Friends` (`terminal_friend`, `starter_friend`) VALUES ('1', '3');
+INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName`, `password`, `shoe_num`, `restaurant_id`, `role_id`,`con_num`, `picture_path`) VALUES ('22-09-1994','ivan@gmail.com', 'Ivan', 'ivanovic', 'pass', '34', '1', '3','L', 'a3.jpg');
+INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName`, `password`, `shoe_num`, `restaurant_id`, `role_id`,`con_num`, `picture_path`) VALUES ('22-09-1993','mika@gmail.com', 'Miki', 'Mikic', 'pass', '42', '1', '4','XL', 'a4.jpg');
+INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName`, `password`, `shoe_num`, `restaurant_id`, `role_id`,`con_num`, `picture_path`) VALUES ('22-09-1994','jova@gmail.com', 'Jova', 'Jovic', 'pass', '34', '1', '6','L', 'a5.jpg');
+INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName`, `password`, `shoe_num`, `restaurant_id`, `role_id`,`con_num`, `picture_path`) VALUES ('22-09-1994','tomica@gmail.com', 'Toma', 'Tomic', 'pass', '42', '2', '4','XL', 'a6.jpg');
