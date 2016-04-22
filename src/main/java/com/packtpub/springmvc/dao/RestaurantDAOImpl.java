@@ -25,6 +25,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	@Override
 	public void addRestaurant(Restaurant res) {
 		Session session = this.sessionFactory.getCurrentSession();
+		System.out.println("uso");
 		session.persist(res);
 
 	}

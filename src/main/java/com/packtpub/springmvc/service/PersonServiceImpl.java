@@ -139,6 +139,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	@Transactional
 	public void addRestaurant(Restaurant r){
+		System.out.println("usao sam");
 		this.restaurantDAO.addRestaurant(r);
 	}
 

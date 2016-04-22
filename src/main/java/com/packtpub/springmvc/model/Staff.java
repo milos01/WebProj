@@ -52,7 +52,7 @@ public class Staff {
 	@NotNull
 	private Date birth_date;
 
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String con_num;
 	
 	@NotNull

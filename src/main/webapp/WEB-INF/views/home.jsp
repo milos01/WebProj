@@ -69,6 +69,15 @@
 
 </head>
 <body ng-app="App">
+	<c:if test="${errors.errorCount gt 0}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index:10000">
+			<c:forEach items="${errors.allErrors}" var="error">
+				<strong>${error.defaultMessage}</strong>
+				<br />
+			</c:forEach>
+		</div>
+	</c:if>
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -115,20 +124,19 @@
 				<form action="updateStaff/${logedUser.id}" method="POST">
 					<input class="form-control" name="email" type="text" id="regEmail"
 						placeholder="Email"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" value="${logedUser.email}">
-
-					<input class="form-control" type="text" id="firstName"
-						placeholder="First name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
+						value="${logedUser.email}"> <input class="form-control"
+						type="text" id="firstName" placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" ; value="${logedUser.firstName}"/> <input
+						name="firstName" ; value="${logedUser.firstName}" /> <input
 						class="form-control" name="lastName" type="text" id="lastName"
 						placeholder="Last name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						 value="${logedUser.lastName}" /> <input class="form-control"
+						value="${logedUser.lastName}" /> <input class="form-control"
 						type="text" id="regPassword" name="password"
 						placeholder="Password"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						 value="${logedUser.password}" />
+						value="${logedUser.password}" />
 
 					<div class="modal-footer" style="margin-top: 15px;">
 						<button type="submit" class="btn btn-success"
@@ -330,13 +338,17 @@
 									<div class="form-group">
 										<input ng-model="friendsSearch" type="text"
 											placeholder="Search for friends..." class="form-control"
-											name="top-search" id="top-search" style="margin-left: 20px;">
+											name="friendsSearch" id="friendsSearch"
+											style="margin-left: 20px;">
 									</div>
-									<button class="btn btn-default" type="submit" ng-show="friendsSearch.length" style="position:absolute;margin-top:-48px;left:220px">Add friend</button> 
+									<button class="btn btn-default" type="submit"
+										ng-show="friendsSearch.length"
+										style="position: absolute; margin-top: -48px; left: 240px">Add
+										friend</button>
 								</form>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" style="margin-top: 20px">
 							<c:forEach var="friend" items="${logedUser.starter_friend}">
 								<div class="col-lg-4">
 									<div class="contact-box">
@@ -390,7 +402,7 @@
 											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 										</div>
 									</div>
-									<div class="ibox-content ibox-heading">
+									<div class="ibox-content ibox-heading" style="background-color: #fff;">
 										<h3>
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
@@ -411,14 +423,14 @@
 										</div>
 									</div>
 								</div>
-							</div>	
+							</div>
 						</div>
 					</div>
 
 					<!-- Modal for restaurant registration -->
 					<div id="registerRestaurantModal" class="modal fade" role="dialog">
 						<div class="modal-dialog" style="width: 400px">
-				
+
 							<!-- Modal content-->
 							<div class="modal-content">
 								<div class="modal-header">
@@ -428,41 +440,35 @@
 								<form action="registerRestaurant" method="POST">
 									<input class="form-control" type="text" id="name" name="name"
 										placeholder="Restaurant name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"/>
-                                    
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" />
+
 									<!-- <input class="form-control" type="text" id="restType"
 										placeholder="Restaurant type"
 										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/> --> 
-									<input class="form-control"
-										type="text" id="address" placeholder="Address" name="address"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/> 
-									<input class="form-control"
-										type="text" id="manName" name="manName"
-										placeholder="Manager's first name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/>
-									<input class="form-control"
-										type="text" id="manLastName" name="manLastName"
-										placeholder="Manager's last name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/>
-										
-									<input class="form-control"
-										type="text" id="manEmail" name="manEmail"
-										placeholder="Manager's email"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/>
+										/> -->
+									<input class="form-control" type="text" id="address"
+										placeholder="Address" name="address"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+									<input class="form-control" type="text" id="manName"
+										name="manName" placeholder="Manager's first name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+									<input class="form-control" type="text" id="manLastName"
+										name="manLastName" placeholder="Manager's last name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+
+									<input class="form-control" type="text" id="manEmail"
+										name="manEmail" placeholder="Manager's email"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
 
 									<div class="modal-footer" style="margin-top: 15px;">
 										<button type="submit" class="btn btn-success"
 											style="background: #1ab394">Register</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
 									</div>
 								</form>
 							</div>
-				
+
 						</div>
 					</div>
 
@@ -482,7 +488,7 @@
 											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 										</div>
 									</div>
-									<div class="ibox-content ibox-heading">
+									<div class="ibox-content ibox-heading" style="background-color: #fff;">
 										<h3>
 											<i class="fa fa-glass"></i> Restaurant list
 										</h3>
@@ -503,11 +509,11 @@
 										</div>
 									</div>
 								</div>
-							</div>	
+							</div>
 						</div>
-					</div>	
-					
-					
+					</div>
+
+
 				</c:when>
 			</c:choose>
 			<!-- Manager central part -->
@@ -571,13 +577,17 @@
 															<dd>${restoran.address}</dd>
 															<dt>City</dt>
 															<dd>${restoran.city}</dd>
-															<dt>Phone
-															</dd>
+															<dt>
+																Phone
+																</dd>
 															<dd>${restoran.phone}
+															
 															</dt>
 															<dt>Open hours
+															
 															</dd>
 															<dd>${restoran.open_hours}
+															
 															</dt>
 														</dl>
 														<div class="text-right">
@@ -643,9 +653,9 @@
 													});
 								}
 							</script>
-							<script
-								src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgytjuG18KoFhq97_uz71KSTGrtOFt6p8&signed_in=true&callback=initMap"
-								async defer></script>
+																<script
+																	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgytjuG18KoFhq97_uz71KSTGrtOFt6p8&signed_in=true&callback=initMap"
+																	async defer></script>
 
 							<div id="editInfoRestaurant" class="modal fade" role="dialog">
 								<div class="modal-dialog" style="width: 400px">
@@ -656,34 +666,35 @@
 										</div>
 										<form action="editRestaurant" method="POST">
 											<input class="form-control" name="name" type="text"
-												id="restaurantName" placeholder="Name" required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
-												value="${restoran.name}"> <input
-												class="form-control" type="text" id="address"
-												placeholder="address" required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-												name="address" value="${restoran.address}" /> <input
-												class="form-control" type="text" id="address"
-												placeholder="City" required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-												name="city" value="${restoran.city}" /> <input
-												class="form-control" name="desription" type="text"
-												id="desription" placeholder="description" required
-												value="${restoran.desription}"
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+																					id="restaurantName" placeholder="Name" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
+																					value="${restoran.name}"> <input
+																					class="form-control" type="text" id="address"
+																					placeholder="address" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																					name="address" value="${restoran.address}" /> <input
+																					class="form-control" type="text" id="address"
+																					placeholder="City" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																					name="city" value="${restoran.city}" /> <input
+																					class="form-control" name="desription" type="text"
+																					id="desription" placeholder="description" required
+																					value="${restoran.desription}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
 											<input class="form-control" type="text" id="phone"
-												name="phone" placeholder="phone" required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-												value="${restoran.phone}" /> <input class="form-control"
-												type="text" id="open_hours" name="open_hours" required
-												placeholder="open hours" value="${restoran.open_hours}"
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+																					name="phone" placeholder="phone" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																					value="${restoran.phone}" /> <input
+																					class="form-control" type="text" id="open_hours"
+																					name="open_hours" required placeholder="open hours"
+																					value="${restoran.open_hours}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
 
 
 											<input class="form-control" required type="text" id="shoeNum"
-												name="reon_num" placeholder="Reon number"
-												value="${restoran.reon_num}"
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+																					name="reon_num" placeholder="Reon number"
+																					value="${restoran.reon_num}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
 
 
 
@@ -693,16 +704,17 @@
 
 											<div class="modal-footer" style="margin-top: 15px;">
 												<button type="submit" class="btn btn-success"
-													style="background: #1ab394">Save</button>
+																						style="background: #1ab394">Save</button>
 												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
+																						data-dismiss="modal">Close</button>
 											</div>
 										</form>
 									</div>
 								</div>
 							</div>
 							<!--  Edit restoran end -->
-						</div>
+						
+															</div>
 
 
 						<!-- Kartica za zaposlene  -->
@@ -749,6 +761,7 @@
 
 									</c:forEach>
 								</div>
+						
 						</div>
 						</c:if>
 
@@ -823,6 +836,7 @@
 					<!-- Kartica za izvestaje -->
 					<div style="background-color: #F3F3F4; height: 100%" id="panel3"
 						class="panel">IZVESTAJI</div>
+		
 		</div>
 		</c:when>
 		</c:choose>

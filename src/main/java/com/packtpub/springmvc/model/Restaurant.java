@@ -29,22 +29,22 @@ public class Restaurant {
 	@NotBlank(message = "Restaurant address must not be empty")
 	private String address;
 	
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String city;
 	
 	@NotNull
 	private int rate;
 	
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String desription;
 	
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String email;
 	
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String phone;
 	
-	@NotBlank(message = "Please select a cache name.")
+	//@NotBlank(message = "Please select a cache name.")
 	private String open_hours;
 	
 	@NotNull
