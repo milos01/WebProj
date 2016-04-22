@@ -4,10 +4,6 @@ myApp.controller('addFriendController', ['$scope','$http', function($scope, $htt
 }]);
 
 $("#friendsSearch").keyup(function(){
-	$("#friendsSearch").focus(
-		    function(){
-		        $(this).css('border-bottom', 'red');
-	});
     var friendsSearch = $(this).val();
     var ime = "Micko Mickovic"
     if(ime.match(friendsSearch)){
@@ -15,6 +11,9 @@ $("#friendsSearch").keyup(function(){
     }else{
     	$(this).css("border-bottom","none");
     }
+    if (friendsSearch.length < 1) {
+    	$(this).css("border-bottom","none");
+	}
 });
 
 if ($("#errorAlert").is(":visible")) { 
