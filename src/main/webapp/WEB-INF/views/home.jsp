@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${logedUser.firstName}'spage</title>
+<title>${logedUser.firstName}'s page</title>
 <link href="../springmvc/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="../springmvc/resources/font-awesome/css/font-awesome.css"
@@ -314,11 +314,11 @@
 						<div class="row" ng-controller="addFriendController">
 							<div class="navbar-header">
 								<form role="search" class="navbar-form-custom"
-									action="search_results.html">
+									action="addFriend" method="POST">
 									<div class="form-group">
 										<input ng-model="friendsSearch" type="text"
 											placeholder="Search for friends..." class="form-control"
-											name="friendsSearch" id="friendsSearch"
+											name="friendName" id="friendsSearch"
 											style="margin-left: 20px;">
 									</div>
 									<button class="btn btn-default" type="submit"

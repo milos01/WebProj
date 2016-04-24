@@ -148,4 +148,16 @@ public class PersonServiceImpl implements PersonService {
 	public List<Staff> listStaffs() {
 		return this.staffDAO.listStaffs();
 	}
+
+	@Override
+	@Transactional
+	public User findUserByName(String fname, String lname) {
+		return this.personDAO.findUserByName(fname, lname);
+	}
+
+	@Override
+	@Transactional
+	public void updatePerson(User p) {
+		this.personDAO.updatePerson(p);
+	}
 }

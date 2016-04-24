@@ -15,6 +15,8 @@ public interface PersonService {
 	public void addPerson(User p);
 
 	public void updatePerson(User p, User u);
+	
+	public void updatePerson(User p);
 
 	public VerificationToken getVerificationToken(String token);
 
@@ -43,5 +45,7 @@ public interface PersonService {
 	public void addRestaurant(Restaurant r);
 	
 	public List<Staff> listStaffs();
+	
+	public User findUserByName(String fname, String lname);
 
 }

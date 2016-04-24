@@ -9,9 +9,13 @@ public interface PersonDAO {
 
 	public void updatePerson(User p, User u);
 
+	public void updatePerson(User p);
+
 	public List<User> listPersons();
 
 	public User getPerson(String email);
 
 	public void removePerson(int id);
+
+	public User findUserByName(String fname, String lname);
 }

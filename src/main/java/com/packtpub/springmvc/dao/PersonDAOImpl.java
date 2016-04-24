@@ -67,4 +67,24 @@ public class PersonDAOImpl implements PersonDAO {
 
 	}
 
+	@Override
+	public User findUserByName(String fname, String lname) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM User u WHERE lower(u.firstName) = :string_fname and lower(u.lastName) = :string_lname");
+		query1.setParameter("string_fname", fname.toLowerCase());
+		query1.setParameter("string_lname", lname.toLowerCase());
+		List<User> userList = query1.list();
+		User tk = null;
+		for (User users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public void updatePerson(User p) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(p);
+	}
+
 }
