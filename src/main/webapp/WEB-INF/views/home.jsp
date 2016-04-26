@@ -319,7 +319,7 @@
 										<input ng-model="friendsSearch" type="text"
 											placeholder="Search for friends..." class="form-control"
 											name="friendName" id="friendsSearch"
-											style="margin-left: 20px;">
+											style="margin-left: 20px;border-bottom:1px solid #ccc">
 									</div>
 									<button class="btn btn-default" type="submit"
 										ng-show="friendsSearch.length"

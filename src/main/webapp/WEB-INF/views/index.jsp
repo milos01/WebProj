@@ -109,7 +109,7 @@ body {
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 					path="loginPassword" /> <input class="btn btn-default"
 					name="loginSubmit" type="submit" value="Sign in"
-					style="float: left; margin-left: 100px; margin-top: 15px" />
+					style="float: left; margin-left: 100px; margin-top: 15px;color:#1ab394" />
 				<p
 					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px"
 					data-toggle="modal" data-target="#registerModal">Sign up</p>
