@@ -352,6 +352,7 @@
 														title="Phone">P:</abbr> 063 456-7890
 												</address>
 											</div>
+											<a href="removeFriend/${friend.id}"><button type="button" class="close" data-dismiss="modal" style="top:5px;position:absolute">&times;</button></a>
 											<div class="clearfix"></div>
 										</a>
 									</div>

@@ -17,6 +17,17 @@
 <link
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<link href="../resources/css/plugins/nouslider/jquery.nouislider.css"
+	rel="stylesheet">
+
+<link
+	href="../resources/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css"
+	rel="stylesheet">
+<link href="../resources/css/plugins/ionRangeSlider/ion.rangeSlider.css"
+	rel="stylesheet">
+<link
+	href="../resources/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"
+	rel="stylesheet">
 <style type="text/css">
 .starrr {
 	display: inline-block;
@@ -67,7 +78,7 @@
 	<!-- End update user -->
 	<!-- Staff list modal-->
 	<div id="staffListModal" class="modal fade" role="dialog">
-		<div class="modal-dialog" style="width:490px">
+		<div class="modal-dialog" style="width: 490px">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -75,10 +86,10 @@
 				</div>
 				<c:forEach var="staff" items="${restaurant.staff}">
 					<div class="row">
-						<div class="col-lg-4" style="width:500px;heigh:300px;">
-							<div class="contact-box" style="border:none">
+						<div class="col-lg-4" style="width: 500px; heigh: 300px;">
+							<div class="contact-box" style="border: none">
 								<a href="profile.html">
-									<div class="col-sm-4" style="width:23%">
+									<div class="col-sm-4" style="width: 23%">
 										<div class="text-center">
 											<img alt="image" class="img-circle m-t-xs img-responsive"
 												src="../resources/img/${staff.picture}">
@@ -87,7 +98,7 @@
 									<div class="col-sm-8">
 										<h3>
 											<strong>${staff.firstName} ${staff.lastName}</strong>
-											
+
 										</h3>
 										<p>
 											<i class="fa fa-map-marker"></i> ${staff.role.roleName}
@@ -95,7 +106,7 @@
 										<p>
 											<i class="fa fa-envelope"></i> ${staff.email}
 										</p>
-										
+
 									</div>
 									<div class="clearfix"></div>
 								</a>
@@ -189,8 +200,8 @@
 
 				</div>
 				<ul class="nav navbar-top-links navbar-right">
-					<li><a href="../logout"> <i class="fa fa-sign-out"></i> Log
-							out
+					<li><a href="../logout"> <i class="fa fa-sign-out"></i>
+							Log out
 					</a></li>
 				</ul>
 
@@ -280,7 +291,61 @@
 
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="ibox">
+									<div class="ibox-title">
+										<h5>
+											Reservating <small>Here you can select date and time
+												and see is there any available tables in this restaurant for
+												you.</small>
+										</h5>
+									</div>
+
+									<div class="ibox-content">
+										<div class="row">
+											<form action="${restaurant.id}/reserve" method="POST">
+												<div class="col-md-4">
+													<div class="text-center">
+														<div class="m-r-md inline">
+															<input type="text" value="0" name="guestNum" class="dial m-r-sm"
+																data-fgColor="#1AB394" data-width="85" data-height="85" />
+														</div>
+													</div>
+												</div>
+
+												<div class="col-md-2">
+
+													<p class="font-bold">Date:</p>
+
+													<input class="form-control" name = "res_date" type="date" value=""
+														name="demo1">
+												</div>
+												<div class="col-md-2">
+													<p class="font-bold">From:</p>
+													<input class="touchspin1" name="res_from" type="text" value="55"
+														name="demo2">
+												</div>
+												<div class="col-md-2">
+
+													<p class="font-bold">To:</p>
+													<input class="touchspin1" name = "res_to" type="text" value="" name="demo3">
+												</div>
+												<div class="col-md-1" >
+													<button type="submit" class="btn btn-primary" style="margin-top:27px;">Chech</button>
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+
+					<c:forEach var="reservation" items="${restaurant.reservations}">
+						${reservation.user.firstName}
+					</c:forEach>
 				</c:when>
 			</c:choose>
 
@@ -334,8 +399,21 @@
 
 
 	<script src="../resources/five-star-rating-master/dist/starrr.js"></script>
+	<!-- JSKnob -->
+	<script src="../resources/js/plugins/jsKnob/jquery.knob.js"></script>
+	<!-- NouSlider -->
+	<script
+		src="../resources/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+	<!-- IonRangeSlider -->
+	<script
+		src="../resources/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+	<!-- TouchSpin -->
+	<script
+		src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
 	<script type="text/javascript">
+		$(".dial").knob();
+
 		var el = document.querySelector('#el');
 
 		// current rating, or initial rating
@@ -354,7 +432,24 @@
 	</script>
 	<!-- Promena centralnog diva -->
 	<script type="text/javascript">
+		$(".touchspin1").TouchSpin({
+			verticalbuttons : true,
+			buttondown_class : 'btn btn-white',
+			buttonup_class : 'btn btn-white'
+		});
+
 		$(function() {
+			$("#example_id").ionRangeSlider({
+				min : 0,
+				max : 24,
+				type : 'double',
+				postfix : "h",
+				prettify : false,
+				hasGrid : true
+			});
+			$("#example_id").click(function() {
+				alert("aa");
+			});
 
 			$('.promeniCent').on('click', function() {
 

@@ -87,4 +87,17 @@ public class PersonDAOImpl implements PersonDAO {
 		session.merge(p);
 	}
 
+	@Override
+	public User findUser(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM User u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<User> userList = query1.list();
+		User tk = null;
+		for (User users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
 }

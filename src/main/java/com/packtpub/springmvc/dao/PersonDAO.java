@@ -18,4 +18,6 @@ public interface PersonDAO {
 	public void removePerson(int id);
 
 	public User findUserByName(String fname, String lname);
+
+	public User findUser(int id);
 }

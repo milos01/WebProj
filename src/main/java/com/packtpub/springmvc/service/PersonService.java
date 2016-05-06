@@ -21,6 +21,8 @@ public interface PersonService {
 	public VerificationToken getVerificationToken(String token);
 
 	public List<User> listPersons();
+	
+	public User findPerson(int id);
 
 	public User getPerson(String email);
 
@@ -47,5 +49,7 @@ public interface PersonService {
 	public List<Staff> listStaffs();
 	
 	public User findUserByName(String fname, String lname);
+
+	public boolean checkForFreeTables(String res_date, String res_from, String res_to);
 
 }

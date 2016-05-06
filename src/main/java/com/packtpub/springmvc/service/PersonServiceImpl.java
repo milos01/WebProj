@@ -160,4 +160,16 @@ public class PersonServiceImpl implements PersonService {
 	public void updatePerson(User p) {
 		this.personDAO.updatePerson(p);
 	}
+
+	@Override
+	@Transactional
+	public User findPerson(int id) {
+		return this.personDAO.findUser(id);
+	}
+
+	@Override
+	public boolean checkForFreeTables(String res_date, String res_from, String res_to) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

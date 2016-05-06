@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -61,6 +62,21 @@ public class FriendController {
 			}
 		}
 		System.out.println("cant add other peple");
+		return "redirect:/home";
+	}
+
+	@RequestMapping("/removeFriend/{id}")
+	public String removeFriend(@PathVariable("id") int id, HttpSession session) {
+		User toBeDeleted = this.personService.findPerson(id);
+		User me = (User) session.getAttribute("logedUser");
+		for (User user : me.getStarter_friend()) {
+			System.out.println(user.getFirstName());
+			if (user.getId() == id) {
+				me.getStarter_friend().remove(toBeDeleted);
+				this.personService.updatePerson(me);
+			}
+		}
+		
 		return "redirect:/home";
 	}
 
