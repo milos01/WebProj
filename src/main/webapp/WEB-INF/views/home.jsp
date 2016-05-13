@@ -17,6 +17,14 @@
 <link href="../springmvc/resources/css/animate.css" rel="stylesheet">
 <link href="../springmvc/resources/css/style.css" rel="stylesheet">
 
+<script src="../springmvc/resources/js/jquery-2.1.1.js"></script>
+
+<link rel='stylesheet' href='../springmvc/resources/fullcalendar/fullcalendar.css' />
+<link href='../springmvc/resources/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+<script src='../springmvc/resources/fullcalendar/lib/moment.min.js'></script>
+<script src='../springmvc/resources/fullcalendar/fullcalendar.js'></script>
+
 <style type="text/css">
 .panel {
 	display: none;
@@ -29,7 +37,12 @@
 .star {
 	font-size: 24px;
 }
+#calendar{
+	width: 600px;
+	
+	z-index: 100000;
 
+}
 </style>
 
 </head>
@@ -501,6 +514,133 @@
 			<c:choose>
 				<c:when test="${logedUser.role.roleName == 'Manager'}">
 
+					
+						<script type="text/javascript">
+						
+						/*
+							jQuery document ready
+						*/
+						
+						$(document).ready(function()
+						{
+							/*
+								date store today date.
+								d store today date.
+								m store current month.
+								y store current year.
+							*/
+							var date = new Date();
+							var d = date.getDate();
+							var m = date.getMonth();
+							var y = date.getFullYear();
+							
+							/*
+								Initialize fullCalendar and store into variable.
+								Why in variable?
+								Because doing so we can use it inside other function.
+								In order to modify its option later.
+							*/
+							
+							var calendar = $('#calendar').fullCalendar(
+							{
+								/*
+									header option will define our calendar header.
+									left define what will be at left position in calendar
+									center define what will be at center position in calendar
+									right define what will be at right position in calendar
+								*/
+								header:
+								{
+									left: 'prev,next today',
+									center: 'title',
+									right: 'month,agendaWeek,agendaDay'
+								},
+								/*
+									defaultView option used to define which view to show by default,
+									for example we have used agendaWeek.
+								*/
+								defaultView: 'month',
+								/*
+									selectable:true will enable user to select datetime slot
+									selectHelper will add helpers for selectable.
+								*/
+								selectable: true,
+								selectHelper: true,
+								/*
+									when user select timeslot this option code will execute.
+									It has three arguments. Start,end and allDay.
+									Start means starting time of event.
+									End means ending time of event.
+									allDay means if events is for entire day or not.
+								*/
+				
+								/*
+									editable: true allow user to edit events.
+								*/
+								editable: false,
+								/*
+									events is the main option for calendar.
+									for demo we have added predefined events in json object.
+								*/
+				
+								events: [
+									{
+										title: 'All Day Event',
+										start: new Date(y, m, 1)
+									},
+									{
+										title: 'Long Event',
+										start: new Date(y, m, d-5),
+										end: new Date(y, m, d-2)
+									},
+									{
+										id: 999,
+										title: 'Repeating Event',
+										start: new Date(y, m, d-3, 16, 0),
+										allDay: false
+									},
+									{
+										id: 999,
+										title: 'Repeating Event',
+										start: new Date(y, m, d+4, 16, 0),
+										allDay: false
+									},
+									{
+										title: 'Meeting',
+										start: new Date(y, m, d, 10, 30),
+										allDay: false
+									},
+									{
+										title: 'Lunch',
+										start: new Date(y, m, d, 12, 0),
+										end: new Date(y, m, d, 14, 0),
+										allDay: false
+									},
+									{
+										title: 'Birthday Party',
+										start: new Date(y, m, d+1, 19, 0),
+										end: new Date(y, m, d+1, 22, 30),
+										allDay: false
+									},
+									{
+										title: 'Click for Google',
+										start: new Date(y, m, 28),
+										end: new Date(y, m, 29),
+										url: 'http://google.com/'
+									},
+									{
+										title: 'PROBAA',
+										start: new Date(y, m, d),
+										end: new Date(y, m, d),
+										allDay: false
+									}
+								]
+							});
+							
+						});
+				
+					</script>
+
 					<div class="tab-panels"
 						style="height: 100%; background-color: #F3F3F4">
 
@@ -698,6 +838,22 @@
 
 							<button data-toggle="modal" data-target="#addNewStaff"
 								class="btn btn-primary btn-md" style="margin-top:10px">Add staff</button>
+								
+							<button data-toggle="modal" data-target="#showCalendarShifts"
+								class="btn btn-primary btn-md" style="margin-top:10px">Show shifts</button>
+								
+							
+							<div id="showCalendarShifts" class="modal fade" role="dialog">
+								<div class="modal-dialog" style="width: 610px">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Shifts</h4>
+										</div>
+										<div id='calendar'></div>
+									</div>
+								</div>
+							</div>
 
 							<!-- Listanje radnika -->
 							<c:if test="${fn:length(staffList) gt 0}">
@@ -817,7 +973,7 @@
 		</c:choose>
 	</div>
 	<!-- Mainly scripts -->
-	<script src="../springmvc/resources/js/jquery-2.1.1.js"></script>
+
 	<script src="../springmvc/resources/js/bootstrap.min.js"></script>
 	<script
 		src="../springmvc/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
