@@ -76,6 +76,7 @@
 				<beans:value>com.packtpub.springmvc.model.Restaurant</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Reservation</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Table_schedule</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Shift</beans:value>
 			</beans:list>
 		</beans:property>
 

@@ -4,13 +4,11 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.service.PersonService;
@@ -69,10 +66,18 @@ public class HomeController {
 		if (u.getRole().getRoleName().equalsIgnoreCase("Manager")){
 			Staff s = this.personService.getStaff(u.getEmail());
 			Restaurant restaurant = this.personService.getRestaurant(s.getRestaurant().getId());
+			Set<Shift> shiftsRest = restaurant.getShifts();
+			
+
 			
 			Set<Staff> temp = restaurant.getStaff();
 			List<Staff> staffList = new ArrayList<Staff>();
+			List<Shift> tempShift = new ArrayList<Shift>();
 			
+			for(Shift ss:shiftsRest){
+				System.out.println(ss.getId() + " "+ss.getShift_entry()+ " "+ss.getEnd_shift());
+				tempShift.add(ss);
+			}
 			for(Staff st: temp){
 				
 				if (st.getRole().getId()!=5){
@@ -81,7 +86,7 @@ public class HomeController {
 //				System.out.println(st.getFirstName());
 			}
 			model.addAttribute("staffList",staffList);
-			
+			model.addAttribute("restaurantShifts",tempShift);
 			model.addAttribute("restoran", restaurant);
 			model.addAttribute("menadzer",s);
 		}

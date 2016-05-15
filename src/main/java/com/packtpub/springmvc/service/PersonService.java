@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
@@ -52,4 +53,5 @@ public interface PersonService {
 
 	public boolean checkForFreeTables(String res_date, String res_from, String res_to);
 
+	public List<Shift> shiftList();
 }

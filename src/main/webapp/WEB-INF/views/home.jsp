@@ -842,7 +842,7 @@
 							<button data-toggle="modal" data-target="#showCalendarShifts"
 								class="btn btn-primary btn-md" style="margin-top:10px">Show shifts</button>
 								
-							
+							<!-- Kalendarski prikaz -->
 							<div id="showCalendarShifts" class="modal fade" role="dialog">
 								<div class="modal-dialog" style="width: 610px">
 									<div class="modal-content">
@@ -854,7 +854,19 @@
 									</div>
 								</div>
 							</div>
-
+							<!--  definisanje smena radnika -->
+							<div id="showCalendarShifts" class="modal fade" role="dialog">
+								<div class="modal-dialog" style="width: 610px">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Shifts</h4>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							
 							<!-- Listanje radnika -->
 							<c:if test="${fn:length(staffList) gt 0}">
 
@@ -874,7 +886,7 @@
 													<h3>
 														<strong>${staffs.firstName} ${staffs.lastName}</strong>
 													</h3>
-
+													
 													<address>
 														<strong>${staffs.role.roleName}</strong><br> <i
 															class="fa fa-envelope"></i> ${staffs.email} <br>
@@ -882,14 +894,55 @@
 														<abbr title="Phone"> </br> <i
 															class="fa fa-birthday-cake" aria-hidden="true"></i>
 														</abbr> ${staffs.birth_date } </br>
-														<button class="btn btn-primary btn-md"
-															style="background-color: #1D7AF5; border-color: #1D7AF5; position: absolute; right: 10px">Shifts</button>
+														<button class="btn btn-primary btn-md" id="radnik${staffs.id}"
+															style="background-color: #1D7AF5; border-color: #1D7AF5; position: absolute; right: 10px" data-toggle="modal" data-target="#createShift${staffs.id}">Shifts</button>
 													</address>
 												</div>
 												<div class="clearfix"></div>
 											</div>
 										</div>
 
+										<div id="createShift${staffs.id}" class="modal fade" role="dialog">
+											<div class="modal-dialog" style="width: 610px">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">Define shift for ${staffs.firstName} ${staffs.lastName}</h4>
+													</div>
+													<form action="addNewSta" method="POST">
+														<input class="form-control" name="shiftDate" type="date"
+															id="shiftDate" placeholder="date" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+														<c:if test="${staffs.role.roleName == 'Waiter'}">
+															<select class="form-control" id="reonNumber" name="reonNumber" required
+																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																value=1>
+																<option value="">Reon</option>
+																<c:forEach var="i" begin="1" end="${restoran.reon_num}">
+																	<option value="${i}">${i}</option>
+																</c:forEach>
+															</select>
+														</c:if>
+														
+														<select class="form-control" id="shiftId" name="shiftId" required
+																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																value=1>
+															<option value="">Shift</option>
+															<c:forEach var="shifts" items="${restaurantShifts}">
+																<option value="${shifts.id}">${shifts.shift_entry}</option>
+															</c:forEach>
+														</select>
+														
+														<div class="modal-footer" style="margin-top: 15px;">
+															<button type="submit" class="btn btn-success"
+																style="background: #1ab394">Save</button>
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
 									</c:forEach>
 								</div>
 							</c:if>

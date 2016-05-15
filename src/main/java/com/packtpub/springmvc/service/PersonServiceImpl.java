@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
+import com.packtpub.springmvc.dao.ShiftDAO;
 import com.packtpub.springmvc.dao.StaffDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
+import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
@@ -35,6 +37,8 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private RoleDAO roleDAO;
 
+	@Autowired
+	private ShiftDAO shiftDAO;
 	
 	@Override
 	@Transactional
@@ -172,4 +176,11 @@ public class PersonServiceImpl implements PersonService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	@Transactional
+	public List<Shift> shiftList() {
+		return this.shiftDAO.shiftList();
+	}
+	
 }

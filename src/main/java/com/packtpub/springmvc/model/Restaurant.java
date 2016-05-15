@@ -51,6 +51,9 @@ public class Restaurant {
 	private int reon_num;
 	
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	private Set<Shift> shifts;
+	
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
 	private Set<Staff> staff;
 	
 	@OneToMany(mappedBy="res_restaurant", cascade=CascadeType.ALL)
@@ -58,6 +61,14 @@ public class Restaurant {
 
 	
 	
+	public Set<Shift> getShifts() {
+		return shifts;
+	}
+
+	public void setShifts(Set<Shift> shifts) {
+		this.shifts = shifts;
+	}
+
 	public Set<Reservation> getReservations() {
 		return reservations;
 	}
