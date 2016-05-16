@@ -70,4 +70,11 @@ public class StaffDAOImpl implements StaffDAO {
 
 	}
 
+	@Override
+	public void refreshShift(Staff s) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(s);
+		
+	}
+
 }

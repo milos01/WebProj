@@ -59,8 +59,18 @@ public class Restaurant {
 	@OneToMany(mappedBy="res_restaurant", cascade=CascadeType.ALL)
 	private Set<Reservation> reservations;
 
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	private Set<Reon> reons;
 	
 	
+	public Set<Reon> getReons() {
+		return reons;
+	}
+
+	public void setReons(Set<Reon> reons) {
+		this.reons = reons;
+	}
+
 	public Set<Shift> getShifts() {
 		return shifts;
 	}

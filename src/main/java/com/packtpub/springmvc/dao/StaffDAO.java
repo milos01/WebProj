@@ -16,4 +16,6 @@ public interface StaffDAO {
 	
 	public void removeStaff(int id);
 	
+	public void refreshShift(Staff s);
+	
 }

@@ -1,7 +1,9 @@
 package com.packtpub.springmvc.model;
 
 import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -70,6 +74,24 @@ public class Staff {
 	@Column(name = "picture_path", columnDefinition = "varchar(15) default 'def.jpg'")
 	@NotBlank
 	private String picture;
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="Shift_schedule_staff",joinColumns=@JoinColumn(name="staff_id"),inverseJoinColumns=@JoinColumn(name="shift_schedule_id"))
+	private Set<Shift_schedule> shift_schedule;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="Staff_reon",joinColumns=@JoinColumn(name="staff_id"),inverseJoinColumns=@JoinColumn(name="reon_id"))
+	private Set<Reon> reons;
+	
+
+	public Set<Reon> getReons() {
+		return reons;
+	}
+
+	public void setReons(Set<Reon> reons) {
+		this.reons = reons;
+	}
 
 	public int getId() {
 		return id;
@@ -158,6 +180,15 @@ public class Staff {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public Set<Shift_schedule> getShift_schedule() {
+		return shift_schedule;
+	}
+
+	public void setShift_schedule(Set<Shift_schedule> shift_schedule) {
+		this.shift_schedule = shift_schedule;
+	}
+	
 	
 	
 }

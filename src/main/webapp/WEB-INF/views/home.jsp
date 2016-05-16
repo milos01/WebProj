@@ -909,30 +909,36 @@
 														<button type="button" class="close" data-dismiss="modal">&times;</button>
 														<h4 class="modal-title">Define shift for ${staffs.firstName} ${staffs.lastName}</h4>
 													</div>
-													<form action="addNewSta" method="POST">
-														<input class="form-control" name="shiftDate" type="date"
-															id="shiftDate" placeholder="date" required
+													<form action="newStaffShift" method="POST">
+														<input class="form-control" name="shift_date" type="date"
+															id="shift_date" placeholder="date" required
 															style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
-														<c:if test="${staffs.role.roleName == 'Waiter'}">
-															<select class="form-control" id="reonNumber" name="reonNumber" required
+														<c:choose>
+															<c:when test="${staffs.role.roleName == 'Waiter'}">
+																<select class="form-control" id="reonNumber" name="reonNumber"
 																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 																value=1>
-																<option value="">Reon</option>
-																<c:forEach var="i" begin="1" end="${restoran.reon_num}">
-																	<option value="${i}">${i}</option>
-																</c:forEach>
-															</select>
-														</c:if>
+																	<option value="">Reon</option>
+																	<c:forEach var="i" begin="1" end="${restoran.reon_num}">
+																		<option value="${i}">${i}</option>
+																	</c:forEach>
+																</select>
+															</c:when>
+															<c:otherwise>
+																<input type="hidden" name="reonNumber" value=" ">
+															</c:otherwise>
+														</c:choose>
 														
-														<select class="form-control" id="shiftId" name="shiftId" required
+														<select class="form-control" id="shift_entry" name="shift_entry" required
 																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 																value=1>
 															<option value="">Shift</option>
 															<c:forEach var="shifts" items="${restaurantShifts}">
-																<option value="${shifts.id}">${shifts.shift_entry}</option>
+																<option value="${shifts.shift_entry}">${shifts.shift_entry}</option>
 															</c:forEach>
 														</select>
-														
+														<input type="hidden" name="staffID" value="${staffs.email}">
+														<input type="hidden" name="restID" value="${staffs.restaurant.id}">
 														<div class="modal-footer" style="margin-top: 15px;">
 															<button type="submit" class="btn btn-success"
 																style="background: #1ab394">Save</button>

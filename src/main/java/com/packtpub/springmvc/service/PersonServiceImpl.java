@@ -12,9 +12,11 @@ import com.packtpub.springmvc.dao.RoleDAO;
 import com.packtpub.springmvc.dao.ShiftDAO;
 import com.packtpub.springmvc.dao.StaffDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
+import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
+import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
@@ -182,5 +184,19 @@ public class PersonServiceImpl implements PersonService {
 	public List<Shift> shiftList() {
 		return this.shiftDAO.shiftList();
 	}
-	
+
+	@Override
+	@Transactional
+	public void addNewStaffShift(Shift_schedule sc) {
+		this.shiftDAO.addNewShiftForStaff(sc);
+		
+	}
+
+	@Override
+	@Transactional
+	public void refreshShift(Staff s) {
+		this.staffDAO.refreshShift(s);
+		
+	}
+
 }
