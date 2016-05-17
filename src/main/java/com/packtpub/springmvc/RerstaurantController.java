@@ -3,6 +3,7 @@ package com.packtpub.springmvc;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Staff;
+import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.service.PersonService;
 
 @Controller
@@ -35,13 +38,28 @@ public class RerstaurantController {
 	}
 
 	@RequestMapping("/restaurant/{id}")
-	public String restaurantHome(@PathVariable(value = "id") final int id, RedirectAttributes redirectAttributes,Model model, HttpSession session) {
+	public String restaurantHome(@PathVariable(value = "id") final int id, RedirectAttributes redirectAttributes,Model model, HttpSession session ) {
 		if(null == session.getAttribute("logedUser")){
 			return "redirect:/";
 		}
 		redirectAttributes.addFlashAttribute("id", id);
 		Restaurant restaurant = this.personService.getRestaurant(id);
+		List<TableOne> tables = this.personService.allTables(id);
+		
+		
+		
+//		List<Table_schedule> checkedTables = personService.checkForFreeTables("", redirectAttributes, res_to, guestNum);
+//		List<Table_schedule> checkedTables = (List) request.getSession().getAttribute("checkedTables1");
+//		System.err.println(checkedTables);
+//		if (checkedTables != null) {
+//			model.addAttribute("checkedTables", checkedTables);
+////			for (Table_schedule table_schedule : ts) {
+////				System.err.println(table_schedule.getId());
+////			}
+//		}
+		
 		model.addAttribute("restaurant", restaurant);
+		model.addAttribute("tables", tables);
 		return "restaurant";
 
 	}

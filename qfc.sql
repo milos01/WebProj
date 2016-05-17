@@ -24,6 +24,7 @@ INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName
 UPDATE `questforchef`.`Staff` SET `con_num`='cc' WHERE `id`='2';
 INSERT INTO `questforchef`.`Friends` (`terminal_friend`, `starter_friend`) VALUES ('3', '1');
 INSERT INTO `questforchef`.`Friends` (`terminal_friend`, `starter_friend`) VALUES ('1', '3');
+
 INSERT INTO `questforchef`.`shift` (`shift_entry`, `start_shift`, `end_shift`, `restaurant_id`) VALUES ('First', '07:00:00', '14:00:00', '1');
 INSERT INTO `questforchef`.`shift` (`shift_entry`, `start_shift`, `end_shift`, `restaurant_id`) VALUES ('Second', '14:00:00', '22:00:00', '1');
 INSERT INTO `questforchef`.`shift` (`shift_entry`, `start_shift`, `end_shift`, `restaurant_id`) VALUES ('First', '08:00:00', '15:00:00', '2');
@@ -50,3 +51,12 @@ INSERT INTO `questforchef`.`reon` (`reon_num`, `restaurant_id`) VALUES ('1', '2'
 INSERT INTO `questforchef`.`reon` (`reon_num`, `restaurant_id`) VALUES ('2', '2');
 INSERT INTO `questforchef`.`reon` (`reon_num`, `restaurant_id`) VALUES ('3', '2');
 INSERT INTO `questforchef`.`reon` (`reon_num`, `restaurant_id`) VALUES ('4', '2');
+
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('3', '0', '2');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('5', '0', '2');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('2', '0', '3');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('4', '0', '3');
+INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '12', '14', '3');
+INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '15', '18', '2');
+INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '6', '8', '1');
+

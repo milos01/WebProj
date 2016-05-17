@@ -259,7 +259,10 @@
 										<div class="feed-activity-list">
 											<c:forEach var="restaurant" items="${restaurants}">
 												<div class="feed-element">
-													<div>
+													<div style="background:#f8f8f9; float:left;height:100px;width:100px;margin-right:10px">
+													 	<p style="text-align:center;margin-top:40px">[image]</p>
+													</div>
+													<div ">
 														<small class="pull-right">1m ago</small> <strong><a
 															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
 														<div>Lorem Ipsum is simply dummy text of the

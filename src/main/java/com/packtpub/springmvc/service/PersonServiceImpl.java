@@ -11,6 +11,7 @@ import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
 import com.packtpub.springmvc.dao.ShiftDAO;
 import com.packtpub.springmvc.dao.StaffDAO;
+import com.packtpub.springmvc.dao.Table_scheduleDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
@@ -18,6 +19,8 @@ import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
+import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -38,6 +41,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private RoleDAO roleDAO;
+	
+	@Autowired
+	private Table_scheduleDAO tableDAO;
 
 	@Autowired
 	private ShiftDAO shiftDAO;
@@ -174,9 +180,15 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public boolean checkForFreeTables(String res_date, String res_from, String res_to) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public List<Table_schedule> checkForFreeTables(String res_date, int res_from, int res_to, int peopleNum) {
+		return this.tableDAO.table_schedule_list(res_from, res_to, peopleNum);
+	}
+
+	@Override
+	@Transactional
+	public List<TableOne> allTables(int id) {
+		return this.tableDAO.allTables(id);
 	}
 
 	@Override

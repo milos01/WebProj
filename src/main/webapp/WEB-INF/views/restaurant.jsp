@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -304,12 +305,13 @@
 
 									<div class="ibox-content">
 										<div class="row">
-											<form action="${restaurant.id}/reserve" method="POST">
+											<form action="${restaurant.id}/check" method="POST">
 												<div class="col-md-4">
 													<div class="text-center">
 														<div class="m-r-md inline">
-															<input type="text" value="0" name="guestNum" class="dial m-r-sm"
-																data-fgColor="#1AB394" data-width="85" data-height="85" />
+															<input type="text" value="0" name="guestNum"
+																class="dial m-r-sm" data-fgColor="#1AB394"
+																data-width="85" data-height="85"/>
 														</div>
 													</div>
 												</div>
@@ -318,21 +320,23 @@
 
 													<p class="font-bold">Date:</p>
 
-													<input class="form-control" name = "res_date" type="date" value=""
-														name="demo1">
+													<input class="form-control" name="res_date" type="date"
+														value="" name="demo1">
 												</div>
 												<div class="col-md-2">
 													<p class="font-bold">From:</p>
-													<input class="touchspin1" name="res_from" type="text" value="55"
-														name="demo2">
+													<input class="touchspin1" name="res_from" type="text"
+														value="16" name="demo2">
 												</div>
 												<div class="col-md-2">
 
 													<p class="font-bold">To:</p>
-													<input class="touchspin1" name = "res_to" type="text" value="" name="demo3">
+													<input class="touchspin1" name="res_to" type="text"
+														value="17" name="demo3">
 												</div>
-												<div class="col-md-1" >
-													<button type="submit" class="btn btn-primary" style="margin-top:27px;">Chech</button>
+												<div class="col-md-1">
+													<button type="submit" class="btn btn-primary"
+														style="margin-top: 27px;">Chech</button>
 												</div>
 											</form>
 										</div>
@@ -341,11 +345,48 @@
 								</div>
 							</div>
 						</div>
+						<c:if test="${fn:length(checkedTables) lt 1}">
+							<c:forEach var="table" items="${tables}">
+								<div
+									style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+									<p style="text-align: center; margin-top: 40px;">${table.id}</p>
+								</div>
+							</c:forEach>
+						</c:if>
+						<c:forEach var="table" items="${tables}">
+							<c:forEach var="checked" items="${checkedTables}">
+								<c:choose>
+									<c:when test="${checked.table.restaurant_id == restaurant.id}">
+										<c:choose>
+											<c:when test="${table.id == checked.table.id}">
+												<div
+													style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+													<p style="text-align: center; margin-top: 40px">
+														<i>Unavailable</i>
+													</p>
+												</div>
+											</c:when>
+
+											<c:otherwise>
+												<div style="float: left; margin-right: 10px;z-index:-1">
+													<div class="">
+														<input type="text" value="${checked.table.guest_num}"
+															name="guestNum" class="dial m-r-sm"
+															data-fgColor="#1AB394" data-width="100" data-height="100" disabled/>
+														<button class="btn btn-primary" type="submit"
+															style="position:absolute;margin-left:10px;margin-top:-10px">Reserve</button>
+													</div>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						</c:forEach>
 					</div>
 
-					<c:forEach var="reservation" items="${restaurant.reservations}">
-						${reservation.user.firstName}
-					</c:forEach>
+
+
 				</c:when>
 			</c:choose>
 

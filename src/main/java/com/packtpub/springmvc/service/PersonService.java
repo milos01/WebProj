@@ -8,6 +8,8 @@ import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
+import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -53,7 +55,9 @@ public interface PersonService {
 	
 	public User findUserByName(String fname, String lname);
 
-	public boolean checkForFreeTables(String res_date, String res_from, String res_to);
+	public List<Table_schedule> checkForFreeTables(String res_date, int res_from, int res_to, int pn);
+	
+	public List<TableOne> allTables(int id);
 
 	public List<Shift> shiftList();
 	
