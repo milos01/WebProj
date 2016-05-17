@@ -165,6 +165,9 @@
 						<li><a data-toggle="modal"
 							data-target="#registerRestaurantModal"><i class="fa fa-plus"></i>
 								<span class="nav-label">Add restaurant</span></a></li>
+						<li><a data-toggle="modal"
+							data-target="#registerBidderModal"><i class="fa fa-plus"></i>
+								<span class="nav-label">Add bidder</span></a></li>
 					</c:when>
 				</c:choose>
 				<!-- Regular user side menu -->
@@ -462,6 +465,45 @@
 											style="background: #1ab394">Register</button>
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Close</button>
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+					
+					<!-- Modal for bidder registration -->
+					<div id="registerBidderModal" class="modal fade" role="dialog">
+						<div class="modal-dialog" style="width: 400px">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Register bidder</h4>
+								</div>
+								<form action="registerBidder" method="POST">
+									<input class="form-control" name="email" type="text" id="regEmail"
+										placeholder="Email"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+
+									<input class="form-control" type="text" id="firstName"
+										placeholder="First name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										name="firstName" /> 
+									<input class="form-control" name="lastName"
+										type="text" id="lastName" placeholder="Last name"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										ng-model="username_model" /> <input class="form-control"
+										type="password" id="regPassword" name="password"
+										placeholder="Password"
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+										ng-model="reg_password_model" />
+	
+									<div class="modal-footer" style="margin-top: 15px;">
+										<button type="submit" class="btn btn-success"
+											style="background: #1ab394">Register</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
 							</div>
