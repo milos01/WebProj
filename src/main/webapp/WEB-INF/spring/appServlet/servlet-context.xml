@@ -76,10 +76,12 @@
 				<beans:value>com.packtpub.springmvc.model.Restaurant</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Reservation</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Table_schedule</beans:value>
+
 				<beans:value>com.packtpub.springmvc.model.Shift</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Shift_schedule</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Reon</beans:value>
 
+				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
 				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
 
 			</beans:list>

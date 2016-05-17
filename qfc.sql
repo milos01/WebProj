@@ -59,4 +59,3 @@ INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`)
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '12', '14', '3');
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '15', '18', '2');
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '6', '8', '1');
-
