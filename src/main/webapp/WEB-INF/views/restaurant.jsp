@@ -311,7 +311,7 @@
 														<div class="m-r-md inline">
 															<input type="text" value="0" name="guestNum"
 																class="dial m-r-sm" data-fgColor="#1AB394"
-																data-width="85" data-height="85"/>
+																data-width="85" data-height="85" />
 														</div>
 													</div>
 												</div>
@@ -345,46 +345,63 @@
 								</div>
 							</div>
 						</div>
-						<c:if test="${fn:length(checkedTables) lt 1}">
+						<div class="row">
 							<c:forEach var="table" items="${tables}">
-								<div
-									style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
-									<p style="text-align: center; margin-top: 40px;">${table.id}</p>
-								</div>
-							</c:forEach>
-						</c:if>
-						<c:forEach var="table" items="${tables}">
-							<c:forEach var="checked" items="${checkedTables}">
-								<c:choose>
-									<c:when test="${checked.table.restaurant_id == restaurant.id}">
-										<c:choose>
-											<c:when test="${table.id == checked.table.id}">
-												<div
-													style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
-													<p style="text-align: center; margin-top: 40px">
-														<i>Unavailable</i>
-													</p>
-												</div>
-											</c:when>
+								<%
+									int check = 0;
+												pageContext.setAttribute("check", check);
+								%>
+								<%
+									int eql = 0;
+												pageContext.setAttribute("eql", eql);
+								%>
 
-											<c:otherwise>
-												<div style="float: left; margin-right: 10px;z-index:-1">
-													<div class="">
-														<input type="text" value="${checked.table.guest_num}"
-															name="guestNum" class="dial m-r-sm"
-															data-fgColor="#1AB394" data-width="100" data-height="100" disabled/>
-														<button class="btn btn-primary" type="submit"
-															style="position:absolute;margin-left:10px;margin-top:-10px">Reserve</button>
-													</div>
-												</div>
-											</c:otherwise>
-										</c:choose>
+								<c:forEach var="checked" items="${checkedTables}">
+									<c:choose>
+										<c:when test="${checked.table.restaurant_id == restaurant.id}">
+
+											<c:choose>
+												<c:when test="${table.id == checked.table.id}">
+													<%
+														check = 1;
+																						pageContext.setAttribute("check", check);
+													%>
+													<%
+														eql = 1;
+																						pageContext.setAttribute("eql", eql);
+													%>
+
+												</c:when>
+											</c:choose>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${eql == 1}">
+										<div
+											style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+											<p style="text-align: center; margin-top: 40px">
+												<i>Unavailable</i>
+											</p>
+										</div>
+
 									</c:when>
+									<c:otherwise>
+									<div style="float: left; margin-right: 10px; z-index: -1">
+											<div class="">
+												<input type="text" value="${table.guest_num}"
+													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
+													data-width="100" data-height="100" disabled />
+												<button class="btn btn-primary" type="submit"
+													style="position: absolute; margin-left: 10px; margin-top: -10px">Reserve</button>
+											</div>
+										</div>
+										
+									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</c:forEach>
+						</div>
 					</div>
-
 
 
 				</c:when>

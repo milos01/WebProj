@@ -24,7 +24,7 @@ private SessionFactory sessionFactory;
 	public List<Table_schedule> table_schedule_list(int from, int to, int pepleNum) {
 		System.err.println(pepleNum);
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM Table_schedule ts WHERE ((ts.reserved_from >:string_from and ts.reserved_from <:string_to) or (ts.reserved_to >:string_from and ts.reserved_to <:string_to)) or (ts.reserved_from <:string_from and ts.reserved_to >:string_to)");
+		Query query1 =  session.createQuery("FROM Table_schedule ts WHERE ((ts.reserved_from >:string_from and ts.reserved_from <:string_to) or (ts.reserved_to >:string_from and ts.reserved_to <:string_to)) or (ts.reserved_from <:string_from and ts.reserved_to >:string_to) ORDER BY ts.table.id ASC");
 		query1.setParameter("string_from", from);
 		query1.setParameter("string_to", to);
 		List<Table_schedule> tables = query1.list();
