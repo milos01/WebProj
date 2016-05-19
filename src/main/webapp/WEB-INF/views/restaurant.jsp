@@ -355,6 +355,14 @@
 									int eql = 0;
 												pageContext.setAttribute("eql", eql);
 								%>
+								<%
+									int timeFrom = 0;
+												pageContext.setAttribute("timeFrom", timeFrom);
+								%>
+								<%
+									int timeTo = 0;
+												pageContext.setAttribute("timeTo", timeTo);
+								%>
 
 								<c:forEach var="checked" items="${checkedTables}">
 									<c:choose>
@@ -370,6 +378,14 @@
 														eql = 1;
 																						pageContext.setAttribute("eql", eql);
 													%>
+													<c:set var="from" value="${checked.reserved_from}" />
+													<c:set var="to" value="${checked.reserved_to}" />
+													<%
+														int timeFrom1 = (Integer) pageContext.getAttribute("from");
+																						int timeTo1 = (Integer) pageContext.getAttribute("to");
+																						pageContext.setAttribute("timeFrom1", timeFrom1);
+																						pageContext.setAttribute("timeTo1", timeTo1);
+													%>
 
 												</c:when>
 											</c:choose>
@@ -381,24 +397,75 @@
 										<div
 											style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
 											<p style="text-align: center; margin-top: 40px">
-												<i>Unavailable</i>
+												<i>Unavailable</i> <i><p
+														style="text-align: center; color: red; margin-top: -10px">${timeFrom1}h
+														- ${timeTo1}h</p></i>
 											</p>
 										</div>
 
 									</c:when>
 									<c:otherwise>
-									<div style="float: left; margin-right: 10px; z-index: -1">
+										<div style="float: left; margin-right: 10px; z-index: -1">
 											<div class="">
 												<input type="text" value="${table.guest_num}"
 													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
 													data-width="100" data-height="100" disabled />
-												<button class="btn btn-primary" type="submit"
-													style="position: absolute; margin-left: 10px; margin-top: -10px">Reserve</button>
+												<button class="btn btn-primary resButtons" type="submit"
+													style="position: absolute; margin-left: 10px; margin-top: -10px"
+													id="reserveButton${table.id}">Reserve</button>
 											</div>
 										</div>
-										
+
 									</c:otherwise>
 								</c:choose>
+								<!-- Reservating dialog -->
+								<div
+									style="position: absolute; top: 7%; left: 50%; display: none"
+									id="reserve${table.id}" class="reserveDiv">
+									<div
+										style="position: relative; left: -50%; border:solid #e7eaec 1px; width: 690px; height: 500px; background-color: #fff;box-shadow: 0px 2px 2px #ccc;">
+										<div class="wrapper wrapper-content animated fadeIn">
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="tabs-container">
+														<ul class="nav nav-tabs">
+															<li class="active"><a data-toggle="tab"
+																href="#tab-3"> <i class="fa fa-clock-o"></i></a></li>
+															<li class=""><a data-toggle="tab" href="#tab-4"><i
+																	class="fa fa-user-plus"></i></a></li>
+															<li class=""><a data-toggle="tab" href="#tab-5"><i
+																	class="fa fa-share"></i></a></li>
+														</ul>
+														<div class="tab-content">
+															<div id="tab-3" class="tab-pane active" >
+																<div class="panel-body" style="height:435px">
+																	<strong>Lorem ipsum dolor sit amet,
+																		consectetuer adipiscing</strong>
+																	<p>${table.id}</p>
+																</div>
+															</div>
+															<div id="tab-4" class="tab-pane">
+																<div class="panel-body">
+																	<strong>Donec quam felis</strong>
+
+																	<p>${table.id}</p>
+																</div>
+															</div>
+															<div id="tab-5" class="tab-pane">
+																<div class="panel-body">
+																	<strong>Donec quam felis</strong>
+
+																	<p>${table.id}</p>
+
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</c:forEach>
 						</div>
 					</div>
@@ -466,9 +533,10 @@
 	<script
 		src="../resources/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
 	<!-- TouchSpin -->
+	<script src="../resources/js/app.js"></script>
+
 	<script
 		src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
 	<script type="text/javascript">
 		$(".dial").knob();
 

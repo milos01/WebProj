@@ -1,7 +1,7 @@
-var myApp = angular.module('App',[]);
-myApp.controller('addFriendController', ['$scope','$http', function($scope, $http) {
-
-}]);
+//var myApp = angular.module('App',[]);
+//myApp.controller('addFriendController', ['$scope','$http', function($scope, $http) {
+//
+//}]);
 
 $("#friendsSearch").keyup(function(){
     var friendsSearch = $(this).val();
@@ -22,4 +22,12 @@ if ($("#errorAlert").is(":visible")) {
 
 $("#tokenButton").click(function(){
 	$("#expiredToken").fadeOut("fast");
+});
+
+$(".resButtons").click(function(){
+	$(".reserveDiv").hide();
+	buttonTextId = $(this).attr("id");
+	buttonIdNumber = buttonTextId.replace ( /[^\d]/g, '' );
+	$("#reserve"+buttonIdNumber).show();
+
 });
