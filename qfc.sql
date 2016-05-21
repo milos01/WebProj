@@ -39,7 +39,7 @@ INSERT INTO `questforchef`.`Shift_schedule` (`shift_date`, `shift_entry`) VALUES
 INSERT INTO `questforchef`.`Shift_schedule` (`shift_date`, `shift_entry`) VALUES ('2016-05-26', 'First');
 INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('3', '5');
 INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('5', '1');
-INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('3', '2');
+INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('3', '4');
 INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('5', '3');
 INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('4', '4');
 INSERT INTO `questforchef`.`Shift_schedule_staff` (`staff_id`, `shift_schedule_id`) VALUES ('5', '6');

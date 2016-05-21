@@ -38,9 +38,10 @@
 	font-size: 24px;
 }
 #calendar{
-	width: 600px;
-	
+	width: 720px;
+	display: block;
 	z-index: 100000;
+	visibility: visible;
 
 }
 </style>
@@ -585,7 +586,7 @@
 								Because doing so we can use it inside other function.
 								In order to modify its option later.
 							*/
-							
+					
 							var calendar = $('#calendar').fullCalendar(
 							{
 								/*
@@ -627,59 +628,11 @@
 									events is the main option for calendar.
 									for demo we have added predefined events in json object.
 								*/
-				
-								events: [
-									{
-										title: 'All Day Event',
-										start: new Date(y, m, 1)
-									},
-									{
-										title: 'Long Event',
-										start: new Date(y, m, d-5),
-										end: new Date(y, m, d-2)
-									},
-									{
-										id: 999,
-										title: 'Repeating Event',
-										start: new Date(y, m, d-3, 16, 0),
-										allDay: false
-									},
-									{
-										id: 999,
-										title: 'Repeating Event',
-										start: new Date(y, m, d+4, 16, 0),
-										allDay: false
-									},
-									{
-										title: 'Meeting',
-										start: new Date(y, m, d, 10, 30),
-										allDay: false
-									},
-									{
-										title: 'Lunch',
-										start: new Date(y, m, d, 12, 0),
-										end: new Date(y, m, d, 14, 0),
-										allDay: false
-									},
-									{
-										title: 'Birthday Party',
-										start: new Date(y, m, d+1, 19, 0),
-										end: new Date(y, m, d+1, 22, 30),
-										allDay: false
-									},
-									{
-										title: 'Click for Google',
-										start: new Date(y, m, 28),
-										end: new Date(y, m, 29),
-										url: 'http://google.com/'
-									},
-									{
-										title: 'PROBAA',
-										start: new Date(y, m, d),
-										end: new Date(y, m, d),
-										allDay: false
-									}
-								]
+								
+								events: {
+									url: "getShiftss/json",
+									type: 'GET'
+								}				
 							});
 							
 						});
@@ -889,7 +842,7 @@
 								
 							<!-- Kalendarski prikaz -->
 							<div id="showCalendarShifts" class="modal fade" role="dialog">
-								<div class="modal-dialog" style="width: 610px">
+								<div class="modal-dialog" style="width: 725px">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -899,6 +852,11 @@
 									</div>
 								</div>
 							</div>
+							<script type="text/javascript">
+								$('#showCalendarShifts').on('shown.bs.modal', function () {
+									   $("#calendar").fullCalendar('render');
+									});
+							</script>
 							<!--  definisanje smena radnika -->
 							<div id="showCalendarShifts" class="modal fade" role="dialog">
 								<div class="modal-dialog" style="width: 610px">

@@ -59,7 +59,7 @@
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/questforchef" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="andric01" />
+		<beans:property name="password" value="" />
 	</beans:bean>
 	
 	<!-- Hibernate 4 SessionFactory Bean definition -->
@@ -82,8 +82,6 @@
 				<beans:value>com.packtpub.springmvc.model.Reon</beans:value>
 
 				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
-				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
-
 			</beans:list>
 		</beans:property>
 
@@ -93,7 +91,7 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
-				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>-->
+				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop> -->
 			</beans:props>
 		</beans:property>
 	</beans:bean>

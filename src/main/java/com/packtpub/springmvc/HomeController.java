@@ -4,13 +4,13 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.packtpub.springmvc.model.CalendarJSONShow;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -164,6 +166,13 @@ public class HomeController {
 		java.util.Date parsed = format.parse(date);
 		Date sql = new Date(parsed.getTime());
 		return sql;
+	}
+	
+	public CalendarJSONShow getJSONFormat(Shift_schedule smena){
+		CalendarJSONShow cs = new CalendarJSONShow();
+		cs.setTitle(smena.getShift_entry());
+		cs.setStart(smena.getShift_date());
+		return cs;
 	}
 
 }
