@@ -1,0 +1,23 @@
+{
+  "name": "questforchef",
+  "version": "1.0.0",
+  "description": "App for restaurant reservation",
+  "main": "erver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrsisa2016/tim06.git"
+  },
+  "author": "Milos Andric",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrsisa2016/tim06/issues"
+  },
+  "homepage": "https://github.com/mrsisa2016/tim06#readme",
+  "dependencies": {
+  	"socket.io": "*",
+  	"express": "*"
+  }
+}

@@ -406,13 +406,12 @@
 									</c:when>
 									<c:otherwise>
 										<div style="float: left; margin-right: 10px; z-index: -1">
-											<div class="">
+											<div class="" style="width: 102px;">
 												<input type="text" value="${table.guest_num}"
 													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
 													data-width="100" data-height="100" disabled />
 												<button class="btn btn-primary resButtons" type="submit"
-													style="position: absolute; margin-left: 10px; margin-top: -10px"
-													id="reserveButton${table.id}">Reserve</button>
+													style="margin-top: 5px;" id="reserveButton${table.id}">Reserve</button>
 											</div>
 										</div>
 
@@ -422,9 +421,11 @@
 								<div
 									style="position: absolute; top: 7%; left: 50%; display: none"
 									id="reserve${table.id}" class="reserveDiv">
+									
 									<div
-										style="position: relative; left: -50%; border:solid #e7eaec 1px; width: 690px; height: 500px; background-color: #fff;box-shadow: 0px 2px 2px #ccc;">
-										<div class="wrapper wrapper-content animated fadeIn">
+										style="position: relative; left: -50%; border: solid #e7eaec 1px; width: 690px; height: 505px; background-color: #fff; box-shadow: 0px 2px 2px #ccc;">
+										
+										<div class="wrapper wrapper-content animated fadeIn" style="margin-top:1px">
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="tabs-container">
@@ -435,10 +436,11 @@
 																	class="fa fa-user-plus"></i></a></li>
 															<li class=""><a data-toggle="tab" href="#tab-5"><i
 																	class="fa fa-share"></i></a></li>
+															<button class="close closeButt" id="closeButton${table.id}" type="button" data-dismiss="modal" style="margin-right:5px;margin-top:4px">&times;</button>
 														</ul>
 														<div class="tab-content">
-															<div id="tab-3" class="tab-pane active" >
-																<div class="panel-body" style="height:435px">
+															<div id="tab-3" class="tab-pane active">
+																<div class="panel-body" style="height: 435px">
 																	<strong>Lorem ipsum dolor sit amet,
 																		consectetuer adipiscing</strong>
 																	<p>${table.id}</p>
@@ -507,7 +509,7 @@
 	<script src="../resources/js/plugins/pace/pace.min.js"></script>
 
 	<!-- jQuery UI -->
-	<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/resources/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
 	<!-- Jvectormap -->
 	<script
@@ -537,6 +539,8 @@
 
 	<script
 		src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+	<!-- Socket.IO -->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script type="text/javascript">
 		$(".dial").knob();
 
@@ -552,9 +556,6 @@
 		var callback = function(rating) {
 			alert(rating);
 		};
-
-		// rating instance
-		var myRating = rating(el, currentRating, maxRating, callback);
 	</script>
 	<!-- Promena centralnog diva -->
 	<script type="text/javascript">
@@ -576,7 +577,7 @@
 			$("#example_id").click(function() {
 				alert("aa");
 			});
-
+			
 			$('.promeniCent').on('click', function() {
 
 				$('.promeniCent.active').removeClass('active');
@@ -596,7 +597,39 @@
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			socket = io.connect('http://localhost:3000');
 
+			$('.resButtons').click(function() {
+				buttonTextId = $(this).attr("id");
+				buttonIdNumber = buttonTextId.replace(/[^\d]/g, '');
+				socket.emit('reserve', buttonIdNumber);
+			});
+
+			socket.on('reserveTable', function(data) {
+				$('#reserveButton' + data.id).html("Watching");
+				$('#reserveButton' + data.id).css("background-color", "#ccc");
+				$('#reserveButton' + data.id).css("color", "black");
+				$('#reserveButton' + data.id).css("border", "1px solid gray");
+
+			});
+			
+			$(".closeButt").click(function(){
+				$(".reserveDiv").hide();
+				closeTextId = $(this).attr("id");
+				closeIdNumber = closeTextId.replace(/[^\d]/g, '');
+				socket.emit('closeReserve', closeIdNumber);
+			});
+			
+			socket.on('closeReserveTable', function(data){
+				$('#reserveButton' + data.id).html("Reserve");
+				$('#reserveButton' + data.id).css("background-color", "#1ab394");
+				$('#reserveButton' + data.id).css("color", "#fff");
+				$('#reserveButton' + data.id).css("border", "1px solid #1ab394");
+			});
+		});
+	</script>
 	<script>
 		$(document)
 				.ready(

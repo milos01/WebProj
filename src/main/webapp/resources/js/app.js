@@ -31,3 +31,6 @@ $(".resButtons").click(function(){
 	$("#reserve"+buttonIdNumber).show();
 
 });
+
+
+

@@ -1084,11 +1084,17 @@
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
+	<!-- Socket.IO -->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	
 
 	<!-- Promena centralnog diva -->
 	<script type="text/javascript">
 		$(function() {
-
+			//Socket connection
+			
+			
+			//End socket connection
 			$('.promeniCent').on('click', function() {
 
 				$('.promeniCent.active').removeClass('active');
