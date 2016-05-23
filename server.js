@@ -20,10 +20,14 @@ io.sockets.on('connection', function(socket){
 	
 	socket.on('reserve', function(data){
 		console.log(data);
-		io.sockets.emit('reserveTable',{id:data});
+		socket.broadcast.emit('reserveTable',{id:data});
 	});
 	
 	socket.on('closeReserve', function(data){
-		io.sockets.emit('closeReserveTable',{id:data});
+		socket.broadcast.emit('closeReserveTable',{id:data});
 	})
+	
+	socket.on('closeReserveAll', function(){
+		socket.broadcast.emit('closeReserveTableAll');
+	});
 });

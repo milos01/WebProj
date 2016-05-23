@@ -1086,6 +1086,9 @@
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
 	<!-- Socket.IO -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
 	
 
 	<!-- Promena centralnog diva -->
@@ -1112,9 +1115,7 @@
 		});
 	</script>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+
 
 	<script>
 		$(document)

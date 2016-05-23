@@ -326,17 +326,17 @@
 												<div class="col-md-2">
 													<p class="font-bold">From:</p>
 													<input class="touchspin1" name="res_from" type="text"
-														value="16" name="demo2">
+														value="16" name="demo2" id="typedFrom">
 												</div>
 												<div class="col-md-2">
 
 													<p class="font-bold">To:</p>
 													<input class="touchspin1" name="res_to" type="text"
-														value="17" name="demo3">
+														value="17" name="demo3" id="typedTo">
 												</div>
 												<div class="col-md-1">
 													<button type="submit" class="btn btn-primary"
-														style="margin-top: 27px;">Chech</button>
+														style="margin-top: 27px;"check">Check</button>
 												</div>
 											</form>
 										</div>
@@ -411,54 +411,61 @@
 													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
 													data-width="100" data-height="100" disabled />
 												<button class="btn btn-primary resButtons" type="submit"
-													style="margin-top: 5px;" id="reserveButton${table.id}">Reserve</button>
+													style="margin-top: 5px;" id="reserveButton${table.id}"
+													data-toggle="modal" data-target="#reserve${table.id}">Reserve</button>
 											</div>
 										</div>
 
 									</c:otherwise>
 								</c:choose>
 								<!-- Reservating dialog -->
-								<div
-									style="position: absolute; top: 7%; left: 50%; display: none"
-									id="reserve${table.id}" class="reserveDiv">
-									
-									<div
-										style="position: relative; left: -50%; border: solid #e7eaec 1px; width: 690px; height: 505px; background-color: #fff; box-shadow: 0px 2px 2px #ccc;">
-										
-										<div class="wrapper wrapper-content animated fadeIn" style="margin-top:1px">
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="tabs-container">
-														<ul class="nav nav-tabs">
-															<li class="active"><a data-toggle="tab"
-																href="#tab-3"> <i class="fa fa-clock-o"></i></a></li>
-															<li class=""><a data-toggle="tab" href="#tab-4"><i
-																	class="fa fa-user-plus"></i></a></li>
-															<li class=""><a data-toggle="tab" href="#tab-5"><i
-																	class="fa fa-share"></i></a></li>
-															<button class="close closeButt" id="closeButton${table.id}" type="button" data-dismiss="modal" style="margin-right:5px;margin-top:4px">&times;</button>
-														</ul>
-														<div class="tab-content">
-															<div id="tab-3" class="tab-pane active">
-																<div class="panel-body" style="height: 435px">
-																	<strong>Lorem ipsum dolor sit amet,
-																		consectetuer adipiscing</strong>
-																	<p>${table.id}</p>
+								<div class="modal fade" role="dialog" id="reserve${table.id}"
+									class="reserveDiv"">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header" style="">
+												<button type="button" class="close closeButt"
+													id="closeButton${table.id}" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Staff list</h4>
+											</div>
+
+											<div class="wrapper wrapper-content animated fadeIn">
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="tabs-container">
+															<ul class="nav nav-tabs">
+																<li class="active"><a data-toggle="tab"
+																	href="#tab-3${table.id}"> <i class="fa fa-clock-o"></i></a></li>
+																<li class=""><a data-toggle="tab"
+																	href="#tab-4${table.id}"><i class="fa fa-desktop"></i></a></li>
+																<li class=""><a data-toggle="tab"
+																	href="#tab-5${table.id}"><i class="fa fa-database"></i></a></li>
+															</ul>
+															<div class="tab-content">
+																<div id="tab-3${table.id}" class="tab-pane active">
+																	<div class="panel-body">
+																		<div class="col-md-6">
+																			<p class="font-bold">From:</p>
+																			<input class="touchspin1" name="res_from" type="text"
+																				value="16" name="demo2" id="fromInput${table.id}">
+																		</div>
+																		<div class="col-md-6">
+
+																			<p class="font-bold">To:</p>
+																			<input class="touchspin1" name="res_to" type="text"
+																				value="17" name="demo3" id="toInput${table.id}">
+																		</div>
+																	</div>
 																</div>
-															</div>
-															<div id="tab-4" class="tab-pane">
-																<div class="panel-body">
-																	<strong>Donec quam felis</strong>
-
-																	<p>${table.id}</p>
+																<div id="tab-4${table.id}" class="tab-pane">
+																	<div class="panel-body">
+																		<strong>Donec quam felis</strong> ${table.id} b
+																	</div>
 																</div>
-															</div>
-															<div id="tab-5" class="tab-pane">
-																<div class="panel-body">
-																	<strong>Donec quam felis</strong>
-
-																	<p>${table.id}</p>
-
+																<div id="tab-5${table.id}" class="tab-pane">
+																	<div class="panel-body">
+																		<strong>Donec quam felis</strong> ${table.id} c
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -468,6 +475,7 @@
 										</div>
 									</div>
 								</div>
+
 							</c:forEach>
 						</div>
 					</div>
@@ -534,13 +542,15 @@
 	<!-- IonRangeSlider -->
 	<script
 		src="../resources/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-	<!-- TouchSpin -->
-	<script src="../resources/js/app.js"></script>
+
 
 	<script
 		src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 	<!-- Socket.IO -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<!-- TouchSpin -->
+	<script src="../resources/js/app.js"></script>
+
 	<script type="text/javascript">
 		$(".dial").knob();
 
@@ -577,7 +587,7 @@
 			$("#example_id").click(function() {
 				alert("aa");
 			});
-			
+
 			$('.promeniCent').on('click', function() {
 
 				$('.promeniCent.active').removeClass('active');
@@ -598,37 +608,7 @@
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
 	<script type="text/javascript">
-		$(function() {
-			socket = io.connect('http://localhost:3000');
-
-			$('.resButtons').click(function() {
-				buttonTextId = $(this).attr("id");
-				buttonIdNumber = buttonTextId.replace(/[^\d]/g, '');
-				socket.emit('reserve', buttonIdNumber);
-			});
-
-			socket.on('reserveTable', function(data) {
-				$('#reserveButton' + data.id).html("Watching");
-				$('#reserveButton' + data.id).css("background-color", "#ccc");
-				$('#reserveButton' + data.id).css("color", "black");
-				$('#reserveButton' + data.id).css("border", "1px solid gray");
-
-			});
-			
-			$(".closeButt").click(function(){
-				$(".reserveDiv").hide();
-				closeTextId = $(this).attr("id");
-				closeIdNumber = closeTextId.replace(/[^\d]/g, '');
-				socket.emit('closeReserve', closeIdNumber);
-			});
-			
-			socket.on('closeReserveTable', function(data){
-				$('#reserveButton' + data.id).html("Reserve");
-				$('#reserveButton' + data.id).css("background-color", "#1ab394");
-				$('#reserveButton' + data.id).css("color", "#fff");
-				$('#reserveButton' + data.id).css("border", "1px solid #1ab394");
-			});
-		});
+		
 	</script>
 	<script>
 		$(document)

@@ -2,6 +2,52 @@
 //myApp.controller('addFriendController', ['$scope','$http', function($scope, $http) {
 //
 //}]);
+window.onbeforeunload = function() {
+	var fromNum = $("#typedFrom").val();
+	var toNum = $("#typedTo").val();
+	
+	localStorage.setItem("fromValue", fromNum);
+	localStorage.setItem("toValue", toNum);
+}
+$(function(){
+	var r = localStorage.getItem("fromValue");
+	var r2 = localStorage.getItem("toValue");
+	
+	$("#typedFrom").val(r);
+	$("#typedTo").val(r2);
+	socket = io.connect('http://localhost:3000');
+
+	$('.resButtons').click(function() {
+		buttonTextId = $(this).attr("id");
+		buttonIdNumber = buttonTextId.replace(/[^\d]/g, '');
+		socket.emit('reserve', buttonIdNumber);
+	});
+
+	socket.on('reserveTable', function(data) {
+		$('#reserveButton' + data.id).html("Watching");
+		$('#reserveButton' + data.id).css("background-color", "#ccc");
+		$('#reserveButton' + data.id).css("color", "black");
+		$('#reserveButton' + data.id).css("border", "1px solid gray");
+
+	});
+	
+	$(".closeButt").click(function(){
+		$(".reserveDiv").hide();
+		closeTextId = $(this).attr("id");
+		closeIdNumber = closeTextId.replace(/[^\d]/g, '');
+		socket.emit('closeReserve', closeIdNumber);
+	});
+	
+	socket.on('closeReserveTable', function(data){
+		$('#reserveButton' + data.id).html("Reserve");
+		$('#reserveButton' + data.id).css("background-color", "#1ab394");
+		$('#reserveButton' + data.id).css("color", "#fff");
+		$('#reserveButton' + data.id).css("border", "1px solid #1ab394");
+	});
+	
+	
+});
+
 
 $("#friendsSearch").keyup(function(){
     var friendsSearch = $(this).val();
@@ -26,9 +72,16 @@ $("#tokenButton").click(function(){
 
 $(".resButtons").click(function(){
 	$(".reserveDiv").hide();
+	
 	buttonTextId = $(this).attr("id");
 	buttonIdNumber = buttonTextId.replace ( /[^\d]/g, '' );
 	$("#reserve"+buttonIdNumber).show();
+	
+	var r = localStorage.getItem("fromValue");
+	var r2 = localStorage.getItem("toValue");
+	
+	$("#fromInput"+buttonIdNumber).val(r);
+	$("#toInput"+buttonIdNumber).val(r2);
 
 });
 
