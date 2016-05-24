@@ -2,22 +2,20 @@ package com.packtpub.springmvc.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "Main_course")
-public class MainCourse {
+@Table(name = "NonAlcoholic_drink")
+public class NonAlcoholicDrink {
+
 
 	@Id
 	@Column(name = "id")
@@ -28,12 +26,14 @@ public class MainCourse {
 	
 	private int price;
 	
+	private String quantity;
+	
 	@Column(name = "picture_path")
 	@NotBlank
 	private String picture;
 	
-	@ManyToMany(mappedBy="mainCourse")
-	private Set<Menu> menu;
+	@ManyToMany(mappedBy="nonAlcoholicDrink")
+	private Set<VineCard> vineCard;
 
 	public int getId() {
 		return id;
@@ -59,6 +59,14 @@ public class MainCourse {
 		this.price = price;
 	}
 
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getPicture() {
 		return picture;
 	}
@@ -67,12 +75,12 @@ public class MainCourse {
 		this.picture = picture;
 	}
 
-	public Set<Menu> getMenu() {
-		return menu;
+	public Set<VineCard> getVineCard() {
+		return vineCard;
 	}
 
-	public void setMenu(Set<Menu> menu) {
-		this.menu = menu;
+	public void setVineCard(Set<VineCard> vineCard) {
+		this.vineCard = vineCard;
 	}
 	
 	

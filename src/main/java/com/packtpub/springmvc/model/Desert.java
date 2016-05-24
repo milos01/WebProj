@@ -32,8 +32,7 @@ public class Desert {
 	@NotBlank
 	private String picture;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="desert_menu",joinColumns=@JoinColumn(name="desert_id"),inverseJoinColumns=@JoinColumn(name="menu_id"))
+	@ManyToMany(mappedBy="desert")
 	private Set<Menu> menu;
 	
 	public int getId() {

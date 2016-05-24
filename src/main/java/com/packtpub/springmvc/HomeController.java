@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.CalendarJSONShow;
 import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.Drink;
 import com.packtpub.springmvc.model.Food;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
+import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -35,6 +38,7 @@ import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.model.VineCard;
 import com.packtpub.springmvc.service.PersonService;
 
 /**
@@ -84,6 +88,8 @@ public class HomeController {
 			Set<MainCourse> a = restaurant.getMenu().getMainCourse();
 			Set<Desert> dd = restaurant.getMenu().getDesert();
 			Set<Appetizer> ap = restaurant.getMenu().getAppetizer();
+			Set<AlcoholicDrink> ad = restaurant.getVineCard().getAlcoholicDrink();
+			Set<NonAlcoholicDrink> nad = restaurant.getVineCard().getNonAlcoholicDrink();
 			for (Shift ss : shiftsRest) {
 				System.out.println(ss.getId() + " " + ss.getShift_entry() + " " + ss.getEnd_shift());
 				tempShift.add(ss);
@@ -95,6 +101,8 @@ public class HomeController {
 				}
 				// System.out.println(st.getFirstName());
 			}
+			model.addAttribute("alchDrink",ad);
+			model.addAttribute("NonalchDrink",nad);
 			model.addAttribute("MainCours",a);
 			model.addAttribute("desert",dd);
 			model.addAttribute("appetizer",ap);
@@ -149,8 +157,10 @@ public class HomeController {
 		this.personService.addNewStaffShift(sc);
 		stf.getShift_schedule().add(sc);
 		
+		
 		if (reonNumb.equals(" ")) {
 			System.out.println("YES");
+			this.personService.refreshShift(stf);
 			return "redirect:/home";
 		} else {
 			int brojReona = Integer.parseInt(reonNumb);
@@ -164,22 +174,27 @@ public class HomeController {
 			}
 			System.out.println(ren.toString());
 			stf.getReons().add(ren);
+			this.personService.refreshShift(stf);
 		}
-		this.personService.refreshShift(stf);
+		
 		return "redirect:/home";
 	}
 	
 	@RequestMapping(value = "/newDish", method = RequestMethod.POST)
 	public String addNewFood(@ModelAttribute("food") Food rest,@RequestParam("restID") String restID){
-		Menu m = this.personService.getMenu(Integer.parseInt(restID));
+		Restaurant r =this.personService.getRestaurant(Integer.parseInt(restID));
+		Menu m = r.getMenu();
 		
 		if (rest.getType().equals("Appetizer")){
 			Appetizer a = new Appetizer();
 			a.setName(rest.getName());
 			a.setPrice(rest.getPrice());
 			a.setPicture(rest.getPicture());
+			System.out.println(a.getName() + " "+ a.getPicture()+" "+a.getPrice()+ " *********");
 			this.personService.addAppetizer(a);
+			System.out.println(a.getName() + " "+ a.getPicture()+" "+a.getPrice());
 			m.getAppetizer().add(a);
+			this.personService.updateMenu(m);
 		}
 		else if(rest.getType().equals("Desert")){
 			Desert a = new Desert();
@@ -188,6 +203,7 @@ public class HomeController {
 			a.setPicture(rest.getPicture());
 			this.personService.addDesert(a);
 			m.getDesert().add(a);
+			this.personService.updateMenu(m);
 		}
 		else if(rest.getType().equals("MainCourse")){
 			MainCourse a = new MainCourse();
@@ -196,7 +212,37 @@ public class HomeController {
 			a.setPicture(rest.getPicture());
 			this.personService.addMainCourse(a);
 			m.getMainCourse().add(a);
+			this.personService.updateMenu(m);
 		}
+		return "redirect:/home";
+	}
+	@RequestMapping(value = "/newDrink",method = RequestMethod.POST)
+	public String addNewDrink(@ModelAttribute("drink") Drink rest,@RequestParam("restID") String restID){
+		Restaurant r =this.personService.getRestaurant(Integer.parseInt(restID));
+		VineCard vc =r.getVineCard(); //this.personService.getVineCard(Integer.parseInt(restID));
+		
+		if (rest.getType().equals("Alcoholic")){
+			AlcoholicDrink ad = new AlcoholicDrink();
+			ad.setName(rest.getName());
+			ad.setPrice(rest.getPrice());
+			ad.setQuantity(rest.getQuantity());
+			ad.setPicture(rest.getPicture());
+			this.personService.addAlcoholicDrink(ad);
+			vc.getAlcoholicDrink().add(ad);
+			this.personService.updateVineCard(vc);
+		}
+		else if (rest.getType().equals("NonAlcoholic")){
+			NonAlcoholicDrink ad = new NonAlcoholicDrink();
+			ad.setName(rest.getName());
+			ad.setPrice(rest.getPrice());
+			ad.setQuantity(rest.getQuantity());
+			ad.setPicture(rest.getPicture());
+			this.personService.AddNonAlcoholicDrink(ad);
+			vc.getNonAlcoholicDrink().add(ad);
+			this.personService.updateVineCard(vc);
+		}
+		
+		
 		return "redirect:/home";
 	}
 

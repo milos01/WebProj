@@ -32,8 +32,10 @@ public class Appetizer {
 	@NotBlank
 	private String picture;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="appetizer_menu",joinColumns=@JoinColumn(name="appetizer_id"),inverseJoinColumns=@JoinColumn(name="menu_id"))
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name="appetizer_menu",joinColumns=@JoinColumn(name="appetizer_id"),inverseJoinColumns=@JoinColumn(name="menu_id"))
+//	private Set<Menu> menu;
+	@ManyToMany(mappedBy="appetizer")
 	private Set<Menu> menu;
 
 	public int getId() {

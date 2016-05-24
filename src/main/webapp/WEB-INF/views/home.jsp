@@ -865,7 +865,7 @@
 											<!--  Izlistana jela -->
 												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px">
 														
-														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Curent food</p>
+														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Current food</p>
 														<c:if test="${fn:length(MainCours) gt 0}">
 														
 															<c:forEach var="item" items="${MainCours}">
@@ -883,15 +883,15 @@
 															</c:forEach>
 														</c:if>
 														
-														<c:if test="${fn:length(appetizer) gt 0}">
+														<c:if test="${fn:length(desert) gt 0}">
 														
 															<c:forEach var="item1" items="${desert}">
 																<div style="margin-left: 13px;padding: 4px;">
-																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item.picture}">
+																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item1.picture}">
 																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
-																		<h3>${item.name }</h3>
+																		<h3>${item1.name }</h3>
 																		<p>Category: Desert</p>
-																		<p>Price: ${item.price} $</p>
+																		<p>Price: ${item1.price} $</p>
 																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
 																	</div>
 																</div>
@@ -904,11 +904,11 @@
 														
 															<c:forEach var="item2" items="${appetizer}">
 																<div style="margin-left: 13px;padding: 4px;">
-																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item.picture}">
+																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item2.picture}">
 																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
-																		<h3>${item.name }</h3>
+																		<h3>${item2.name }</h3>
 																		<p>Category: Appetizer</p>
-																		<p>Price: ${item.price} $</p>
+																		<p>Price: ${item2.price} $</p>
 																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
 																	</div>
 																</div>
@@ -955,41 +955,65 @@
 												<!--  Izlistana pica -->
 												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px">
 														
-														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Curent drinks</p>
+														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Current drinks</p>
 			
-														<div style="margin-left: 13px;padding: 4px;">
-															<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/img14.jpg">
-															<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
-																<h3>Naziv pica</h3>
-																<p>Category: Acoholic</p>
-																<p>Cena: 1000 $</p>
-																<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
-															</div>
-														</div>
-														<p style="width: 3px;color: white" > .  </p>
+														<c:if test="${fn:length(alchDrink) gt 0}">
+														
+															<c:forEach var="itemDA" items="${alchDrink}">
+																<div style="margin-left: 13px;padding: 4px;">
+																	<img style="float: left;" width="80px" height="90px" alt="image" src="../springmvc/resources/img/${itemDA.picture}">
+																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																		<h3>${itemDA.name }</h3>
+																		<p>Category: Alcoholic</p>
+																		<p>Price: ${itemDA.price} $</p>
+																		<p>Quantity: ${itemDA.quantity}</p>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<p style="width: 3px;color: white" > .  </p>
+																
+															</c:forEach>
+														</c:if>
 
+														<c:if test="${fn:length(NonalchDrink) gt 0}">
+														
+															<c:forEach var="itemDNA" items="${NonalchDrink}">
+																<div style="margin-left: 13px;padding: 4px;">
+																	<img style="float: left;" width="80px" height="103px" alt="image" src="../springmvc/resources/img/${itemDNA.picture}">
+																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																		<h3>${itemDNA.name }</h3>
+																		<p>Category: Non alcoholic</p>
+																		<p>Price: ${itemDNA.price} $</p>
+																		<p>Quantity: ${itemDNA.quantity}</p>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<p style="width: 3px;color: white" > .  </p>
+																
+															</c:forEach>
+														</c:if>
 												</div>
 												<!-- Forma za unos pica -->
 												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;">
 													<h3 align="center">New drink</h3>
-													<form action="newStaffShift" method="POST">
-														<input class="form-control" name="shift_date" type="text"
-															id="shift_date" placeholder="Name" required
+													<form action="newDrink" method="POST">
+														<input class="form-control" name="name" type="text"
+															id="name" placeholder="Name" required
 															style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
-														<input class="form-control" name="shift_date" type="text"
-															id="shift_date" placeholder="Price " required
+														<input class="form-control" name="price" type="text"
+															id="price" placeholder="Price " required
 															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-														<select class="form-control" id="reonNumber" name="reonNumber"
+														<select class="form-control" id="type" name="type"
 																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
 																value=1 required>
 																	<option value="">Type</option>	
 																	<option value="Alcoholic">Alcoholic</option>
-																	<option value="Non alcoholic">Non alcoholic</option>
+																	<option value="NonAlcoholic">Non alcoholic</option>
 														</select>
-														<input class="form-control" name="shift_date" type="text"
-															id="shift_date" placeholder="Quantity" required
+														<input class="form-control" name="quantity" type="text"
+															id="quantity" placeholder="Quantity" required
 															style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
-														<input type="file" name="pic" accept="image/*"
+														<input type="file" name="picture" accept="image/*"
 															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
 														
 														<input type="hidden" name="restID" value="${restoran.id}">

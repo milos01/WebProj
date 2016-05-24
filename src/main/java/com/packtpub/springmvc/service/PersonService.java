@@ -2,10 +2,12 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
+import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.Desert;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
+import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -15,6 +17,7 @@ import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
+import com.packtpub.springmvc.model.VineCard;
 
 public interface PersonService {
 
@@ -84,5 +87,13 @@ public interface PersonService {
 	
 	public void updateMainCourse(MainCourse mc);
 	
+	public void updateMenu(Menu m);
 	
+	public VineCard getVineCard(int id);
+	
+	public void updateVineCard(VineCard c);
+	
+	public void addAlcoholicDrink(AlcoholicDrink a);
+	
+	public void AddNonAlcoholicDrink(NonAlcoholicDrink a);
 }

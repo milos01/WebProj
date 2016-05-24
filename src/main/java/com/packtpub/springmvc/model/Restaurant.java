@@ -70,6 +70,11 @@ public class Restaurant {
 	@NotNull
 	private Menu menu;
 	
+	@OneToOne(targetEntity = VineCard.class, fetch = FetchType.EAGER)
+	@JoinColumn(nullable=false, name = "vine_card_id")
+	@NotNull
+	private VineCard vineCard;
+	
 	public Menu getMenu() {
 		return menu;
 	}
@@ -188,6 +193,14 @@ public class Restaurant {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public VineCard getVineCard() {
+		return vineCard;
+	}
+
+	public void setVineCard(VineCard vineCard) {
+		this.vineCard = vineCard;
 	}
 	
 	

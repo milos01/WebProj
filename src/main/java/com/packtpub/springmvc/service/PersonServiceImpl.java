@@ -14,10 +14,12 @@ import com.packtpub.springmvc.dao.ShiftDAO;
 import com.packtpub.springmvc.dao.StaffDAO;
 import com.packtpub.springmvc.dao.Table_scheduleDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
+import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.Desert;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
+import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -27,6 +29,7 @@ import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
+import com.packtpub.springmvc.model.VineCard;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -267,6 +270,40 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void updateMainCourse(MainCourse mc) {
 		this.menuDAO.updateMainCourse(mc);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateMenu(Menu m) {
+		this.menuDAO.updateMenu(m);
+		
+	}
+
+	@Override
+	@Transactional
+	public VineCard getVineCard(int id) {
+		return this.menuDAO.getVineCard(id);
+	}
+
+	@Override
+	@Transactional
+	public void updateVineCard(VineCard c) {
+		this.menuDAO.updateVineCard(c);
+		
+	}
+
+	@Override
+	@Transactional
+	public void addAlcoholicDrink(AlcoholicDrink a) {
+		this.menuDAO.addAlcoholicDrink(a);
+		
+	}
+
+	@Override
+	@Transactional
+	public void AddNonAlcoholicDrink(NonAlcoholicDrink a) {
+		this.menuDAO.AddNonAlcoholicDrink(a);
 		
 	}
 
