@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
+import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.CalendarJSONShow;
+import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.Food;
+import com.packtpub.springmvc.model.MainCourse;
+import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -77,7 +80,10 @@ public class HomeController {
 			Set<Staff> temp = restaurant.getStaff();
 			List<Staff> staffList = new ArrayList<Staff>();
 			List<Shift> tempShift = new ArrayList<Shift>();
-
+			
+			Set<MainCourse> a = restaurant.getMenu().getMainCourse();
+			Set<Desert> dd = restaurant.getMenu().getDesert();
+			Set<Appetizer> ap = restaurant.getMenu().getAppetizer();
 			for (Shift ss : shiftsRest) {
 				System.out.println(ss.getId() + " " + ss.getShift_entry() + " " + ss.getEnd_shift());
 				tempShift.add(ss);
@@ -89,6 +95,9 @@ public class HomeController {
 				}
 				// System.out.println(st.getFirstName());
 			}
+			model.addAttribute("MainCours",a);
+			model.addAttribute("desert",dd);
+			model.addAttribute("appetizer",ap);
 			model.addAttribute("staffList", staffList);
 			model.addAttribute("restaurantShifts", tempShift);
 			model.addAttribute("restoran", restaurant);
@@ -157,6 +166,37 @@ public class HomeController {
 			stf.getReons().add(ren);
 		}
 		this.personService.refreshShift(stf);
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/newDish", method = RequestMethod.POST)
+	public String addNewFood(@ModelAttribute("food") Food rest,@RequestParam("restID") String restID){
+		Menu m = this.personService.getMenu(Integer.parseInt(restID));
+		
+		if (rest.getType().equals("Appetizer")){
+			Appetizer a = new Appetizer();
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			a.setPicture(rest.getPicture());
+			this.personService.addAppetizer(a);
+			m.getAppetizer().add(a);
+		}
+		else if(rest.getType().equals("Desert")){
+			Desert a = new Desert();
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			a.setPicture(rest.getPicture());
+			this.personService.addDesert(a);
+			m.getDesert().add(a);
+		}
+		else if(rest.getType().equals("MainCourse")){
+			MainCourse a = new MainCourse();
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			a.setPicture(rest.getPicture());
+			this.personService.addMainCourse(a);
+			m.getMainCourse().add(a);
+		}
 		return "redirect:/home";
 	}
 

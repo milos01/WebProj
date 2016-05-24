@@ -33,7 +33,13 @@
 .panel.active {
 	display: block;
 }
+.panel1 {
+	display: none;
+}
 
+.panel1.active1 {
+	display: block;
+}
 .star {
 	font-size: 24px;
 }
@@ -43,6 +49,14 @@
 	z-index: 100000;
 	visibility: visible;
 
+}
+#menuChoose li{
+	display: inline;
+	padding: 15px;
+	margin-left: 5px;
+}
+.promeniMeni:hover{
+	cursor: pointer;
 }
 </style>
 
@@ -709,6 +723,10 @@
 																	data-target="#editInfoRestaurant">
 																	<i class="fa fa-list"></i> Edit
 																</button>
+																<button class="btn btn-white btn-sm" data-toggle="modal"
+																	data-target="#openMenuRest">
+																	<i class="fa fa-book"></i> Menu
+																</button>
 															</div>
 														</div>
 
@@ -826,7 +844,174 @@
 								</div>
 							</div>
 							<!--  Edit restoran end -->
-						
+							
+						<!-- Menu -->
+						<div id="openMenuRest" class="modal fade" role="dialog" >
+								<div class="modal-dialog" style="width: 615px">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Menu</h4>
+										</div>
+									
+									<div style="height: 500px;">
+										<ul id="menuChoose" style="list-style: none;">
+											<li class="promeniMeni" rel="panel212" class="active1">Food</li>
+											<li class="promeniMeni" rel="panel222">Drinks</li>
+										</ul>
+										<div class="tab-panels" style="border-top: 1px solid #E0E0E0">
+											
+											<div class="panel1 active1" id="panel212">
+											<!--  Izlistana jela -->
+												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px">
+														
+														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Curent food</p>
+														<c:if test="${fn:length(MainCours) gt 0}">
+														
+															<c:forEach var="item" items="${MainCours}">
+																<div style="margin-left: 13px;padding: 4px;">
+																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item.picture}">
+																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																		<h3>${item.name }</h3>
+																		<p>Category: Main course</p>
+																		<p>Price: ${item.price} $</p>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<p style="width: 3px;color: white" > .  </p>
+																
+															</c:forEach>
+														</c:if>
+														
+														<c:if test="${fn:length(appetizer) gt 0}">
+														
+															<c:forEach var="item1" items="${desert}">
+																<div style="margin-left: 13px;padding: 4px;">
+																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item.picture}">
+																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																		<h3>${item.name }</h3>
+																		<p>Category: Desert</p>
+																		<p>Price: ${item.price} $</p>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<p style="width: 3px;color: white" > .  </p>
+																
+															</c:forEach>
+														</c:if>
+														
+														<c:if test="${fn:length(appetizer) gt 0}">
+														
+															<c:forEach var="item2" items="${appetizer}">
+																<div style="margin-left: 13px;padding: 4px;">
+																	<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/${item.picture}">
+																	<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																		<h3>${item.name }</h3>
+																		<p>Category: Appetizer</p>
+																		<p>Price: ${item.price} $</p>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<p style="width: 3px;color: white" > .  </p>
+																
+															</c:forEach>
+														</c:if>
+												</div>
+												
+												<!-- Forma za unos hrane -->
+												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;">
+													<h3 align="center">New dish</h3>
+													<form action="newDish" method="POST">
+														<input class="form-control" name="name" type="text"
+															id="name" placeholder="Name" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+														<input class="form-control" name="price" type="text"
+															id="price" placeholder="Price " required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+														<select class="form-control" id="type" name="type"
+																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																value=1 required>
+																	<option value="">Type</option>	
+																	<option value="Appetizer">Appetizer</option>
+																	<option value="Desert">Desert</option>
+																	<option value="MainCourse">Main course</option>
+														</select>
+														<input type="file" name="picture" accept="image/*"
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+														
+														<input type="hidden" name="restID" value="${restoran.id}">
+														<div class="modal-footer" style="margin-top: 115px;">
+															<button type="submit" class="btn btn-success"
+																style="background: #1ab394;border: 1px solid #1ab394">Add dish</button>
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+													    </div>
+														
+													</form>
+												</div>
+											</div>
+											
+											<div class="panel1" style="height: 300px" id="panel222">
+												<!--  Izlistana pica -->
+												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px">
+														
+														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Curent drinks</p>
+			
+														<div style="margin-left: 13px;padding: 4px;">
+															<img style="float: left;" width="80px" height="80px" alt="image" src="../springmvc/resources/img/img14.jpg">
+															<div style="float:right; position:relative;top: 0px;margin-left: 10px;width: 185px">
+																<h3>Naziv pica</h3>
+																<p>Category: Acoholic</p>
+																<p>Cena: 1000 $</p>
+																<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+															</div>
+														</div>
+														<p style="width: 3px;color: white" > .  </p>
+
+												</div>
+												<!-- Forma za unos pica -->
+												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;">
+													<h3 align="center">New drink</h3>
+													<form action="newStaffShift" method="POST">
+														<input class="form-control" name="shift_date" type="text"
+															id="shift_date" placeholder="Name" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+														<input class="form-control" name="shift_date" type="text"
+															id="shift_date" placeholder="Price " required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+														<select class="form-control" id="reonNumber" name="reonNumber"
+																style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																value=1 required>
+																	<option value="">Type</option>	
+																	<option value="Alcoholic">Alcoholic</option>
+																	<option value="Non alcoholic">Non alcoholic</option>
+														</select>
+														<input class="form-control" name="shift_date" type="text"
+															id="shift_date" placeholder="Quantity" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+														<input type="file" name="pic" accept="image/*"
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+														
+														<input type="hidden" name="restID" value="${restoran.id}">
+														<div class="modal-footer" style="margin-top: 55px;">
+															<button type="submit" class="btn btn-success"
+																style="background: #1ab394;border: 1px solid #1ab394">Add drink</button>
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+													    </div>
+														
+													</form>
+												</div>
+											</div>
+											
+											
+										</div>
+									</div>
+									
+									</div>
+								</div>
+							</div>
+							<!-- End menu -->
 						</div>
 
 
@@ -1084,22 +1269,10 @@
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
-	<!-- Socket.IO -->
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
-	
-
-	<!-- Promena centralnog diva -->
+		<!-- Promena centralnog diva -->
 	<script type="text/javascript">
 		$(function() {
-			//Socket connection
-			
-			
-			//End socket connection
 			$('.promeniCent').on('click', function() {
-
 				$('.promeniCent.active').removeClass('active');
 				$(this).addClass('active');
 
@@ -1115,7 +1288,29 @@
 		});
 	</script>
 
+	<!-- Promena menu diva -->
+	<script type="text/javascript">
+		$(function() {
+			$('.promeniMeni').on('click', function() {
+				$('.promeniMeni.active1').removeClass('active1');
+				$(this).addClass('active1');
 
+				var panelToSHow1 = $(this).attr('rel');
+
+				$('.panel1.active1').show(100, function() {
+					$(this).removeClass('active1');
+					$('#' + panelToSHow1).hide(100, function() {
+						$(this).addClass('active1');
+					});
+				});
+			});
+		});
+	</script>
+	<!-- Socket.IO -->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
 
 	<script>
 		$(document)

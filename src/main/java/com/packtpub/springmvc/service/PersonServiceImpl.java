@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.packtpub.springmvc.dao.MenuDAO;
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
@@ -13,7 +14,10 @@ import com.packtpub.springmvc.dao.ShiftDAO;
 import com.packtpub.springmvc.dao.StaffDAO;
 import com.packtpub.springmvc.dao.Table_scheduleDAO;
 import com.packtpub.springmvc.dao.TokenDAO;
-import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.Appetizer;
+import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.MainCourse;
+import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -47,6 +51,9 @@ public class PersonServiceImpl implements PersonService {
 
 	@Autowired
 	private ShiftDAO shiftDAO;
+	
+	@Autowired
+	private MenuDAO menuDAO;
 	
 	@Override
 	@Transactional
@@ -208,6 +215,58 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void refreshShift(Staff s) {
 		this.staffDAO.refreshShift(s);
+		
+	}
+
+	@Override
+	@Transactional
+	public List<MainCourse> listMainCour() {
+		return this.menuDAO.listMainCourse();
+	}
+
+	@Override
+	@Transactional
+	public Menu getMenu(int id) {
+		
+		return this.menuDAO.getMenu(id);
+	}
+
+	@Override
+	@Transactional
+	public void addMainCourse(MainCourse mc) {
+		this.menuDAO.addMainCourse(mc);	
+	}
+
+	@Override
+	@Transactional
+	public void addDesert(Desert d) {
+		this.menuDAO.addDesert(d);	
+	}
+
+	@Override
+	@Transactional
+	public void addAppetizer(Appetizer a) {
+		this.menuDAO.addAppetizer(a);
+	}
+
+	@Override
+	@Transactional
+	public void updateAppetizer(Appetizer a) {
+		this.menuDAO.updateAppetizer(a);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateDesert(Desert d) {
+		this.menuDAO.updateDesert(d);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateMainCourse(MainCourse mc) {
+		this.menuDAO.updateMainCourse(mc);
 		
 	}
 

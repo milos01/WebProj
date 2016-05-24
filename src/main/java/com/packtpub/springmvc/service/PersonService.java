@@ -2,7 +2,10 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
-import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.Appetizer;
+import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.MainCourse;
+import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -64,5 +67,22 @@ public interface PersonService {
 	public void addNewStaffShift(Shift_schedule sc);
 	
 	public void refreshShift(Staff s);
+	
+	public List<MainCourse> listMainCour();
+	
+	public Menu getMenu(int id);
+	
+	public void addMainCourse(MainCourse mc);
+	
+	public void addDesert(Desert d);
+	
+	public void addAppetizer(Appetizer a);
+	
+	public void updateAppetizer(Appetizer a);
 
+	public void updateDesert(Desert d);
+	
+	public void updateMainCourse(MainCourse mc);
+	
+	
 }

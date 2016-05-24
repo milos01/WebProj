@@ -59,7 +59,7 @@
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/questforchef" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="andric01" />
+		<beans:property name="password" value="" />
 	</beans:bean>
 	
 	<!-- Hibernate 4 SessionFactory Bean definition -->
@@ -82,6 +82,11 @@
 				<beans:value>com.packtpub.springmvc.model.Reon</beans:value>
 
 				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
+				
+				<beans:value>com.packtpub.springmvc.model.Menu</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Desert</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Appetizer</beans:value>
+				<beans:value>com.packtpub.springmvc.model.MainCourse</beans:value>
 			</beans:list>
 		</beans:property>
 

@@ -6,10 +6,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -62,7 +65,19 @@ public class Restaurant {
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
 	private Set<Reon> reons;
 	
+	@OneToOne(targetEntity = Menu.class, fetch = FetchType.EAGER)
+	@JoinColumn(nullable=false, name = "menu_id")
+	@NotNull
+	private Menu menu;
 	
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
 	public Set<Reon> getReons() {
 		return reons;
 	}
