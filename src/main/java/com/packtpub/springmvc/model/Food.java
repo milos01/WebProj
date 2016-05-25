@@ -2,6 +2,8 @@ package com.packtpub.springmvc.model;
 
 public class Food {
 
+	private int itemID;
+	
 	private String name;
 	
 	private int price;
@@ -41,6 +43,16 @@ public class Food {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public int getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+	
+	
 	
 	
 }

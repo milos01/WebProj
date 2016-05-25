@@ -79,6 +79,34 @@
 		</div>
 	</c:if>
 	
+	<c:if test="${!empty newDishAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newDishAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty newDrinkAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newDrinkAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty DishUpdated}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${DishUpdated}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty DrinkUpdated}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${DrinkUpdated}</strong>
+		</div>
+	</c:if>
+	
 	<c:if test="${!empty updatedRest}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
@@ -847,7 +875,7 @@
 							
 						<!-- Menu -->
 						<div id="openMenuRest" class="modal fade" role="dialog" >
-								<div class="modal-dialog" style="width: 615px">
+								<div class="modal-dialog" style="width: 617px">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -875,7 +903,41 @@
 																		<h3>${item.name }</h3>
 																		<p>Category: Main course</p>
 																		<p>Price: ${item.price} $</p>
-																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;" data-toggle="modal" data-target="#editDish${item.id}"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																
+																
+																<div id="editDish${item.id}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				<h4 class="modal-title">Update dish</h4>
+																			</div>
+																			<form action="editDish" method="POST">
+																				<input class="form-control" name="name" type="text"id="name" value="${item.name}" placeholder="Name" required
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																				<input class="form-control" name="price" type="text"
+																				id="price" placeholder="Price " required value="${item.price}"
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																		
+																				<input type="hidden" name="type" value="MainCourse">
+																				
+																				<input type="file" name="picture" accept="image/*" value="${item.picture}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					
+																				<input type="hidden" name="itemID" value="${item.id }">
+																				
+																				
+																				<div class="modal-footer" style="margin-top: 15px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Update</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																				</div>
+																			</form>
+																		</div>
 																	</div>
 																</div>
 																<p style="width: 3px;color: white" > .  </p>
@@ -892,7 +954,37 @@
 																		<h3>${item1.name }</h3>
 																		<p>Category: Desert</p>
 																		<p>Price: ${item1.price} $</p>
-																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"  data-toggle="modal" data-target="#editDishh${item1.id}"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																
+																<div id="editDishh${item1.id}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				<h4 class="modal-title">Update dish</h4>
+																			</div>
+																			<form action="editDish" method="POST">
+																				<input class="form-control" name="name" type="text"id="name" value="${item1.name}" placeholder="Name" required
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																				<input class="form-control" name="price" type="text"
+																				id="price" placeholder="Price " required value="${item1.price}"
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																		
+																				<input type="hidden" name="type" value="Desert">
+																				<input type="file" name="picture" accept="image/*" value="${item1.picture}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																				<input type="hidden" name="itemID" value="${item1.id }">
+																				
+																				<div class="modal-footer" style="margin-top: 15px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Update</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																				</div>
+																			</form>
+																		</div>
 																	</div>
 																</div>
 																<p style="width: 3px;color: white" > .  </p>
@@ -909,7 +1001,38 @@
 																		<h3>${item2.name }</h3>
 																		<p>Category: Appetizer</p>
 																		<p>Price: ${item2.price} $</p>
-																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;" data-toggle="modal" data-target="#editDishhh${item2.id}"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<div id="editDishhh${item2.id}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				<h4 class="modal-title">Update dish</h4>
+																			</div>
+																			<form action="editDish" method="POST">
+																				<input class="form-control" name="name" type="text"id="name" value="${item2.name}" placeholder="Name" required
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																				<input class="form-control" name="price" type="text"
+																				id="price" placeholder="Price " required value="${item2.price}"
+																				style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																		
+																				<input type="hidden" name="type" value="Appetizer">
+																				<input type="hidden" name="itemID" value="${item2.id}">
+																				
+																				<input type="file" name="picture" accept="image/*" value="${item2.picture}"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																				
+																				
+																				<div class="modal-footer" style="margin-top: 15px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Update</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																				</div>
+																			</form>
+																		</div>
 																	</div>
 																</div>
 																<p style="width: 3px;color: white" > .  </p>
@@ -919,7 +1042,7 @@
 												</div>
 												
 												<!-- Forma za unos hrane -->
-												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;">
+												<div style="border-left:1px solid #E0E0E0;float:right;position: absolute;height:85%; top: 82px;left: 313px;overflow: hidden;">
 													<h3 align="center">New dish</h3>
 													<form action="newDish" method="POST">
 														<input class="form-control" name="name" type="text"
@@ -938,7 +1061,7 @@
 														</select>
 														<input type="file" name="picture" accept="image/*"
 															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-														
+														<input type="hidden" name="itemID" value="1">
 														<input type="hidden" name="restID" value="${restoran.id}">
 														<div class="modal-footer" style="margin-top: 115px;">
 															<button type="submit" class="btn btn-success"
@@ -953,7 +1076,7 @@
 											
 											<div class="panel1" style="height: 300px" id="panel222">
 												<!--  Izlistana pica -->
-												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px">
+												<div style="float:left;overflow-y: scroll; overflow-x:hidden;height: 470px;">
 														
 														<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Current drinks</p>
 			
@@ -967,9 +1090,43 @@
 																		<p>Category: Alcoholic</p>
 																		<p>Price: ${itemDA.price} $</p>
 																		<p>Quantity: ${itemDA.quantity}</p>
-																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;" data-toggle="modal" data-target="#editDrink${itemDA.id}"><i class="fa fa-cog"></i></span></abbr>
 																	</div>
 																</div>
+																<div id="editDrink${itemDA.id}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				<h4 class="modal-title">Update drink</h4>
+																			</div>
+																				<form action="editDrink" method="POST">
+																					<input class="form-control" name="name" type="text"
+																						id="name" placeholder="Name" required value="${itemDA.name} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																					<input class="form-control" name="price" type="text"
+																						id="price" placeholder="Price " required value="${itemDA.price} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					<input type="hidden" name="type" value="Alcoholic">
+																					<input class="form-control" name="quantity" type="text"
+																						id="quantity" placeholder="Quantity" required value="${itemDA.quantity} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																					<input type="file" name="picture" accept="image/*" value="${itemDA.picture}"
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					
+																					<input type="hidden" name="id" value="${itemDA.id}">
+																					<div class="modal-footer" style="margin-top: 55px;">
+																						<button type="submit" class="btn btn-success"
+																							style="background: #1ab394;border: 1px solid #1ab394">Update</button>
+																						<button type="button" class="btn btn-default"
+																							data-dismiss="modal">Close</button>
+																				    </div>
+																					
+																				</form>
+																		</div>
+																	</div>
+																</div>
+								
 																<p style="width: 3px;color: white" > .  </p>
 																
 															</c:forEach>
@@ -985,7 +1142,40 @@
 																		<p>Category: Non alcoholic</p>
 																		<p>Price: ${itemDNA.price} $</p>
 																		<p>Quantity: ${itemDNA.quantity}</p>
-																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;"><i class="fa fa-cog"></i></span></abbr>
+																		<abbr title="Edit"><span style="position: absolute;top: 5px; right: 5px;" data-toggle="modal" data-target="#editDrinkk${itemDNA.id}"><i class="fa fa-cog"></i></span></abbr>
+																	</div>
+																</div>
+																<div id="editDrinkk${itemDNA.id}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				<h4 class="modal-title">Update drink</h4>
+																			</div>
+																				<form action="editDrink" method="POST">
+																					<input class="form-control" name="name" type="text"
+																						id="name" placeholder="Name" required value="${itemDNA.name} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																					<input class="form-control" name="price" type="text"
+																						id="price" placeholder="Price " required value="${itemDNA.price} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					<input type="hidden" name="type" value="NonAlcoholic">
+																					<input class="form-control" name="quantity" type="text"
+																						id="quantity" placeholder="Quantity" required value="${itemDNA.quantity} "
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																					<input type="file" name="picture" accept="image/*" value="${itemDNA.picture}"
+																						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					
+																					<input type="hidden" name="id" value="${itemDNA.id}">
+																					<div class="modal-footer" style="margin-top: 55px;">
+																						<button type="submit" class="btn btn-success"
+																							style="background: #1ab394;border: 1px solid #1ab394">Update</button>
+																						<button type="button" class="btn btn-default"
+																							data-dismiss="modal">Close</button>
+																				    </div>
+																					
+																				</form>
+																		</div>
 																	</div>
 																</div>
 																<p style="width: 3px;color: white" > .  </p>
@@ -994,7 +1184,7 @@
 														</c:if>
 												</div>
 												<!-- Forma za unos pica -->
-												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;">
+												<div style="float:right;position: absolute;height:85%; top: 81px;left: 313px;overflow: hidden;border-left:1px solid #E0E0E0;">
 													<h3 align="center">New drink</h3>
 													<form action="newDrink" method="POST">
 														<input class="form-control" name="name" type="text"

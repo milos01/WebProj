@@ -181,7 +181,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/newDish", method = RequestMethod.POST)
-	public String addNewFood(@ModelAttribute("food") Food rest,@RequestParam("restID") String restID){
+	public String addNewFood(@ModelAttribute("food") Food rest,@RequestParam("restID") String restID,RedirectAttributes redirectAttributes){
 		Restaurant r =this.personService.getRestaurant(Integer.parseInt(restID));
 		Menu m = r.getMenu();
 		
@@ -190,9 +190,7 @@ public class HomeController {
 			a.setName(rest.getName());
 			a.setPrice(rest.getPrice());
 			a.setPicture(rest.getPicture());
-			System.out.println(a.getName() + " "+ a.getPicture()+" "+a.getPrice()+ " *********");
 			this.personService.addAppetizer(a);
-			System.out.println(a.getName() + " "+ a.getPicture()+" "+a.getPrice());
 			m.getAppetizer().add(a);
 			this.personService.updateMenu(m);
 		}
@@ -214,10 +212,11 @@ public class HomeController {
 			m.getMainCourse().add(a);
 			this.personService.updateMenu(m);
 		}
+		redirectAttributes.addFlashAttribute("newDishAdded", "Dish successfully added");
 		return "redirect:/home";
 	}
 	@RequestMapping(value = "/newDrink",method = RequestMethod.POST)
-	public String addNewDrink(@ModelAttribute("drink") Drink rest,@RequestParam("restID") String restID){
+	public String addNewDrink(@ModelAttribute("drink") Drink rest,@RequestParam("restID") String restID,RedirectAttributes redirectAttributes){
 		Restaurant r =this.personService.getRestaurant(Integer.parseInt(restID));
 		VineCard vc =r.getVineCard(); //this.personService.getVineCard(Integer.parseInt(restID));
 		
@@ -241,11 +240,74 @@ public class HomeController {
 			vc.getNonAlcoholicDrink().add(ad);
 			this.personService.updateVineCard(vc);
 		}
-		
+		redirectAttributes.addFlashAttribute("newDrinkAdded", "Drink successfully added");
 		
 		return "redirect:/home";
 	}
-
+	
+	@RequestMapping(value = "/editDish", method = RequestMethod.POST)
+	public String editFood(@ModelAttribute("foodd") Food rest,RedirectAttributes redirectAttributes){
+		
+		if (rest.getType().equals("Appetizer")){
+			System.out.println(rest.getItemID());
+			Appetizer a = this.personService.findAppetizer(rest.getItemID()); //new Appetizer();
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			if (!rest.getPicture().equals("")){
+				a.setPicture(rest.getPicture());
+			}
+			this.personService.updateAppetizer(a);
+			
+		}
+		else if(rest.getType().equals("Desert")){
+			Desert a = this.personService.findDesert(rest.getItemID());
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			if (!rest.getPicture().equals("")){
+				a.setPicture(rest.getPicture());
+			}
+			this.personService.updateDesert(a);
+		}
+		else if(rest.getType().equals("MainCourse")){
+			MainCourse a = this.personService.findMainCourse(rest.getItemID());
+			a.setName(rest.getName());
+			a.setPrice(rest.getPrice());
+			if (!rest.getPicture().equals("")){
+				a.setPicture(rest.getPicture());
+			}
+			this.personService.updateMainCourse(a);
+		}
+		redirectAttributes.addFlashAttribute("DishUpdated", "Dish successfully updated");
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/editDrink",method = RequestMethod.POST)
+	public String editDrink(@ModelAttribute("drinkk") Drink rest,RedirectAttributes redirectAttributes){
+		System.out.println(rest.getId() + " "+rest.getName());
+		if (rest.getType().equals("Alcoholic")){
+			AlcoholicDrink ad = this.personService.findAlchDrink(rest.getId());
+			ad.setName(rest.getName());
+			ad.setPrice(rest.getPrice());
+			ad.setQuantity(rest.getQuantity());
+			if (!rest.getPicture().equals("")){
+				ad.setPicture(rest.getPicture());
+			}
+			this.personService.updateAlcoholicDrink(ad);
+		}
+		else if (rest.getType().equals("NonAlcoholic")){
+			NonAlcoholicDrink ad = this.personService.findNoNAlchDrink(rest.getId());
+			ad.setName(rest.getName());
+			ad.setPrice(rest.getPrice());
+			ad.setQuantity(rest.getQuantity());
+			if (!rest.getPicture().equals("")){
+				ad.setPicture(rest.getPicture());
+			}
+			this.personService.updateNonAlcoholicDrink(ad);
+		}
+		redirectAttributes.addFlashAttribute("DrinkUpdated", "Drink successfully updated");
+		return "redirect:/home";
+	}
+	
 	public Date getFormatedDate(String date) throws ParseException {
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

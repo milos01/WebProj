@@ -307,4 +307,47 @@ public class PersonServiceImpl implements PersonService {
 		
 	}
 
+	@Override
+	@Transactional
+	public AlcoholicDrink findAlchDrink(int id) {
+		return this.menuDAO.findAlchDrink(id);
+	}
+
+	@Override
+	@Transactional
+	public NonAlcoholicDrink findNoNAlchDrink(int id) {
+		return this.menuDAO.findNoNAlchDrink(id);
+	}
+
+	@Override
+	@Transactional
+	public Appetizer findAppetizer(int id) {
+		return this.menuDAO.findAppetizer(id);
+	}
+
+	@Override
+	@Transactional
+	public Desert findDesert(int id) {
+		return this.menuDAO.findDesert(id);
+	}
+
+	@Override
+	@Transactional
+	public MainCourse findMainCourse(int id) {
+		return this.menuDAO.findMainCourse(id);
+	}
+
+	@Override
+	@Transactional
+	public void updateAlcoholicDrink(AlcoholicDrink ad) {
+		this.menuDAO.updateAlcoholicDrink(ad);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad) {
+		this.menuDAO.updateNonAlcoholicDrink(ad);
+	}
+
 }

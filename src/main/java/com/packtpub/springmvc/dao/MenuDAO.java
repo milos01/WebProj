@@ -20,16 +20,23 @@ public interface MenuDAO {
 	
 	public void addAlcoholicDrink(AlcoholicDrink a);
 	public void AddNonAlcoholicDrink(NonAlcoholicDrink a);
+	public AlcoholicDrink findAlchDrink(int id);
+	public NonAlcoholicDrink findNoNAlchDrink(int id);
+	public void updateAlcoholicDrink(AlcoholicDrink ad);
+	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad);
 	
 	public void addAppetizer(Appetizer a);
 	public void updateAppetizer(Appetizer a);
 	public List<Appetizer> listAppetizer();
+	public Appetizer findAppetizer(int id);
 	
 	public void addDesert(Desert d);
 	public void updateDesert(Desert d);
 	public List<Desert> listDesert();
+	public Desert findDesert(int id);
 	
 	public void addMainCourse(MainCourse mc);
 	public void updateMainCourse(MainCourse mc);
 	public List<MainCourse> listMainCourse();
+	public MainCourse findMainCourse(int id);
 }

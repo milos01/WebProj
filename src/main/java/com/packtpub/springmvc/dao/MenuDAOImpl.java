@@ -113,7 +113,7 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public VineCard getVineCard(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 = session.createQuery("FROM Vine_card u WHERE u.id = :string_email");
+		Query query1 = session.createQuery("FROM VineCard u WHERE u.id = :string_email");
 		query1.setParameter("string_email", id);
 		List<VineCard> userList = query1.list();
 		VineCard tk = null;
@@ -140,5 +140,84 @@ public class MenuDAOImpl implements MenuDAO {
 	public void AddNonAlcoholicDrink(NonAlcoholicDrink a) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(a);
+	}
+
+	@Override
+	public AlcoholicDrink findAlchDrink(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM AlcoholicDrink u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<AlcoholicDrink> userList = query1.list();
+		AlcoholicDrink tk = null;
+		for (AlcoholicDrink users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public NonAlcoholicDrink findNoNAlchDrink(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM NonAlcoholicDrink u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<NonAlcoholicDrink> userList = query1.list();
+		NonAlcoholicDrink tk = null;
+		for (NonAlcoholicDrink users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public Appetizer findAppetizer(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM Appetizer u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<Appetizer> userList = query1.list();
+		Appetizer tk = null;
+		for (Appetizer users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public Desert findDesert(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM Desert u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<Desert> userList = query1.list();
+		Desert tk = null;
+		for (Desert users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public MainCourse findMainCourse(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM MainCourse u WHERE u.id = :string_id");
+		query1.setParameter("string_id", id);
+		List<MainCourse> userList = query1.list();
+		MainCourse tk = null;
+		for (MainCourse users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public void updateAlcoholicDrink(AlcoholicDrink ad) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(ad);
+		
+	}
+
+	@Override
+	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(ad);
+		
 	}
 }

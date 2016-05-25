@@ -2,6 +2,9 @@ package com.packtpub.springmvc.service;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.Desert;
@@ -96,4 +99,18 @@ public interface PersonService {
 	public void addAlcoholicDrink(AlcoholicDrink a);
 	
 	public void AddNonAlcoholicDrink(NonAlcoholicDrink a);
+	
+	public AlcoholicDrink findAlchDrink(int id);
+	
+	public NonAlcoholicDrink findNoNAlchDrink(int id);
+	
+	public Appetizer findAppetizer(int id);
+
+	public Desert findDesert(int id);
+
+	public MainCourse findMainCourse(int id);
+	
+	public void updateAlcoholicDrink(AlcoholicDrink ad);
+	
+	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad);
 }
