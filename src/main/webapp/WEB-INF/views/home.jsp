@@ -17,6 +17,9 @@
 <link href="../springmvc/resources/css/animate.css" rel="stylesheet">
 <link href="../springmvc/resources/css/style.css" rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="../springmvc/resources/gridster/assets/css/jquery.gridster.css">
+<link rel="stylesheet" type="text/css" href="../springmvc/resources/gridster/assets/css/styles.css">
+
 <script src="../springmvc/resources/js/jquery-2.1.1.js"></script>
 
 <link rel='stylesheet' href='../springmvc/resources/fullcalendar/fullcalendar.css' />
@@ -768,6 +771,56 @@
 									</div>
 								</div>
 							</div>
+							<h1 style="margin-left: 10px;">Schedule tables</h1>
+							<!-- RASPORED STOLOVA RESTORANA -->
+							<div class="wrapper wrapper-content animated fadeInRight">
+								<div class="row">
+									<div class="col-lg-12">
+
+										<div class="ibox product-detail">
+											<div class="ibox-content">
+
+												<div class="row">
+													<div class="btn-group">
+																<button class="btn btn-white btn-sm" data-toggle="modal"
+																	data-target="">
+																	<i class="fa fa-plus"></i> Add the table
+																</button>
+													</div>
+													<p style="color: white;">.</p>
+													<section class="demo">
+														<div class="gridster" style="width: 100%">
+															<ul class="ull">
+																<li class="sto" data-row="1" data-col="1" data-sizex="1" data-sizey="1"><h1><center>1</center></h1></li>
+																<li class="sto" data-row="2" data-col="1" data-sizex="1" data-sizey="1"><h1><center>2</center></h1></li>
+																<li class="sto" data-row="3" data-col="1" data-sizex="1" data-sizey="1"><h1><center>3</center><h1></li>
+											
+																<li class="sto" data-row="1" data-col="2" data-sizex="2" data-sizey="1"><h1><center>4</center><h1></li>
+																<li class="sto" data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h1><center>5</center><h1></li>
+											
+																<li class="sto" data-row="1" data-col="4" data-sizex="1" data-sizey="1"><h1><center>6</center><h1></li>
+																<li class="sto" data-row="2" data-col="4" data-sizex="2" data-sizey="1"><h1><center>7</center><h1></li>
+																<li class="sto" data-row="3" data-col="4" data-sizex="1" data-sizey="1"><h1><center>8</center><h1></li>				
+											
+																<li class="sto" data-row="1" data-col="5" data-sizex="1" data-sizey="1"><h1><center>9</center><h1></li>
+																<li class="sto" data-row="3" data-col="5" data-sizex="1" data-sizey="1"><h1><center>10</center><h1></li>
+											
+																<li class="sto" data-row="1" data-col="6" data-sizex="1" data-sizey="1"><h1><center>11</center><h1></li>
+																<li class="sto" data-row="2" data-col="6" data-sizex="1" data-sizey="2"><h1><center>12</center><h1></li>				
+															</ul>
+														</div>
+													</section>
+													
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- RASPORED STOLOVA END -->
+
 
 							<script type="text/javascript">
 								var map;
@@ -1435,6 +1488,8 @@
 	</div>
 	<!-- Mainly scripts -->
 
+
+
 	<script src="../springmvc/resources/js/bootstrap.min.js"></script>
 	<script
 		src="../springmvc/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -1480,6 +1535,21 @@
 	<!-- Sparkline -->
 	<script
 		src="../springmvc/resources/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+	
+	<!-- <script type="text/javascript" src="../springmvc/resources/gridster/assets/jquery.js"></script> -->
+	<script type="text/javascript" src="../springmvc/resources/gridster/assets/jquery.gridster.js"></script>
+	<script type="text/javascript">
+			var gridster;
+
+			$(document).ready(function() {
+				gridtster = $(".gridster > .ull").gridster({
+					widget_margins: [10, 10],
+					widget_base_dimensions: [110, 110],
+					min_cols: 10
+				}).data('gridster');
+			});
+	</script>
+	 
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
@@ -1520,6 +1590,7 @@
 			});
 		});
 	</script>
+	
 	<!-- Socket.IO -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script
