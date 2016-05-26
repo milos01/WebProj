@@ -23,11 +23,11 @@ public class VineCard {
 	private int id;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="vine_card_alcoholic",joinColumns=@JoinColumn(name="vine_card_id"),inverseJoinColumns=@JoinColumn(name="alcoholic_id"))
+	@JoinTable(name="Vine_card_alcoholic",joinColumns=@JoinColumn(name="vine_card_id"),inverseJoinColumns=@JoinColumn(name="alcoholic_id"))
 	private Set<AlcoholicDrink> alcoholicDrink;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="vine_card_nonAlcoholic",joinColumns=@JoinColumn(name="vine_card_id"),inverseJoinColumns=@JoinColumn(name="nonalcoholic_id"))
+	@JoinTable(name="Vine_card_nonAlcoholic",joinColumns=@JoinColumn(name="vine_card_id"),inverseJoinColumns=@JoinColumn(name="nonalcoholic_id"))
 	private Set<NonAlcoholicDrink> nonAlcoholicDrink;
 	
 	public int getId() {

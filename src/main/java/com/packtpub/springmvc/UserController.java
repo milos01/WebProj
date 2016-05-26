@@ -18,9 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.core.SpringVersion;
 
@@ -28,6 +30,7 @@ import com.packtpub.springmvc.event.OnRegistrationCompleteEvent;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
+import com.packtpub.springmvc.pojo.UserIdPojo;
 import com.packtpub.springmvc.service.PersonService;
 
 @Controller
@@ -154,6 +157,13 @@ public class UserController {
     public String logout(HttpSession session ) {
         session.removeAttribute("logedUser");
         return "redirect:/";
+    }
+	
+	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
+	
+    public @ResponseBody String findUser(@RequestBody UserIdPojo userpojo) {
+		System.err.println(userpojo.getUserId() + "aaaaaaaa");
+		return "{\"success\":true}";
     }
 	
 	 private final SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final User user, final String token) {

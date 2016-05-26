@@ -29,6 +29,9 @@
 <link
 	href="../resources/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"
 	rel="stylesheet">
+<link
+	href="../resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+	rel="stylesheet">
 <style type="text/css">
 .starrr {
 	display: inline-block;
@@ -459,7 +462,30 @@
 																</div>
 																<div id="tab-4${table.id}" class="tab-pane">
 																	<div class="panel-body">
-																		<strong>Donec quam felis</strong> ${table.id} b
+
+																		<div class="col-md-12">
+																			<div class="chat-users" style="max-height: 300px">
+																				<div class="users-list">
+																					<c:forEach var="friend"
+																						items="${logedUser.starter_friend}">
+																						<div class="chat-user" style="border-bottom: none">
+																							<img class="chat-avatar"
+																								src="/springmvc/resources/img/a1.jpg" alt="">
+																							<div class="chat-user-name">
+																								<a href="#">${friend.firstName}
+																									${friend.lastName}</a>
+																							</div>
+																							<div class="checkbox checkbox-default pull-right" style="margin-top:-25px;margin-right:-10px">
+																								<input id="checkbox6" type="checkbox">
+																								<label for="checkbox6"></label>
+																							</div>
+																						</div>
+
+																					</c:forEach>
+																				</div>
+
+																			</div>
+																		</div>
 																	</div>
 																</div>
 																<div id="tab-5${table.id}" class="tab-pane">

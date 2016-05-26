@@ -24,15 +24,15 @@ public class Menu {
 	
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="desert_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="desert_id"))
+	@JoinTable(name="Desert_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="desert_id"))
 	private Set<Desert> desert;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="maincourse_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="maincourse_id"))
+	@JoinTable(name="Maincourse_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="maincourse_id"))
 	private Set<MainCourse> mainCourse;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="appetizer_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="appetizer_id"))
+	@JoinTable(name="Appetizer_menu",joinColumns=@JoinColumn(name="menu_id"),inverseJoinColumns=@JoinColumn(name="appetizer_id"))
 	private Set<Appetizer> appetizer;
 
 	

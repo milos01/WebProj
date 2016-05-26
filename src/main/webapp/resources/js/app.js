@@ -2,14 +2,14 @@
 //myApp.controller('addFriendController', ['$scope','$http', function($scope, $http) {
 //
 //}]);
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
 	var fromNum = $("#typedFrom").val();
 	var toNum = $("#typedTo").val();
 	
 	localStorage.setItem("fromValue", fromNum);
 	localStorage.setItem("toValue", toNum);
-}
-$(function(){
+};
+$(function () {
 	var r = localStorage.getItem("fromValue");
 	var r2 = localStorage.getItem("toValue");
 	

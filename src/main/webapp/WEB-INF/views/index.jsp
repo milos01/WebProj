@@ -17,7 +17,7 @@ body {
 }
 </style>
 </head>
-<body>
+<body ng-app="qfcApp">
 	<c:if test="${errors.errorCount gt 0}">
 		<div class="alert alert-danger" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%">
@@ -90,8 +90,8 @@ body {
 			<strong>${successMessage}</strong>
 		</div>
 	</c:if>
-	<div class="container" style="width: 500px; color: black"
-		ng-controller="LoginController">
+<!--    Login Form -->
+	<div class="container" style="width: 500px; color: black" ng-controller="loginController" novalidate>
 		<div
 			style="width: 500px; font-size: 35px; text-align: center; margin-top: 21vh;">
 			<div style="width: 500px; height: 180px; margin-left: -115px">
@@ -99,21 +99,36 @@ body {
 			</div>
 			<p style="margin-top: -30px; font-family: 'Lobster Two', cursive;">Quest
 				For Chef</p>
-			<form action="login" method="POST">
-				<input class="form-control" name="loginEmail" type="text" id="email"
+			<form action="login" method="POST" name="lognForm" novalidate>
+
+                <div class="form-group" ng-class="{ 'has-error' : lognForm.loginEmail.$invalid && !lognForm.loginEmail.$pristine }">
+				<input class="form-control" name="loginEmail" type="email"
 					placeholder="Email"
-					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"
-					ng-model="email_model" path="loginEmail" />
+					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" ng-model-options="{ updateOn: 'blur' }"
+					ng-model="user.loginEmail" email-available required>
+                </div>
+                <p ng-show="lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is required.</p>
+                <p ng-show="lognForm.loginEmail.$error.email && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is not valid.</p>
+                <div ng-show="!lognForm.loginEmail.$error.usernameExists && !lognForm.loginEmail.$error.email && !lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-60px;color:#a94442;margin-top:-48px">Email not exists!</div>
+
+                
+    
+                <div class="form-group" ng-class="{ 'has-error' : lognForm.loginPassword.$invalid && !lognForm.loginPassword.$pristine }">
 				<input class="form-control" name="loginPassword" type="password"
 					placeholder="Password"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-					path="loginPassword" /> <input class="btn btn-default"
+					 ng-model-options="{ updateOn: 'blur' }" ng-model="loginPassword" required>
+                </div>
+                <p ng-show="lognForm.loginPassword.$invalid && !lognForm.loginPassword.$pristine" style="font-size:17px;position:absolute;margin-left:-90px;color:#a94442;margin-top:-48px">Password is required.</p>
+               
+                <input class="btn btn-default"
 					name="loginSubmit" type="submit" value="Sign in"
-					style="float: left; margin-left: 100px; margin-top: 15px;color:#1ab394" />
+					style="float: left; margin-left: 100px; margin-top: 15px;color:#1ab394" ng-disabled="lognForm.$invalid">
 				<p
 					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px"
 					data-toggle="modal" data-target="#registerModal">Sign up</p>
 			</form>
+            
 		</div>
 	</div>
 
@@ -125,6 +140,6 @@ body {
 		crossorigin="anonymous"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/validationByPage/indexPage.js"></script>
 </body>
 </html>
