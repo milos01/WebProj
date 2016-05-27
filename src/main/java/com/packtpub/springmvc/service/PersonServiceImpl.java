@@ -185,6 +185,12 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
+	public boolean findUserByEmail(String email) {
+		return this.personDAO.getPersonByEmail(email);
+	}
+
+	@Override
+	@Transactional
 	public User findPerson(int id) {
 		return this.personDAO.findUser(id);
 	}

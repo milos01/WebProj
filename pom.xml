@@ -166,6 +166,7 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+
 		
 		<!-- JSON api -->
 		<dependency>
@@ -179,6 +180,7 @@
 	        <version>2.2.2</version>
 	        <scope>compile</scope>
     	</dependency>
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

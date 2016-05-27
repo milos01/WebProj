@@ -62,6 +62,23 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
+	public boolean getPersonByEmail(String email) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM User u WHERE u.email = :string_email");
+		query1.setParameter("string_email", email);
+		List<User> userList = query1.list();
+		boolean tk = false;
+		for (User users : userList) {
+			tk = true;
+		}
+		if (tk){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
 	public void removePerson(int id) {
 		// TODO Auto-generated method stub
 

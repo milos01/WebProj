@@ -15,6 +15,8 @@ public interface PersonDAO {
 
 	public User getPerson(String email);
 
+	public boolean getPersonByEmail(String email);
+
 	public void removePerson(int id);
 
 	public User findUserByName(String fname, String lname);

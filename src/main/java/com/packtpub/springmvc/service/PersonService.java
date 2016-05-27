@@ -32,6 +32,8 @@ public interface PersonService {
 	
 	public void updatePerson(User p);
 
+	public boolean findUserByEmail(String email);
+
 	public VerificationToken getVerificationToken(String token);
 
 	public List<User> listPersons();

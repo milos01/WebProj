@@ -101,7 +101,7 @@ body {
 				For Chef</p>
 			<form action="login" method="POST" name="lognForm" novalidate>
 
-                <div class="form-group" ng-class="{ 'has-error' : lognForm.loginEmail.$invalid && !lognForm.loginEmail.$pristine }">
+                <div class="form-group" ng-class="{ 'has-error' : lognForm.loginEmail.$invalid && lognForm.loginEmail.$error && !lognForm.loginEmail.$pristine }">
 				<input class="form-control" name="loginEmail" type="email"
 					placeholder="Email"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" ng-model-options="{ updateOn: 'blur' }"
@@ -109,10 +109,8 @@ body {
                 </div>
                 <p ng-show="lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is required.</p>
                 <p ng-show="lognForm.loginEmail.$error.email && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is not valid.</p>
-                <div ng-show="!lognForm.loginEmail.$error.usernameExists && !lognForm.loginEmail.$error.email && !lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-60px;color:#a94442;margin-top:-48px">Email not exists!</div>
+                <p ng-show="lognForm.loginEmail.$error.emailAvailable && !lognForm.loginEmail.$error.email && !lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-60px;color:#a94442;margin-top:-48px">Email not exists!</p>
 
-                
-    
                 <div class="form-group" ng-class="{ 'has-error' : lognForm.loginPassword.$invalid && !lognForm.loginPassword.$pristine }">
 				<input class="form-control" name="loginPassword" type="password"
 					placeholder="Password"
@@ -125,7 +123,7 @@ body {
 					name="loginSubmit" type="submit" value="Sign in"
 					style="float: left; margin-left: 100px; margin-top: 15px;color:#1ab394" ng-disabled="lognForm.$invalid">
 				<p
-					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px"
+					style="float: right; margin-top: 15px; font-size: 17px; margin-right: 100px; padding: 7px;cursor: pointer"
 					data-toggle="modal" data-target="#registerModal">Sign up</p>
 			</form>
             

@@ -162,8 +162,14 @@ public class UserController {
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
 	
     public @ResponseBody String findUser(@RequestBody UserIdPojo userpojo) {
-		System.err.println(userpojo.getUserId() + "aaaaaaaa");
-		return "{\"success\":true}";
+		System.out.println(userpojo.getUserId());
+		if(personService.findUserByEmail(userpojo.getUserId())){
+			System.out.println("true");
+			return "{\"success\":true}";
+		}else{
+			System.out.println("false");
+			return "{\"success\":false}";
+		}
     }
 	
 	 private final SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final User user, final String token) {

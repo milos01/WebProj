@@ -8,7 +8,8 @@ myApp.directive('emailAvailable', function($timeout, $q, $http) {
     restrict: 'AE',
     require: 'ngModel',
     link: function(scope, elm, attr, model) { 
-      model.$asyncValidators.usernameExists = function() { 
+      model.$asyncValidators.usernameExists = function() {
+
         return $http({
             method: 'POST',
             url: 'findUser',
@@ -17,14 +18,14 @@ myApp.directive('emailAvailable', function($timeout, $q, $http) {
             $timeout(function(){
 //                model.$setValidity('usernameExists', !!res.data); 
             }, 2000);
-//            model.$setValidity('usernameExists', true);
+            model.$setValidity('emailAvailable', false);
             if(res.data.success){
-                console.log("radi");
-                model.$setValidity('usernameExists', false);
+                // console.log(!res.data.success);
+                model.$setValidity('emailAvailable', true);
+            }else{
+                // model.$setValidity('emailAvailable', true);
             }
         }); 
-        
-        
       };
     }
   } 

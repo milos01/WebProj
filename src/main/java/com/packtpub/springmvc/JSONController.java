@@ -31,7 +31,7 @@ public class JSONController {
 		this.personService=ps;
 	}
 	
-	@RequestMapping(value="/getShiftss/json", method = RequestMethod.GET)
+	@RequestMapping(value="/getShiftss/json", method = RequestMethod.GET, headers="Accept=*/*",  produces="application/json")
 	public @ResponseBody List<CalendarJSONShow> getShiftsInJSON(HttpSession session){
 		User u = (User) session.getAttribute("logedUser");
 		Staff s = this.personService.getStaff(u.getEmail());
