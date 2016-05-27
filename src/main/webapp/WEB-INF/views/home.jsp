@@ -412,9 +412,7 @@
 													<i class="fa fa-map-marker"></i> Riviera State 32/106
 												</p>
 												<address>
-													<strong>CodeVsion</strong><br> 795 Folsom Ave, Suite
-													600<br> San Francisco, CA 94107<br> <abbr
-														title="Phone">P:</abbr> 063 456-7890
+													<strong>CodeVsion</strong>
 												</address>
 											</div>
 											<a href="removeFriend/${friend.id}"><button type="button" class="close" data-dismiss="modal" style="top:5px;position:absolute">&times;</button></a>
