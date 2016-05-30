@@ -20,7 +20,8 @@
 	rel="stylesheet">
 <link href="../resources/css/plugins/nouslider/jquery.nouislider.css"
 	rel="stylesheet">
-
+<link href="../resources/css/plugins/toastr/toastr.min.css"
+	rel="stylesheet">
 <link
 	href="../resources/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css"
 	rel="stylesheet">
@@ -422,16 +423,21 @@
 									</c:otherwise>
 								</c:choose>
 								<!-- Reservating dialog -->
-								<div class="modal fade" role="dialog" id="reserve${table.id}"
-									class="reserveDiv"">
+								<div class="modal fade reserveDiv" role="dialog"
+									id="reserve${table.id}">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header" style="">
 												<button type="button" class="close closeButt"
 													id="closeButton${table.id}" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title">Staff list</h4>
+												<h4 class="modal-title">Table reservating</h4>
 											</div>
+											<div class="text-center p-lg h-150">
 
+												<h3>Dialog will disappear after 1 minute of your inactivity</h3>
+												<i class="fa fa-hand-o-up fa-4x"></i>
+
+											</div>
 											<div class="wrapper wrapper-content animated fadeIn">
 												<div class="row">
 													<div class="col-lg-12">
@@ -475,9 +481,10 @@
 																								<a href="#">${friend.firstName}
 																									${friend.lastName}</a>
 																							</div>
-																							<div class="checkbox checkbox-default pull-right" style="margin-top:-25px;margin-right:-10px">
-																								<input id="checkbox6" type="checkbox">
-																								<label for="checkbox6"></label>
+																							<div class="checkbox checkbox-default pull-right"
+																								style="margin-top: -25px; margin-right: -10px">
+																								<input id="checkbox6" type="checkbox"> <label
+																									for="checkbox6"></label>
 																							</div>
 																						</div>
 
@@ -574,6 +581,12 @@
 		src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 	<!-- Socket.IO -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+	<!-- Idle Timer plugin -->
+	<script src="../resources/js/plugins/idle-timer/idle-timer.min.js"></script>
+
+	<!-- Toastr script -->
+	<script src="../resources/js/plugins/toastr/toastr.min.js"></script>
 	<!-- TouchSpin -->
 	<script src="../resources/js/app.js"></script>
 
