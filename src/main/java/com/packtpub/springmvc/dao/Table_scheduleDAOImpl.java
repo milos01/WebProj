@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.TablePosition;
 import com.packtpub.springmvc.model.Table_schedule;
 @Repository
 public class Table_scheduleDAOImpl implements Table_scheduleDAO {
@@ -38,6 +39,29 @@ private SessionFactory sessionFactory;
 		query1.setParameter("string_id", id);
 		List<TableOne> tables = query1.list();
 		return tables;
+	}
+	@Override
+	public void updateTablePosition(TablePosition tp) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.merge(tp);
+		
+	}
+	@Override
+	public void addNeWTablePosition(TablePosition tp) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(tp);
+		
+	}
+	@Override
+	public void addNewTable(TableOne to) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(to);
+		
+	}
+	@Override
+	public List<TablePosition> tablePositions() {
+
+		return null;
 	}
 
 }

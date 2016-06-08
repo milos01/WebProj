@@ -61,6 +61,9 @@
 .promeniMeni:hover{
 	cursor: pointer;
 }
+.sto {
+	border-radius: 50%;
+}
 </style>
 
 </head>
@@ -72,6 +75,20 @@
 				<strong>${error.defaultMessage}</strong>
 				<br />
 			</c:forEach>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty savedPositions}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${savedPositions}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty newTableAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newTableAdded}</strong>
 		</div>
 	</c:if>
 	
@@ -781,30 +798,22 @@
 												<div class="row">
 													<div class="btn-group">
 																<button class="btn btn-white btn-sm" data-toggle="modal"
-																	data-target="">
+																	data-target="#addNewTableRest">
 																	<i class="fa fa-plus"></i> Add the table
 																</button>
+																<button class="btn btn-white btn-sm" onclick="saveP()">
+																	<i class="fa fa-floppy-o"></i> Save
+																</button>
+																
 													</div>
 													<p style="color: white;">.</p>
 													<section class="demo">
 														<div class="gridster" style="width: 100%">
+														
 															<ul class="ull">
-																<li class="sto" data-row="1" data-col="1" data-sizex="1" data-sizey="1"><h1><center>1</center></h1></li>
-																<li class="sto" data-row="2" data-col="1" data-sizex="1" data-sizey="1"><h1><center>2</center></h1></li>
-																<li class="sto" data-row="3" data-col="1" data-sizex="1" data-sizey="1"><h1><center>3</center><h1></li>
-											
-																<li class="sto" data-row="1" data-col="2" data-sizex="2" data-sizey="1"><h1><center>4</center><h1></li>
-																<li class="sto" data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h1><center>5</center><h1></li>
-											
-																<li class="sto" data-row="1" data-col="4" data-sizex="1" data-sizey="1"><h1><center>6</center><h1></li>
-																<li class="sto" data-row="2" data-col="4" data-sizex="2" data-sizey="1"><h1><center>7</center><h1></li>
-																<li class="sto" data-row="3" data-col="4" data-sizex="1" data-sizey="1"><h1><center>8</center><h1></li>				
-											
-																<li class="sto" data-row="1" data-col="5" data-sizex="1" data-sizey="1"><h1><center>9</center><h1></li>
-																<li class="sto" data-row="3" data-col="5" data-sizex="1" data-sizey="1"><h1><center>10</center><h1></li>
-											
-																<li class="sto" data-row="1" data-col="6" data-sizex="1" data-sizey="1"><h1><center>11</center><h1></li>
-																<li class="sto" data-row="2" data-col="6" data-sizex="1" data-sizey="2"><h1><center>12</center><h1></li>				
+																<c:forEach var="position" items="${tablePositions}">
+																	<li id="${position.id}" class="sto" data-row="${position.row }" data-col="${position.col}" data-sizex="${position.size_x}" data-sizey="${position.size_y}"></li>
+																</c:forEach>
 															</ul>
 														</div>
 													</section>
@@ -818,7 +827,37 @@
 								</div>
 							</div>
 							<!-- RASPORED STOLOVA END -->
-
+							<!-- Forma za dodavanje novog stola -->
+							<div id="addNewTableRest" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Add new table</h4>
+										</div>
+										<form action="addNewTable" method="POST">
+											<input class="form-control" type="text" id="guest_num"
+													name="guest_num" placeholder="Guest number" required
+													style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"/>
+											<select class="form-control" id="reon_id" name="reon_id"
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" value=1>
+												<option value="">Reon</option>
+												<c:forEach var="i" begin="1" end="${restoran.reon_num}">
+														<option value="${i}">${i}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="id" value="${restoran.id}">
+											<div class="modal-footer" style="margin-top: 15px;">
+												<button type="submit" class="btn btn-success"
+														style="background: #1ab394">Save</button>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- END DODAVANJE NOVOG STOLA -->
 
 							<script type="text/javascript">
 								var map;
@@ -1543,12 +1582,48 @@
 				gridtster = $(".gridster > .ull").gridster({
 					widget_margins: [10, 10],
 					widget_base_dimensions: [110, 110],
-					min_cols: 10
+					min_cols: 10,
+					serialize_params: function($w, wgd) {
+				            return {
+				            	id: $($w).attr('id'),
+				                col: wgd.col,
+				                row: wgd.row,
+				                size_x: wgd.size_x,
+				                size_y: wgd.size_y
+				            };
+				        }
 				}).data('gridster');
+		//		var json = JSON.stringify(gridster.serialize());
+		//		alert(json);
 			});
+			
+			function saveP(){
+				gridster = $(".gridster > .ull").gridster({
+			        widget_margins: [10, 10],
+			        widget_base_dimensions: [110, 110],
+			        min_cols: 10,
+			        serialize_params: function($w, wgd) {
+			            return {
+			            	id: $($w).attr('id'),
+			                col: wgd.col,
+			                row: wgd.row,
+			                size_x: wgd.size_x,
+			                size_y: wgd.size_y
+			            };
+			        }
+			    }).data('gridster');
+				$.ajax({
+					type: "POST",
+					contentType : 'application/json',
+					dataType : 'json',
+					url: "savePositions",
+					data: JSON.stringify(gridster.serialize()),
+					success: function(){
+					}
+				});
+			}
+			
 	</script>
-	 
-
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
 		<!-- Promena centralnog diva -->

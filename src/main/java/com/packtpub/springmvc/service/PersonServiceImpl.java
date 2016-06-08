@@ -26,6 +26,7 @@ import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.TablePosition;
 import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
@@ -354,6 +355,33 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad) {
 		this.menuDAO.updateNonAlcoholicDrink(ad);
+	}
+
+	@Override
+	@Transactional
+	public void updateTablePosition(TablePosition tp) {
+		this.tableDAO.updateTablePosition(tp);
+		
+	}
+
+	@Override
+	@Transactional
+	public void addNeWTablePosition(TablePosition tp) {
+		this.tableDAO.addNeWTablePosition(tp);
+		
+	}
+
+	@Override
+	@Transactional
+	public void addNewTable(TableOne to) {
+		this.tableDAO.addNewTable(to);
+		
+	}
+
+	@Override
+	public List<TablePosition> tablePositions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

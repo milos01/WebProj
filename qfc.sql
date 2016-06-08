@@ -54,15 +54,20 @@ INSERT INTO `questforchef`.`Reon` (`reon_num`, `restaurant_id`) VALUES ('2', '2'
 INSERT INTO `questforchef`.`Reon` (`reon_num`, `restaurant_id`) VALUES ('3', '2');
 INSERT INTO `questforchef`.`Reon` (`reon_num`, `restaurant_id`) VALUES ('4', '2');
 
-INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('3', '0', '2');
-INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('5', '0', '2');
-INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('2', '0', '3');
-INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('4', '0', '3');
-INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `restaurant_id`) VALUES ('6', '0', '2');
+
+INSERT INTO `questforchef`.`tableposition` (`col`, `row`, `size_x`, `size_y`) VALUES ('1', '1', '1', '1');
+INSERT INTO `questforchef`.`tableposition` (`col`, `row`, `size_x`, `size_y`) VALUES ('2', '1', '1', '1');
+INSERT INTO `questforchef`.`tableposition` (`col`, `row`, `size_x`, `size_y`) VALUES ('1', '2', '1', '1');
+INSERT INTO `questforchef`.`tableposition` (`col`, `row`, `size_x`, `size_y`) VALUES ('2', '2', '1', '1');
+
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `reon_id`,`tableposition_id`) VALUES ('3', '0', '1','1');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `reon_id`,`tableposition_id`) VALUES ('5', '0', '1','2');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `reon_id`,`tableposition_id`) VALUES ('2', '0', '1','3');
+INSERT INTO `questforchef`.`TableOne` (`guest_num`, `reserved`, `reon_id`,`tableposition_id`) VALUES ('4', '0', '2','4');
+
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '12', '14', '3');
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '15', '18', '2');
 INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '6', '8', '1');
-INSERT INTO `questforchef`.`Table_schedule` (`date`, `reserved_from`, `reserved_to`, `table_id`) VALUES ('1993-09-22 00:00:00', '1', '4', '5');
 
 INSERT INTO `questforchef`.`Main_course` (`name`, `picture_path`, `price`) VALUES ('Slanina', 'img14.jpg', '500');
 INSERT INTO `questforchef`.`Main_course` (`name`, `picture_path`, `price`) VALUES ('Snicla', 'img15.jpg', '600');

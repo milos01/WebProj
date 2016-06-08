@@ -37,6 +37,8 @@ import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
+import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.TablePosition;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VineCard;
 import com.packtpub.springmvc.service.PersonService;
@@ -90,6 +92,20 @@ public class HomeController {
 			Set<Appetizer> ap = restaurant.getMenu().getAppetizer();
 			Set<AlcoholicDrink> ad = restaurant.getVineCard().getAlcoholicDrink();
 			Set<NonAlcoholicDrink> nad = restaurant.getVineCard().getNonAlcoholicDrink();
+			
+			List<TableOne> tables = new ArrayList<TableOne>();
+			Set<Reon>listareona = restaurant.getReons();
+			for (Reon r:listareona){
+				for (TableOne tb:r.getTables()){
+					tables.add(tb);
+				}
+			}
+			
+			List<TablePosition> tempPosition = new ArrayList<TablePosition>();
+			for (TableOne tp:tables){
+				tempPosition.add(tp.getTableposition());
+			}
+			
 			for (Shift ss : shiftsRest) {
 				System.out.println(ss.getId() + " " + ss.getShift_entry() + " " + ss.getEnd_shift());
 				tempShift.add(ss);
@@ -99,8 +115,9 @@ public class HomeController {
 				if (st.getRole().getId() != 5) {
 					staffList.add(st);
 				}
-				// System.out.println(st.getFirstName());
 			}
+
+			model.addAttribute("tablePositions",tempPosition);
 			model.addAttribute("alchDrink",ad);
 			model.addAttribute("NonalchDrink",nad);
 			model.addAttribute("MainCours",a);

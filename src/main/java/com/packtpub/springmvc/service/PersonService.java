@@ -17,6 +17,7 @@ import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
+import com.packtpub.springmvc.model.TablePosition;
 import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
@@ -115,4 +116,12 @@ public interface PersonService {
 	public void updateAlcoholicDrink(AlcoholicDrink ad);
 	
 	public void updateNonAlcoholicDrink(NonAlcoholicDrink ad);
+	
+	public void updateTablePosition(TablePosition tp);
+	
+	public void addNeWTablePosition(TablePosition tp);
+	
+	public void addNewTable(TableOne to);
+	
+	public List<TablePosition> tablePositions();
 }

@@ -91,6 +91,8 @@
 				<beans:value>com.packtpub.springmvc.model.NonAlcoholicDrink</beans:value>
 				<beans:value>com.packtpub.springmvc.model.AlcoholicDrink</beans:value>
 				<beans:value>com.packtpub.springmvc.model.VineCard</beans:value>
+				
+				<beans:value>com.packtpub.springmvc.model.TablePosition</beans:value>
 			</beans:list>
 		</beans:property>
 
