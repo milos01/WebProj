@@ -1,8 +1,10 @@
 package com.packtpub.springmvc;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,18 +13,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.TablePosition;
+import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.service.PersonService;
 
 @Controller
@@ -82,4 +84,51 @@ public class TableController {
 		return "redirect:/home";
 	}
 
+	@RequestMapping(value="/deleteTable/{idTable}/{idRest}", method = RequestMethod.GET)
+	public String deleteTable(@PathVariable("idTable") String idTable,@PathVariable("idRest") String idRest,RedirectAttributes redirectAttributes) throws ParseException{
+		Restaurant restaurant = this.personService.getRestaurant(Integer.parseInt(idRest));
+		List<TableOne> tables = new ArrayList<TableOne>();
+		Set<Reon>listareona = restaurant.getReons();
+		for (Reon r:listareona){
+			for (TableOne tb:r.getTables()){
+				tables.add(tb);
+			}
+		}
+		TablePosition tp = this.personService.findTablePosition(Integer.parseInt(idTable));
+		
+		TableOne to = null;
+		for(TableOne table:tables){
+			if (table.getId()==tp.getId()){
+				to = table;
+			}
+		}
+		java.util.Date td = new java.util.Date();
+		Date today = new Date(td.getTime());
+
+		for(Table_schedule ts:to.getTables()){
+			
+			Date reservedDate = getFormatedDate(ts.getDate()+"");
+			
+			if (reservedDate.compareTo(today)>=0 && ts.getTable().getReserved()==1){
+				redirectAttributes.addFlashAttribute("deletedTable", "Table is currently reserved, can not be deleted!");
+				return "redirect:/home";
+			}
+			else if(reservedDate.compareTo(today)<0 && ts.getTable().getReserved()==1){
+				this.personService.removeTableSchedule(ts.getId());
+			}
+		}
+		this.personService.removeTable(to);
+		this.personService.removeTalbePosition(tp);
+		redirectAttributes.addFlashAttribute("deletedTable", "Table successfully deleted!");
+		return "redirect:/home";
+	}
+	
+	public Date getFormatedDate(String date) throws ParseException {
+		String date2 = date.split(" ")[0];
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date parsed = format.parse(date2);
+		Date sql = new Date(parsed.getTime());
+		return sql;
+	}
+	
 }

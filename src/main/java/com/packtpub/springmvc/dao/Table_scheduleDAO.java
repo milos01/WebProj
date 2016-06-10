@@ -14,4 +14,12 @@ public interface Table_scheduleDAO {
 	public void addNeWTablePosition(TablePosition tp);
 	public void addNewTable(TableOne to);
 	public List<TablePosition> tablePositions();
+	
+	public void removeTalbePosition(TablePosition tp);
+	public void removeTable(TableOne to);
+	
+	public TableOne findTable(int id);
+	public TablePosition findTablePosition(int id);
+	
+	public void removeTableSchedule(int id);
 }

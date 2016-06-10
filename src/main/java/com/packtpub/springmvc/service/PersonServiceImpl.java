@@ -379,9 +379,43 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public List<TablePosition> tablePositions() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void removeTalbePosition(TablePosition tp) {
+		this.tableDAO.removeTalbePosition(tp);
+		
+	}
+
+	@Override
+	@Transactional
+	public void removeTable(TableOne to) {
+		this.tableDAO.removeTable(to);
+		
+	}
+
+	@Override
+	@Transactional
+	public TableOne findTable(int id) {
+		return this.tableDAO.findTable(id);
+	}
+
+	@Override
+	@Transactional
+	public TablePosition findTablePosition(int id) {
+		return this.tableDAO.findTablePosition(id);
+	}
+
+	@Override
+	@Transactional
+	public void removeTableSchedule(int id) {
+		this.tableDAO.removeTableSchedule(id);
+		
 	}
 
 }

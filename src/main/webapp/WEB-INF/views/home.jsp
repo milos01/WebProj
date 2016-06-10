@@ -78,6 +78,13 @@
 		</div>
 	</c:if>
 	
+	<c:if test="${!empty deletedTable}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${deletedTable}</strong>
+		</div>
+	</c:if>
+	
 	<c:if test="${!empty savedPositions}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
@@ -812,7 +819,7 @@
 														
 															<ul class="ull">
 																<c:forEach var="position" items="${tablePositions}">
-																	<li id="${position.id}" class="sto" data-row="${position.row }" data-col="${position.col}" data-sizex="${position.size_x}" data-sizey="${position.size_y}"></li>
+																	<li id="${position.id}" class="sto" data-row="${position.row }" data-col="${position.col}" data-sizex="${position.size_x}" data-sizey="${position.size_y}"><a href="<c:url value="deleteTable/${position.id}/${restoran.id}"/>"><button class="btn btn-primary btn-md" style="border-color:#F33A59;background-color:#F33A59">Delete</button> </a></li>
 																</c:forEach>
 															</ul>
 														</div>
