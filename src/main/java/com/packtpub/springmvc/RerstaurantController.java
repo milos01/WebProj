@@ -25,6 +25,7 @@ import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.Table_schedule;
+import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.service.PersonService;
 
 @Controller
@@ -42,24 +43,31 @@ public class RerstaurantController {
 		if(null == session.getAttribute("logedUser")){
 			return "redirect:/";
 		}
-		redirectAttributes.addFlashAttribute("id", id);
-		Restaurant restaurant = this.personService.getRestaurant(id);
-		List<TableOne> tables = this.personService.allTables(id);
-		
-		
-		
-//		List<Table_schedule> checkedTables = personService.checkForFreeTables("", redirectAttributes, res_to, guestNum);
-//		List<Table_schedule> checkedTables = (List) request.getSession().getAttribute("checkedTables1");
-//		System.err.println(checkedTables);
-//		if (checkedTables != null) {
-//			model.addAttribute("checkedTables", checkedTables);
-////			for (Table_schedule table_schedule : ts) {
-////				System.err.println(table_schedule.getId());
-////			}
-//		}
-		
-		model.addAttribute("restaurant", restaurant);
-		model.addAttribute("tables", tables);
+		User u = (User) session.getAttribute("logedUser");
+		if (!u.getRole().getRoleName().equals("Bidder")){
+			
+			redirectAttributes.addFlashAttribute("id", id);
+			Restaurant restaurant = this.personService.getRestaurant(id);
+			List<TableOne> tables = this.personService.allTables(id);
+			
+			
+			
+	//		List<Table_schedule> checkedTables = personService.checkForFreeTables("", redirectAttributes, res_to, guestNum);
+	//		List<Table_schedule> checkedTables = (List) request.getSession().getAttribute("checkedTables1");
+	//		System.err.println(checkedTables);
+	//		if (checkedTables != null) {
+	//			model.addAttribute("checkedTables", checkedTables);
+	////			for (Table_schedule table_schedule : ts) {
+	////				System.err.println(table_schedule.getId());
+	////			}
+	//		}
+			
+			model.addAttribute("restaurant", restaurant);
+			model.addAttribute("tables", tables);
+		}
+		else {
+			
+		}
 		return "restaurant";
 
 	}

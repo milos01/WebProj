@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.packtpub.springmvc.model.Reon;
@@ -39,14 +40,14 @@ public class TableController {
 	
 	
 	@RequestMapping(value="/savePositions", method = RequestMethod.POST)
-	public String  getShiftsInJSON(HttpSession session,@RequestBody List<TablePosition> tableposition,RedirectAttributes redirectAttributes){
+	public @ResponseBody String  getShiftsInJSON(HttpSession session,@RequestBody List<TablePosition> tableposition,RedirectAttributes redirectAttributes){
 		
 		for (TablePosition t:tableposition){
 			//System.out.println(t.getRow() + " " + t.getCol() + " " +t.getId());
 			this.personService.updateTablePosition(t);
 		}
-		redirectAttributes.addFlashAttribute("savedPositions", "Positions successfully saved!");
-		return "redirect:/home";
+		//redirectAttributes.addFlashAttribute("savedPositions", "Positions successfully saved!");
+		return "success";
 	}
 	
 	@RequestMapping(value="/addNewTable", method = RequestMethod.POST)
@@ -114,6 +115,9 @@ public class TableController {
 				return "redirect:/home";
 			}
 			else if(reservedDate.compareTo(today)<0 && ts.getTable().getReserved()==1){
+				this.personService.removeTableSchedule(ts.getId());
+			}
+			else {
 				this.personService.removeTableSchedule(ts.getId());
 			}
 		}

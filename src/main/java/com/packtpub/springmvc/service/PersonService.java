@@ -8,6 +8,9 @@ import org.hibernate.Session;
 import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.FoodItem;
+import com.packtpub.springmvc.model.FoodListItem;
+import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
@@ -134,4 +137,18 @@ public interface PersonService {
 	public TablePosition findTablePosition(int id);
 	
 	public void removeTableSchedule(int id);
+	
+	public void addGroceryList(GrocaryList gl);
+	
+	public void addFoodItem(FoodItem fi);
+	
+	public void addFoodListItem(FoodListItem fli);
+	
+	public FoodItem findFoodItem(String name);
+	
+	public List<FoodListItem> findFoodList(int id);
+	
+	public List<FoodItem> GetAllFoodItems();
+	
+	public GrocaryList findGrocery(int id);
 }

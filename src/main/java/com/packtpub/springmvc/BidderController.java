@@ -1,18 +1,14 @@
 package com.packtpub.springmvc;
 
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.FoodItem;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
@@ -63,6 +59,16 @@ public class BidderController {
 		u.setRole(temp);
 		this.personService.addPerson(u);
 		redirectAttributes.addFlashAttribute("successMessage", "Bidder successfully registered");
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value="/addNewItemToCart", method = RequestMethod.POST)
+	public String newItemToCart(@ModelAttribute("item") FoodItem fi,@RequestParam("quantity") String kolicina,@RequestParam("grocery_id") String gr_id){
+		
+		System.out.println(fi.getId() + " "+fi.getName()+" "+fi.getType());
+		System.out.println(kolicina);
+		System.out.println(gr_id);
+		System.out.println("************************");
 		return "redirect:/home";
 	}
 

@@ -64,6 +64,28 @@
 .sto {
 	border-radius: 50%;
 }
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}
 </style>
 
 </head>
@@ -85,12 +107,12 @@
 		</div>
 	</c:if>
 	
-	<c:if test="${!empty savedPositions}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${savedPositions}</strong>
+	
+		<div class="alert alert-success alrtTable" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000; display:none">
+			<strong>Positions successfully saved!</strong>
 		</div>
-	</c:if>
+	
 	
 	<c:if test="${!empty newTableAdded}">
 		<div class="alert alert-success" id="errorAlert"
@@ -275,7 +297,8 @@
 						<li class="promeniCent" rel="panel3"><a><i
 								class="fa fa-line-chart"></i> <span class="nav-label">Reports</span></a></li>
 
-
+						<li class="promeniCent" rel="panel4"><a><i
+								class="fa fa-shopping-cart"></i> <span class="nav-label">Groceries</span></a></li>
 
 					</c:when>
 				</c:choose>
@@ -621,6 +644,46 @@
 					</div>
 
 
+				</c:when>
+			</c:choose>
+			<!--  Bidder central part -->
+			<c:choose>
+				<c:when test="${logedUser.role.roleName == 'Bidder'}">
+					<!-- List of restaurants -->
+					<div class="wrapper wrapper-content">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="ibox float-e-margins">
+									<div class="ibox-title">
+										<h5>Restaurants</h5>
+										<div class="ibox-tools">
+											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+										</div>
+									</div>
+									<div class="ibox-content ibox-heading" style="background-color: #fff;">
+										<h3>
+											<i class="fa fa-glass"></i> Restaurant list
+										</h3>
+									</div>
+									<div class="ibox-content">
+										<div class="feed-activity-list">
+											<c:forEach var="restaurant" items="${restaurants}">
+												<div class="feed-element">
+													<div>
+														<small class="pull-right">1m ago</small> <strong><a
+															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
+														<div>Lorem Ipsum is simply dummy text of the
+															printing and typesetting industry. Lorem Ipsum</div>
+														<small class="text-muted">Open 9 am - 11 pm</small>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</c:when>
 			</c:choose>
 			<!-- Manager central part -->
@@ -1525,7 +1588,139 @@
 					<!-- Kartica za izvestaje -->
 					<div style="background-color: #F3F3F4; height: 100%" id="panel3"
 						class="panel">IZVESTAJI</div>
-		
+					<!-- Kartica za namirnice -->
+					<div style="background-color: #F3F3F4; height: 100%" id="panel4"
+						class="panel">
+						<!--  DODAVANJE NOVE LISTE ZA NAMIRNICE -->
+						<div id="newGroceryList" class="modal fade" role="dialog">
+							<div class="modal-dialog" style="width: 400px">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Add new list</h4>
+									</div>
+									<h3 style="margin-left:30px;">Enter the expiry date of the offer</h3>
+									</br>
+									<form action="" method="POST">
+										<h3 style="margin-left:48px;">From</h3>
+										<input class="form-control" type="date"
+											 required name="GLfrom"
+											style="width: 300px; height: 45px; margin: auto auto;">
+											<h3 style="margin-left:48px;">To</h3>
+											<input class="form-control" type="date"
+											 required name="GLto"
+											style="width: 300px; height: 45px; margin: auto auto;">
+											
+										 <input type="hidden" name="restaurant_id"
+											value="${restoran.id}">
+
+										<div class="modal-footer" style="margin-top: 15px;">
+											<button type="submit" class="btn btn-success"
+												style="background: #1ab394;border:1px solid #1ab394;">Save</button>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<button data-toggle="modal" data-target="#newGroceryList"
+								class="btn btn-primary btn-md" style="margin-top:10px">Add new shopping list</button>
+						<c:forEach var="grocary" items="${grocList}">	
+							
+							<c:if test="${fn:length(ponude) gt 0}">
+								<h3 style="margin-top:15px;">Offer from ${grocary.GLfrom} to ${grocary.GLto}  </h3>
+										<div style="height: 214px;">
+											<div style="width:426px;height: 210px;overflow-y:scroll;float:left;">
+												<table id="customers">
+													<tr>
+														<th>Name</th>
+														<th>Quantity</th>
+														<th>Type</th>
+													</tr>
+													<c:forEach var="item" items="${ponude}">
+														<c:if test="${grocary.id == item.grocaryList.id}">
+															<tr>
+																<td>${item.fooditem.name}</td>
+																<td>${item.quantity}</td>
+																<td>${item.fooditem.type}</td>
+															</tr>
+														</c:if>
+														
+													</c:forEach>
+												</table>
+											</div>
+											<button data-toggle="modal" data-target="#openMenuRest1${grocary.id}"
+											class="btn btn-primary btn-md" style="margin-left:14px">Add new item</button> </br>
+											<button data-toggle="modal" data-target=""
+											class="btn btn-primary btn-md" style="margin-top:10px;margin-left:14px">Show offers</button>
+										</div>
+									</br>
+							</c:if>
+						
+															
+										<div id="openMenuRest1${grocary.id}" class="modal fade" role="dialog" >
+												<div class="modal-dialog" style="width: 617px">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<h4 class="modal-title">Offers</h4>
+														</div>
+													
+													<div style="height: 500px;">
+														<div class="tab-panels" style="border-top: 1px solid #E0E0E0">
+															<div>
+															
+																<div style="float:left;overflow-y: scroll;height: 450px;width: 314px">
+																		
+																		<p style="margin-left: 12px;font-family: Helvetica;font-size: 14px">Current items</p>
+																			<c:forEach var="items" items="${listaSvihItema}">
+																					<div style="position:relative;top: 0px;margin-left: 10px;background-color:#F9F9F9;">
+																						<h3>Name: ${items.name }</h3>
+																						<p style="font-size: 14px">Type: ${items.type}</p>
+																						<form action="addNewItemToCart" method="POST">
+																							<input style="width:70px;border-radius:5px;padding:4px;" type="text" name="quantity" placeholder="Quantity" required/>
+																							<input type="hidden" name="name" value="${items.name}">
+																							<input type="hidden" name="type" value="${items.type}">
+																							<input type="hidden" name="id" value="${items.id}">
+																							<input type="hidden" name="grocery_id" value="${grocary.id}">
+																							<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394;margin-top:6px;position: relative;right: -112px;bottom: 6px;">Add to cart</button>
+																						</br>
+																						</form>
+																					</div>
+																			</c:forEach>
+																		<div style="border-left:1px solid #E0E0E0;float:right;position: absolute;height:85%; top: 82px;left: 313px;overflow: hidden;">
+																			<h3 align="center">New item</h3>
+																			<form action="newDish" method="POST">
+																				<input class="form-control" name="name" type="text"
+																					id="name" placeholder="Name" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																				<input class="form-control" name="price" type="text"
+																					id="price" placeholder="Price " required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																				<input type="hidden" name="itemID" value="1">
+																				<input type="hidden" name="restID" value="${restoran.id}">
+																				<div class="modal-footer" style="margin-top: 115px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Add item</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																			    </div>
+																				
+																			</form>
+																	</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- End adding items-->
+							</c:forEach>
+					</div>
 		</div>
 		</c:when>
 		</c:choose>
@@ -1622,13 +1817,25 @@
 				$.ajax({
 					type: "POST",
 					contentType : 'application/json',
-					dataType : 'json',
+					dataType : 'text',
 					url: "savePositions",
 					data: JSON.stringify(gridster.serialize()),
-					success: function(){
+					success: function(data){
+						if(data == "success"){
+							$(".alrtTable").show();
+							if ($(".alrtTable").is(":visible")) {
+								$(".alrtTable").delay(1800).fadeOut(500);
+								
+							}
+						}
+					},
+					error:function(){
+						alert("rrr");
 					}
+					
 				});
 			}
+			
 			
 	</script>
 	<!-- Sparkline demo data  -->

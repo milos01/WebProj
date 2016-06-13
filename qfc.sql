@@ -89,3 +89,21 @@ INSERT INTO `questforchef`.`Appetizer_menu` (`menu_id`, `appetizer_id`) VALUES (
 
 INSERT INTO `questforchef`.`Vine_card_nonAlcoholic` (`vine_card_id`, `nonalcoholic_id`) VALUES ('1', '1');
 INSERT INTO `questforchef`.`Vine_card_alcoholic` (`vine_card_id`, `alcoholic_id`) VALUES ('1', '1');
+
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Batak', 'kg');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Pavlaka', 'g');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('So', 'g');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Vino', 'l');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Sir', 'kg');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Krompir', 'kg');
+INSERT INTO `questforchef`.`fooditem` (`name`, `type`) VALUES ('Ulje', 'l');
+
+INSERT INTO `questforchef`.`grocary_list` (`GLfrom`, `GLto`, `restaurant_id`) VALUES ('2016-06-12', '2016-06-24', '1');
+INSERT INTO `questforchef`.`grocary_list` (`GLfrom`, `GLto`, `restaurant_id`) VALUES ('2016-05-12', '2016-06-02', '1');
+
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('2', '1', '1');
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('3', '2', '1');
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('1', '3', '1');
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('4', '4', '1');
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('3', '5', '1');
+INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('5', '6', '1');

@@ -75,6 +75,17 @@ public class Restaurant {
 	@NotNull
 	private VineCard vineCard;
 	
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	private Set<GrocaryList> grocaryList;
+	
+	public Set<GrocaryList> getGrocaryList() {
+		return grocaryList;
+	}
+
+	public void setGrocaryList(Set<GrocaryList> grocaryList) {
+		this.grocaryList = grocaryList;
+	}
+
 	public Menu getMenu() {
 		return menu;
 	}
@@ -202,9 +213,4 @@ public class Restaurant {
 	public void setVineCard(VineCard vineCard) {
 		this.vineCard = vineCard;
 	}
-	
-	
-	
-	
-	
 }

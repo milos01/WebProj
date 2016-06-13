@@ -89,6 +89,8 @@ $("#friendsSearch").keyup(function() {
 	}
 });
 
+
+
 if ($("#errorAlert").is(":visible")) {
 	$("#errorAlert").delay(1800).fadeOut(500);
 }

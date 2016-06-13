@@ -28,6 +28,9 @@ import com.packtpub.springmvc.model.CalendarJSONShow;
 import com.packtpub.springmvc.model.Desert;
 import com.packtpub.springmvc.model.Drink;
 import com.packtpub.springmvc.model.Food;
+import com.packtpub.springmvc.model.FoodItem;
+import com.packtpub.springmvc.model.FoodListItem;
+import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
@@ -105,18 +108,32 @@ public class HomeController {
 			for (TableOne tp:tables){
 				tempPosition.add(tp.getTableposition());
 			}
-			
 			for (Shift ss : shiftsRest) {
-				System.out.println(ss.getId() + " " + ss.getShift_entry() + " " + ss.getEnd_shift());
 				tempShift.add(ss);
 			}
 			for (Staff st : temp) {
-
 				if (st.getRole().getId() != 5) {
 					staffList.add(st);
 				}
 			}
-
+			List<FoodListItem> ponude = new ArrayList<FoodListItem>();
+			Set<GrocaryList> listGrocary = restaurant.getGrocaryList();
+			System.out.println(listGrocary.size() + " BROJ LISTA U RESTORANU!");
+			for (GrocaryList gl:restaurant.getGrocaryList()){
+				
+				List<FoodListItem> tempList = this.personService.findFoodList(gl.getId());
+				for(FoodListItem aa:tempList){
+					ponude.add(aa);
+				}
+			}
+			
+			for(FoodListItem ii:ponude){
+				System.out.println(ii.getFooditem().getName());
+			}
+			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
+			model.addAttribute("grocList",listGrocary);
+			model.addAttribute("listaSvihItema",listaItema);
+			model.addAttribute("ponude",ponude);
 			model.addAttribute("tablePositions",tempPosition);
 			model.addAttribute("alchDrink",ad);
 			model.addAttribute("NonalchDrink",nad);

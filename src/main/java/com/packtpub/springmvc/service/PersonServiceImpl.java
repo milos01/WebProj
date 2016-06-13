@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.packtpub.springmvc.dao.BidderDAO;
 import com.packtpub.springmvc.dao.MenuDAO;
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
@@ -17,6 +18,9 @@ import com.packtpub.springmvc.dao.TokenDAO;
 import com.packtpub.springmvc.model.AlcoholicDrink;
 import com.packtpub.springmvc.model.Appetizer;
 import com.packtpub.springmvc.model.Desert;
+import com.packtpub.springmvc.model.FoodItem;
+import com.packtpub.springmvc.model.FoodListItem;
+import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
@@ -58,6 +62,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private MenuDAO menuDAO;
+	
+	@Autowired
+	private BidderDAO bidderDAO;
 	
 	@Override
 	@Transactional
@@ -416,6 +423,51 @@ public class PersonServiceImpl implements PersonService {
 	public void removeTableSchedule(int id) {
 		this.tableDAO.removeTableSchedule(id);
 		
+	}
+
+	@Override
+	@Transactional
+	public void addGroceryList(GrocaryList gl) {
+		this.bidderDAO.addGroceryList(gl);
+		
+	}
+
+	@Override
+	@Transactional
+	public void addFoodItem(FoodItem fi) {
+		this.bidderDAO.addFoodItem(fi);
+		
+	}
+
+	@Override
+	@Transactional
+	public void addFoodListItem(FoodListItem fli) {
+		this.bidderDAO.addFoodListItem(fli);
+		
+	}
+
+	@Override
+	@Transactional
+	public FoodItem findFoodItem(String name) {
+		return this.bidderDAO.findFoodItem(name);
+	}
+
+	@Override
+	@Transactional
+	public List<FoodListItem> findFoodList(int id) {
+		return this.bidderDAO.findFoodList(id);
+	}
+
+	@Override
+	@Transactional
+	public List<FoodItem> GetAllFoodItems() {
+		return this.bidderDAO.GetAllFoodItems();
+	}
+
+	@Override
+	@Transactional
+	public GrocaryList findGrocery(int id) {
+		return this.bidderDAO.findGrocery(id);
 	}
 
 }
