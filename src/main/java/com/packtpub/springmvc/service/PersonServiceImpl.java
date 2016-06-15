@@ -24,6 +24,7 @@ import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
+import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -468,6 +469,43 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public GrocaryList findGrocery(int id) {
 		return this.bidderDAO.findGrocery(id);
+	}
+
+	@Override
+	@Transactional
+	public void createOffer(Offer of) {
+		this.bidderDAO.createOffer(of);
+		
+	}
+
+	@Override
+	@Transactional
+	public Offer getOffer(int grocery_id, int user_id) {
+		return this.bidderDAO.getOffer(grocery_id, user_id);
+	}
+
+	@Override
+	@Transactional
+	public void updateOffer(Offer of) {
+		this.bidderDAO.updateOffer(of);
+	}
+
+	@Override
+	@Transactional
+	public List<Offer> getAllUserOffers(int id_user) {
+		return this.bidderDAO.getAllUserOffers(id_user);
+	}
+
+	@Override
+	@Transactional
+	public Offer findOffer(int idOf) {
+		return this.bidderDAO.findOffer(idOf);
+	}
+
+	@Override
+	@Transactional
+	public List<Offer> getOffers(int grocery_id) {
+		return this.bidderDAO.getOffers(grocery_id);
 	}
 
 }

@@ -107,12 +107,54 @@
 		</div>
 	</c:if>
 	
-	
-		<div class="alert alert-success alrtTable" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000; display:none">
-			<strong>Positions successfully saved!</strong>
+	<c:if test="${!empty newItemAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newItemAdded}</strong>
 		</div>
+	</c:if>
 	
+	<c:if test="${!empty acceptedOffer}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${acceptedOffer}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty bidderProfUp}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${bidderProfUp}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty wrongPass}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${wrongPass}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty passwodChanged}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${passwodChanged}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty GroceryAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${GroceryAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty itemToCardAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${itemToCardAdded}</strong>
+		</div>
+	</c:if>
 	
 	<c:if test="${!empty newTableAdded}">
 		<div class="alert alert-success" id="errorAlert"
@@ -163,6 +205,10 @@
 		</div>
 	</c:if>
 	
+	<div class="alert alert-success alrtTable" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000; display:none">
+			<strong>Positions successfully saved!</strong>
+	</div>
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -262,6 +308,23 @@
 								<span class="nav-label">Add bidder</span></a></li>
 					</c:when>
 				</c:choose>
+				
+				<c:choose>
+					<c:when test="${logedUser.role.roleName == 'Bidder'}">
+						<li><a data-toggle="modal"
+							data-target="#bidderProfilUp"><i class="fa fa-user"></i>
+								<span class="nav-label">Update profil</span></a></li>
+						<li><a data-toggle="modal"
+							data-target="#bidderPassword"><i class="fa fa-key"></i>
+								<span class="nav-label">Change password</span></a></li>
+								
+						<li><a data-toggle="modal"
+							data-target="#listaIzdatihPonuda"><i class="fa fa-list"></i>
+								<span class="nav-label">Orphaned deals</span></a></li>	
+								
+					</c:when>
+				</c:choose>
+				
 				<!-- Regular user side menu -->
 				<c:choose>
 					<c:when test="${logedUser.role.roleName == 'Regular user'}">
@@ -684,6 +747,98 @@
 							</div>
 						</div>
 					</div>
+					
+					<div id="bidderPassword" class="modal fade"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Password</h4>
+									</div>
+
+									<form action="bidderPasswordChange" method="POST">
+										<input class="form-control" name="oldPass" type="password"
+											placeholder="Old password" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+										<input class="form-control" name="newPass1" type="password"
+											placeholder="New passwod" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+										<input class="form-control" name="newPass2" type="password"
+											placeholder="Repeat new passwod" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+				
+										<div class="modal-footer" style="margin-top: 115px;">
+											<button type="submit" class="btn btn-success"
+												style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						<div id="bidderProfilUp" class="modal fade"
+								role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Password</h4>
+										</div>
+	
+										<form action="bidderProfUpdate" method="POST">
+											<input class="form-control" name="fName" type="text"
+												placeholder="First name" value="${logedUser.firstName} " required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+											<input class="form-control" name="lName" type="text"
+												placeholder="Last name" value="${logedUser.lastName} " required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+											<input class="form-control" name="NewMail" type="email" value="${logedUser.email}"
+												placeholder="Email" required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+					
+											<div class="modal-footer" style="margin-top: 115px;">
+												<button type="submit" class="btn btn-success"
+													style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							
+							<div id="listaIzdatihPonuda" class="modal fade"
+									role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Offers</h4>
+											</div>
+											<table id="customers">
+												<tr>
+													<th>Price</th>
+													<th>Warranty</th>
+													<th>Delivery date</th>
+													<th>Restaurant</th>
+												</tr>
+											<c:forEach var="p" items="${listaSvihPonuda}">
+												<tr>
+													<td>${p.price} $</td>
+													<td>${p.warranty } %</td>
+													<td>${p.deadline }</td>
+													<td>${p.grocaryList.restaurant.name}</td>
+												</tr>
+											
+											</c:forEach>
+											</table>
+											
+										</div>
+									</div>
+								</div>
 				</c:when>
 			</c:choose>
 			<!-- Manager central part -->
@@ -1601,7 +1756,7 @@
 									</div>
 									<h3 style="margin-left:30px;">Enter the expiry date of the offer</h3>
 									</br>
-									<form action="" method="POST">
+									<form action="newGroceryList" method="POST">
 										<h3 style="margin-left:48px;">From</h3>
 										<input class="form-control" type="date"
 											 required name="GLfrom"
@@ -1629,7 +1784,7 @@
 								class="btn btn-primary btn-md" style="margin-top:10px">Add new shopping list</button>
 						<c:forEach var="grocary" items="${grocList}">	
 							
-							<c:if test="${fn:length(ponude) gt 0}">
+							
 								<h3 style="margin-top:15px;">Offer from ${grocary.GLfrom} to ${grocary.GLto}  </h3>
 										<div style="height: 214px;">
 											<div style="width:426px;height: 210px;overflow-y:scroll;float:left;">
@@ -1653,13 +1808,65 @@
 											</div>
 											<button data-toggle="modal" data-target="#openMenuRest1${grocary.id}"
 											class="btn btn-primary btn-md" style="margin-left:14px">Add new item</button> </br>
-											<button data-toggle="modal" data-target=""
+											<button data-toggle="modal" data-target="#showGrocOffers${grocary.id}"
 											class="btn btn-primary btn-md" style="margin-top:10px;margin-left:14px">Show offers</button>
 										</div>
 									</br>
-							</c:if>
-						
-															
+							
+									<div id="showGrocOffers${grocary.id}" class="modal fade" role="dialog">
+										<div class="modal-dialog" style="width: 400px">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">Offers</h4>
+												</div>
+												<c:forEach var="pon" items="${offerForGroc}">
+													<c:if test="${grocary.id==pon.grocaryList.id }">
+														<div>
+															<h3 style="margin-left: 15px;">${pon.user.firstName} ${pon.user.lastName }</h3>
+															<h4 style="margin-left: 25px;">Price: ${pon.price} $</h4>
+															<h4 style="margin-left: 25px;">Warranty: ${pon.warranty} %</h4>
+															<h4 style="margin-left: 25px;">Delivery date: ${pon.deadline}</h4>
+																<hr>
+															<form action="acceptOffer/1/${pon.id}" method="GET">
+																<div style="position: relative;right: -224px;bottom: 70px;">
+																	<c:choose>
+																		<c:when test="${pon.accepted==1}">
+																			<button disabled="disabled" class="btn btn-success"
+																		style="background: #1ab394;border:1px solid #1ab394;">Accepted</button>
+																		</c:when>
+																		<c:otherwise>
+																			<button type="submit" class="btn btn-success"
+																	style="background: #1ab394;border:1px solid #1ab394;">Accept</button>
+																		</c:otherwise>
+																	</c:choose>
+																	
+																	<c:choose>
+																		<c:when test="${pon.accepted==0}">
+																			<button disabled="disabled" type="button" class="btn btn-success"
+																		style="background: #E41C1C;border:1px solid #E41C1C;" >Beated off</button>
+																		</c:when>
+																		<c:otherwise>
+																			<a href="<c:url value="acceptOffer/0/${pon.id}"/>"><button type="button" class="btn btn-success"
+																	style="background: #E41C1C;border:1px solid #E41C1C;" >Beat off</button></a>
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+															</form>
+														
+														</div>
+													</c:if>
+												</c:forEach>
+												
+													<div class="modal-footer" style="margin-top: 15px;">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+													</div>
+												
+											</div>
+										</div>
+									</div>
+										<!-- Dodavanje namirnica u listu -->					
 										<div id="openMenuRest1${grocary.id}" class="modal fade" role="dialog" >
 												<div class="modal-dialog" style="width: 617px">
 													<div class="modal-content">
@@ -1693,15 +1900,13 @@
 																			</c:forEach>
 																		<div style="border-left:1px solid #E0E0E0;float:right;position: absolute;height:85%; top: 82px;left: 313px;overflow: hidden;">
 																			<h3 align="center">New item</h3>
-																			<form action="newDish" method="POST">
+																			<form action="addNewItem" method="POST">
 																				<input class="form-control" name="name" type="text"
 																					id="name" placeholder="Name" required
 																					style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
-																				<input class="form-control" name="price" type="text"
-																					id="price" placeholder="Price " required
+																				<input class="form-control" name="type" type="text"
+																					id="price" placeholder="Type " required
 																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-																				<input type="hidden" name="itemID" value="1">
-																				<input type="hidden" name="restID" value="${restoran.id}">
 																				<div class="modal-footer" style="margin-top: 115px;">
 																					<button type="submit" class="btn btn-success"
 																						style="background: #1ab394;border: 1px solid #1ab394">Add item</button>

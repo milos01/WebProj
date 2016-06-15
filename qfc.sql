@@ -9,7 +9,7 @@ INSERT INTO `questforchef`.`Menu` (`id`) VALUES ('1');
 INSERT INTO `questforchef`.`Vine_card` (`id`) VALUES ('1');
 INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('milosa942@gmail.com', 1, 'Milos', 'Andric', 'pass', 1, '2');
 INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('miloso@gmail.com', 1, 'Milos', 'Obradovic', 'pass', 1, '1');
-INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('micko@gmail.com', 1, 'Micko', 'Mickovic', 'pass', 1, '2');
+INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('micko@gmail.com', 1, 'Micko', 'Mickovic', 'pass', 1, '6');
 INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('waiter@gmail.com', 1, 'Iks', 'Ipsilonovic', 'pass', 1, '7');
 INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('mladen@gmail.com', 1, 'Mladen', 'Doslic', 'pass', 1, '5');
 INSERT INTO `questforchef`.`Restaurants` (`address`, `desription`, `email`, `name`, `phone`, `open_hours`, `rate`,`city`,`reon_num`,`menu_id`,`vine_card_id`) VALUES ('Momcila Tapavice 18',     'Cl reduct malar/zygo fx', 'hgarrett3@ed.gov',   'Twitternation', '380-(257)526-4752', '09-21h','4','Novi Sad','4','1','1');
@@ -107,3 +107,9 @@ INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocary
 INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('4', '4', '1');
 INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('3', '5', '1');
 INSERT INTO `questforchef`.`food_list_item` (`quantity`, `fooditem_id`, `grocaryList_id`) VALUES ('5', '6', '1');
+
+INSERT INTO `questforchef`.`Users` (`email`, `enabled`, `firstName`, `lastName`, `password`, `tokenExpired`, `role_id`) VALUES ('zika@gmail.com', 1, 'Zika', 'Zikic', 'pass', 1, '6');
+INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('1', '2016-06-25', '400', '90', '1', '3');
+INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('2', '2016-06-25', '600', '90', '2', '3');
+INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('0', '2016-06-25', '1400', '90', '1', '6');
+INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('2', '2016-06-25', '1400', '90', '2', '6');

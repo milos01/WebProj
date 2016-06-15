@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -34,6 +36,7 @@ import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
+import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -79,8 +82,15 @@ public class HomeController {
 		}
 		List<Restaurant> restaurants = this.personService.listRestaurants();
 		model.addAttribute("restaurants", restaurants);
-
+		
 		User u = (User) session.getAttribute("logedUser");
+		
+		if (u.getRole().getRoleName().equalsIgnoreCase("Bidder")){
+
+			List<Offer>  listaSvih = this.personService.getAllUserOffers(u.getId());
+			model.addAttribute("listaSvihPonuda",listaSvih);
+		}
+		
 		if (u.getRole().getRoleName().equalsIgnoreCase("Manager")) {
 			Staff s = this.personService.getStaff(u.getEmail());
 			Restaurant restaurant = this.personService.getRestaurant(s.getRestaurant().getId());
@@ -118,7 +128,6 @@ public class HomeController {
 			}
 			List<FoodListItem> ponude = new ArrayList<FoodListItem>();
 			Set<GrocaryList> listGrocary = restaurant.getGrocaryList();
-			System.out.println(listGrocary.size() + " BROJ LISTA U RESTORANU!");
 			for (GrocaryList gl:restaurant.getGrocaryList()){
 				
 				List<FoodListItem> tempList = this.personService.findFoodList(gl.getId());
@@ -127,11 +136,25 @@ public class HomeController {
 				}
 			}
 			
-			for(FoodListItem ii:ponude){
-				System.out.println(ii.getFooditem().getName());
+			List<GrocaryList> grocList = new ArrayList<GrocaryList>();
+			for(GrocaryList gll:listGrocary){
+				grocList.add(gll);
+			}
+			Collections.sort(grocList, Collections.reverseOrder(new Comparator<GrocaryList>() {
+			    public int compare(GrocaryList m1, GrocaryList m2) {
+			        return m1.getGLfrom().compareTo(m2.getGLfrom());
+			    }
+			}));
+			
+			List<Offer> offerForGroc = new ArrayList<Offer>();
+			for(GrocaryList gl:restaurant.getGrocaryList()){
+				for(Offer of:gl.getOffers()){
+					offerForGroc.add(of);
+				}
 			}
 			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
-			model.addAttribute("grocList",listGrocary);
+			model.addAttribute("offerForGroc",offerForGroc);
+			model.addAttribute("grocList",grocList);
 			model.addAttribute("listaSvihItema",listaItema);
 			model.addAttribute("ponude",ponude);
 			model.addAttribute("tablePositions",tempPosition);
@@ -340,6 +363,20 @@ public class HomeController {
 		}
 		redirectAttributes.addFlashAttribute("DrinkUpdated", "Drink successfully updated");
 		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/addNewItem",method = RequestMethod.POST)
+	public String addNewItem(@ModelAttribute ("item") FoodItem fi,RedirectAttributes redirectAttributes){
+		
+		FoodItem name = this.personService.findFoodItem(fi.getName());
+		if (name!=null){
+			redirectAttributes.addFlashAttribute("newItemAdded", "Item with that name already exists!");
+			return "redirect:/home";
+		}
+		this.personService.addFoodItem(fi);
+		redirectAttributes.addFlashAttribute("newItemAdded", "Item successfully added!");
+		return "redirect:/home";
+
 	}
 	
 	public Date getFormatedDate(String date) throws ParseException {

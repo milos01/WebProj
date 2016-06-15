@@ -70,7 +70,10 @@ public class TableController {
 			tempPosition.add(tp.getTableposition().getRow());
 		}
 		Collections.sort(tempPosition);
-		int row = tempPosition.get((tempPosition.size()-1)) + 1;
+		int row = 0;
+		if (tempPosition.size()!=0){
+			row = tempPosition.get((tempPosition.size()-1)) + 1;
+		}
 		TablePosition tp = new TablePosition();
 		tp.setCol(1); tp.setRow(row); tp.setSize_x(1); tp.setSize_y(1);
 		this.personService.addNeWTablePosition(tp);

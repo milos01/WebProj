@@ -14,6 +14,7 @@ import com.packtpub.springmvc.model.GrocaryList;
 import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
+import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -151,4 +152,16 @@ public interface PersonService {
 	public List<FoodItem> GetAllFoodItems();
 	
 	public GrocaryList findGrocery(int id);
+	
+	public void createOffer(Offer of);
+	
+	public Offer getOffer(int grocery_id,int user_id);
+	
+	public void updateOffer(Offer of);
+	
+	public List<Offer> getAllUserOffers(int id_user);
+	
+	public Offer findOffer(int idOf);
+	
+	public List<Offer> getOffers(int grocery_id);
 }

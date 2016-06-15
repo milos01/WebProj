@@ -1,9 +1,12 @@
 package com.packtpub.springmvc;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -20,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.packtpub.springmvc.model.FoodItem;
+import com.packtpub.springmvc.model.FoodListItem;
+import com.packtpub.springmvc.model.GrocaryList;
+import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
-import com.packtpub.springmvc.model.Table_schedule;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.service.PersonService;
 
@@ -44,10 +50,11 @@ public class RerstaurantController {
 			return "redirect:/";
 		}
 		User u = (User) session.getAttribute("logedUser");
+		Restaurant restaurant = this.personService.getRestaurant(id);
+		
 		if (!u.getRole().getRoleName().equals("Bidder")){
 			
 			redirectAttributes.addFlashAttribute("id", id);
-			Restaurant restaurant = this.personService.getRestaurant(id);
 			List<TableOne> tables = this.personService.allTables(id);
 			
 			
@@ -66,11 +73,44 @@ public class RerstaurantController {
 			model.addAttribute("tables", tables);
 		}
 		else {
+			List<FoodListItem> ponude = new ArrayList<FoodListItem>();
+			Set<GrocaryList> listGrocary = restaurant.getGrocaryList();
+			for (GrocaryList gl:restaurant.getGrocaryList()){
+				
+				List<FoodListItem> tempList = this.personService.findFoodList(gl.getId());
+				for(FoodListItem aa:tempList){
+					ponude.add(aa);
+				}
+			}
+			List<Offer> listaPonuda = new ArrayList<Offer>();
+			for(GrocaryList gl:restaurant.getGrocaryList()){
+				for(Offer of:gl.getOffers()){
+					listaPonuda.add(of);
+				}
+			}
 			
+			List<GrocaryList> grocList = new ArrayList<GrocaryList>();
+			for(GrocaryList gll:listGrocary){
+				grocList.add(gll);
+			}
+			Collections.sort(grocList, Collections.reverseOrder(new Comparator<GrocaryList>() {
+			    public int compare(GrocaryList m1, GrocaryList m2) {
+			        return m1.getGLfrom().compareTo(m2.getGLfrom());
+			    }
+			}));
+			
+			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
+			model.addAttribute("listaPonuda", listaPonuda);
+			model.addAttribute("grocList",grocList);
+			model.addAttribute("listaSvihItema",listaItema);
+			model.addAttribute("ponude",ponude);
+			model.addAttribute("restaurant", restaurant);
 		}
 		return "restaurant";
 
 	}
+	
+	
 	@RequestMapping(value = "/registerRestaurant", method = RequestMethod.POST)
 	public String home3( @ModelAttribute("Restaurant")  @Valid Restaurant r, BindingResult bindres, @RequestParam("manName")String manName, @RequestParam("manLastName")String manLastName, @RequestParam("manEmail")String manEmail, RedirectAttributes redirectAttributes, Model model, HttpSession session){
 		//Map modelMap = model.asMap();

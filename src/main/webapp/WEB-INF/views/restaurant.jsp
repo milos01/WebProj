@@ -33,6 +33,7 @@
 <link
 	href="../resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
 	rel="stylesheet">
+	<script src="../resources/js/jquery-2.1.1.js"></script>
 <style type="text/css">
 .starrr {
 	display: inline-block;
@@ -44,8 +45,44 @@
 	cursor: pointer;
 	color: #ffd119;
 }
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}
 </style>
 <body>
+
+	<c:if test="${!empty addedNewOffer}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${addedNewOffer}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty updatedOffer}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${updatedOffer}</strong>
+		</div>
+	</c:if>
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -146,6 +183,17 @@
 					<c:when test="${logedUser.role.roleName == 'Admin'}">
 						<li><a href="layouts.html"><i class="fa fa-plus"></i> <span
 								class="nav-label">Add restaurant</span></a></li>
+					</c:when>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${logedUser.role.roleName == 'Bidder'}">
+						<li><a data-toggle="modal"
+							data-target="#bidderProfilUp"><i class="fa fa-user"></i>
+								<span class="nav-label">Update profil</span></a></li>
+						<li><a data-toggle="modal"
+							data-target="#bidderPassword"><i class="fa fa-key"></i>
+								<span class="nav-label">Change password</span></a></li>
 					</c:when>
 				</c:choose>
 				<!-- Regular user side menu -->
@@ -523,10 +571,242 @@
 
 				</c:when>
 			</c:choose>
+			
+			<c:choose>
+				<c:when test="${logedUser.role.roleName == 'Bidder'}">
+
+					<c:forEach var="grocary" items="${grocList}">
+
+						<h3 style="margin-top: 15px;">Offer from ${grocary.GLfrom} to
+							${grocary.GLto}</h3>
+						<div style="height: 214px;">
+							<div
+								style="width: 426px; height: 210px; overflow-y: scroll; float: left;">
+								<table id="customers">
+									<tr>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Type</th>
+									</tr>
+									<c:forEach var="item" items="${ponude}">
+										<c:if test="${grocary.id == item.grocaryList.id}">
+											<tr>
+												<td>${item.fooditem.name}</td>
+												<td>${item.quantity}</td>
+												<td>${item.fooditem.type}</td>
+											</tr>
+										</c:if>
+
+									</c:forEach>
+								</table>
+							</div>
+							<div
+								style="margin-top: 10px;">
+							<button data-toggle="modal"
+								data-target="#openMenuRest1${grocary.id}"
+								class="btn btn-primary btn-md" style="margin-left: 14px">Leave
+								bid</button>
+							</br>
+							<button data-toggle="modal" data-target="#ponudaZa${grocary.id}"
+								class="btn btn-primary btn-md"
+								style="margin-top: 10px; margin-left: 14px">Show my
+								offer</button>
+							<c:forEach  var="offers" items="${listaPonuda}">
+								<c:if test="${grocary.id==offers.grocaryList.id}">
+									<c:if test="${logedUser.id==offers.user.id}">
+										<c:choose>
+										  <c:when test="${offers.accepted==0}">
+										    <p style="margin-top: 10px; margin-left: 440px;color:red">  Close</p>
+										  </c:when>
+										  <c:when test="${offers.accepted==1}">
+										    <p style="margin-top: 10px; margin-left: 440px;color:green"> Accepted</p>
+										  </c:when>
+										   <c:when test="${offers.accepted==2}">
+										    <p style="margin-top: 10px; margin-left: 440px">    Waiting to
+									answer...</p>
+										  </c:when>
+										  <c:otherwise>
+										    <p style="margin-top: 10px; margin-left: 440px">No offer</p>
+										  </c:otherwise>
+										</c:choose>
+									</c:if>
+								</c:if>
+							</c:forEach>
+							</div>
+						</div>
+						</br>
+
+
+
+						<div id="openMenuRest1${grocary.id}" class="modal fade"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Offer from ${grocary.GLfrom} to
+							${grocary.GLto}</h4>
+									</div>
+
+									<h3 align="center">Create offer</h3>
+									<form action="${restaurant.id}/createOffer" method="POST">
+										<input class="form-control" name="price" type="text"
+											placeholder="Price"
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+									 	<select class="form-control" name="warranty"
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+											 value=1>
+											<option value="">Warranty</option>
+											<option value=50>50 %</option>
+											<option value=60>60 %</option>
+											<option value=70>70 %</option>
+											<option value=80>80 %</option>
+											<option value=90>90 %</option>
+											<option value=100>100 %</option>
+										</select> 
+										
+										
+									<input class="form-control" name="deadline" type="date"
+											 required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+										<input type="hidden" name="groc_id" value="${grocary.id}">
+										<div class="modal-footer" style="margin-top: 115px;">
+											<button type="submit" class="btn btn-success"
+												style="background: #1ab394; border: 1px solid #1ab394">Create</button>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- End adding items-->
+						
+						<!-- Proveri ponudu -->
+						<c:forEach  var="offer" items="${listaPonuda}">
+							<c:if test="${grocary.id==offer.grocaryList.id}">
+								<c:if test="${logedUser.id==offer.user.id}">
+									<div id="ponudaZa${grocary.id}" class="modal fade"
+										role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">My offer</h4>
+												</div>
+			
+												<form action="${restaurant.id}/changeOffer" method="POST">
+													<input class="form-control" name="price" type="text" id="price" placeholder="Price" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" value="${offer.price}">
+															
+													<select class="form-control warr${grocary.id}" name="warranty"
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+															>
+																<option value="50">50 %</option>
+																<option value="60">60 %</option>
+																<option value="70">70 %</option>
+																<option value="80">80 %</option>
+																<option value="90">90 %</option>
+																<option value="100">100 %</option>
+													</select> 
+									
+													<input class="form-control" name="deadline" type="date" id="price" placeholder="Price" required
+															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" value="${offer.deadline}">
+															
+													<input type="hidden" name="grocaryId" value="${grocary.id}">
+													<input type="hidden" name="accepted" value="${offer.accepted}">
+													<input type="hidden" name="id" value="${offer.id}">
+													
+														<div class="modal-footer" style="margin-top: 115px;">
+															<button type="submit" class="btn btn-success"
+																style="background: #1ab394; border: 1px solid #1ab394">Change</button>
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+														</div>
+												</form>
+												<script type="text/javascript">
+													$(".warr${grocary.id} > option").each(function() {
+														text1 = "${offer.warranty}";
+													   if (text1==this.value){
+														   this.selected = true;
+													   }
+													});
+												</script>
+											</div>
+										</div>
+									</div>
+								</c:if> 
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+
+					<div id="bidderPassword" class="modal fade"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Password</h4>
+									</div>
+
+									<form action="bidderPasswordChange" method="POST">
+										<input class="form-control" name="oldPass" type="password"
+											placeholder="Old password" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+										<input class="form-control" name="newPass1" type="password"
+											placeholder="New passwod" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+										<input class="form-control" name="newPass2" type="password"
+											placeholder="Repeat new passwod" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+				
+										<div class="modal-footer" style="margin-top: 115px;">
+											<button type="submit" class="btn btn-success"
+												style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						<div id="bidderProfilUp" class="modal fade"
+								role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Password</h4>
+										</div>
+	
+										<form action="bidderProfUpdate" method="POST">
+											<input class="form-control" name="fName" type="text"
+												placeholder="First name" value="${logedUser.firstName} " required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+											<input class="form-control" name="lName" type="text"
+												placeholder="Last name" value="${logedUser.lastName} " required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+											<input class="form-control" name="NewMail" type="email" value="${logedUser.email}"
+												placeholder="Email" required
+												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+					
+											<div class="modal-footer" style="margin-top: 115px;">
+												<button type="submit" class="btn btn-success"
+													style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 	<!-- Mainly scripts -->
-	<script src="../resources/js/jquery-2.1.1.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 	<script
@@ -646,6 +926,7 @@
 
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
 	<script type="text/javascript">
 		
 	</script>
