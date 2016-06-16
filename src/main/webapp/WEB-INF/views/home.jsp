@@ -30,8 +30,7 @@
 
 <script src="../springmvc/resources/chart/amcharts.js" type="text/javascript"></script>
 <script src="../springmvc/resources/chart/serial.js" type="text/javascript"></script>
-<script src="../springmvc/resources/chart/light.js" type="text/javascript"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
 <style type="text/css">
 .panel {
 	display: none;
@@ -1806,7 +1805,7 @@
 																<h3>
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
-																<strong>Cost: ${hrana.price}</strong><br>
+																<strong>Price: ${hrana.price} $</strong><br>
 																<p style="font-size:14px">Raiting: 4.3</p>		
 															</div>
 															<div class="clearfix"></div>
@@ -1831,7 +1830,7 @@
 																<h3>
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
-																<strong>Cost: ${hrana.price}</strong><br>
+																<strong>Price: ${hrana.price} $</strong><br>
 																<p style="font-size:14px">Raiting: 4.3</p>		
 															</div>
 															<div class="clearfix"></div>
@@ -1856,7 +1855,7 @@
 																<h3>
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
-																<strong>Cost: ${hrana.price}</strong><br>
+																<strong>Price: ${hrana.price} $</strong><br>
 																<p style="font-size:14px">Raiting: 4.3</p>		
 															</div>
 															<div class="clearfix"></div>
