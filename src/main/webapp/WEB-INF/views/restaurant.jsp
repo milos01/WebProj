@@ -77,10 +77,25 @@
 		</div>
 	</c:if>
 	
+	
+	<c:if test="${!empty addedNewOffer2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${addedNewOffer2}</strong>
+		</div>
+	</c:if>
+	
 	<c:if test="${!empty updatedOffer}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
 			<strong>${updatedOffer}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty updatedOffer2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${updatedOffer2}</strong>
 		</div>
 	</c:if>
 	<!-- Update user modal-->

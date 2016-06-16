@@ -28,6 +28,10 @@
 <script src='../springmvc/resources/fullcalendar/lib/moment.min.js'></script>
 <script src='../springmvc/resources/fullcalendar/fullcalendar.js'></script>
 
+<script src="../springmvc/resources/chart/amcharts.js" type="text/javascript"></script>
+<script src="../springmvc/resources/chart/serial.js" type="text/javascript"></script>
+<script src="../springmvc/resources/chart/light.js" type="text/javascript"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <style type="text/css">
 .panel {
 	display: none;
@@ -1742,7 +1746,132 @@
 
 					<!-- Kartica za izvestaje -->
 					<div style="background-color: #F3F3F4; height: 100%" id="panel3"
-						class="panel">IZVESTAJI</div>
+						class="panel">
+						 <h2>Attendance at the monthly level</h2>
+						 <div id="chartdiv" style="width: 100%; height: 330px;"></div>	
+						 <h2>Attendance on a weekly basis</h2>
+						 <div id="divForDays" style="width: 100%; height: 330px;"></div>	
+						 </br>
+						 <h1>Other reports restaurants</h1> </br>
+						 <h3 style="margin-left:20px"> Current rating restaurants: 4.8</h3>
+						 
+						 <c:if test="${fn:length(staffList) gt 0}">
+							 <h2>Revenue by waiters</h2>
+							 <div style="margin-left:20px">
+								 <div class="row" style="margin-top: 10px;">
+									 <c:forEach var="staffs" items="${staffList}">
+										 <c:if test="${staffs.role.roleName=='Waiter'}">
+											<div class="col-lg-4">
+												<div class="contact-box">
+													<div class="col-sm-4">
+														<div class="text-center">
+															<img alt="image" class="img-circle m-t-xs img-responsive"
+																src="../springmvc/resources/img/${staffs.picture}">
+														</div>
+													</div>
+													<div class="col-sm-8">
+														<h3>
+															<strong style="font-size:20px">${staffs.firstName} ${staffs.lastName} </strong>
+														</h3>
+														<strong>Waiter</strong><br>
+														<p style="font-size:14px">Former achieved revenues: 5021 $</p>
+														<p style="font-size:14px">Raiting: 4.3</p>		
+													</div>
+													<div class="clearfix"></div>
+												</div>
+											</div>
+										  </c:if>
+									  </c:forEach>
+								 </div>	
+							 </div>	
+						 </c:if>
+						 
+						 
+						 
+						 <c:if test="${fn:length(MainCours) gt 0 || fn:length(appetizer) gt 0 || fn:length(desert) gt 0}">
+								 <h2>Food reviews</h2>
+								 <div style="margin-left:20px; height: 340px;overflow-y:scroll;">
+									 <div>
+										 <div class="row" style="margin-top: 6px;">
+											 <c:forEach var="hrana" items="${MainCours}">
+													<div class="col-lg-4">
+														<div class="contact-box">
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${hrana.picture}">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong style="font-size:20px">${hrana.name}</strong>
+																</h3>
+																<strong>Cost: ${hrana.price}</strong><br>
+																<p style="font-size:14px">Raiting: 4.3</p>		
+															</div>
+															<div class="clearfix"></div>
+														</div>
+													</div>
+											  </c:forEach>
+										 </div>	
+									 </div>	
+									 
+									 <div>
+										 <div class="row" style="margin-top: 6px;">
+											 <c:forEach var="hrana" items="${appetizer}">
+													<div class="col-lg-4">
+														<div class="contact-box">
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${hrana.picture}">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong style="font-size:20px">${hrana.name}</strong>
+																</h3>
+																<strong>Cost: ${hrana.price}</strong><br>
+																<p style="font-size:14px">Raiting: 4.3</p>		
+															</div>
+															<div class="clearfix"></div>
+														</div>
+													</div>
+											  </c:forEach>
+										 </div>	
+									 </div>	
+									 
+									 <div>
+										 <div class="row" style="margin-top: 6px;">
+											 <c:forEach var="hrana" items="${desert}">
+													<div class="col-lg-4">
+														<div class="contact-box">
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${hrana.picture}">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong style="font-size:20px">${hrana.name}</strong>
+																</h3>
+																<strong>Cost: ${hrana.price}</strong><br>
+																<p style="font-size:14px">Raiting: 4.3</p>		
+															</div>
+															<div class="clearfix"></div>
+														</div>
+													</div>
+											  </c:forEach>
+										 </div>	
+									 </div>	
+								 </div>
+							 </c:if>
+						 <h2>Revenues restaurants on a monthly basis</h2>
+						 <div id="Prihodi" style="width: 100%; height: 330px;"></div>
+						 
+					</div>
+					
 					<!-- Kartica za namirnice -->
 					<div style="background-color: #F3F3F4; height: 100%" id="panel4"
 						class="panel">
@@ -2082,6 +2211,308 @@
 			});
 		});
 	</script>
+	
+	    <script>
+            var chart3;
+
+            var chartData3 = [
+                {
+                    "country": "January",
+                    "visits": 2025,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "February",
+                    "visits": 1882,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "March",
+                    "visits": 1809,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "April",
+                    "visits": 1322,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "May",
+                    "visits": 1122,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "June",
+                    "visits": 1114,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "July",
+                    "visits": 984,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "August",
+                    "visits": 711,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "September",
+                    "visits": 665,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "October",
+                    "visits": 580,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "November",
+                    "visits": 443,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "Canada",
+                    "visits": 441,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "December",
+                    "visits": 395,
+                    "color" : "#6CB9EC"
+                }
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart3 = new AmCharts.AmSerialChart();
+                chart3.dataProvider = chartData3;
+                chart3.categoryField = "country";
+                chart3.startDuration = 1;
+                
+
+                // AXES
+                // category
+                var categoryAxis3 = chart3.categoryAxis;
+                categoryAxis3.labelRotation = 0;
+                categoryAxis3.gridPosition = "start";
+
+                // value
+                // in case you don't want to change default settings of value axis,
+                // you don't need to create it, as one value axis is created automatically.
+
+                // GRAPH
+                var graph3 = new AmCharts.AmGraph();
+                graph3.valueField = "visits";
+                graph3.balloonText = "[[category]]: <b>[[value]]</b>";
+                graph3.type = "column";
+                graph3.lineAlpha = 0;
+                graph3.fillAlphas = 0.8;
+                graph3.colorField = "color";
+                chart3.addGraph(graph3);
+
+                // CURSOR
+                var chartCursor3 = new AmCharts.ChartCursor();
+                chartCursor3.cursorAlpha = 0;
+                chartCursor3.zoomable = false;
+                chartCursor3.categoryBalloonEnabled = false;
+                chart3.addChartCursor(chartCursor3);
+
+                chart3.creditsPosition = "top-right";
+
+                chart3.write("Prihodi");
+            });
+        </script>
+	
+    <script>
+            var chart;
+
+            var chartData = [
+                {
+                    "country": "January",
+                    "visits": 4025,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "February",
+                    "visits": 1882,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "March",
+                    "visits": 1809,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "April",
+                    "visits": 1322,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "May",
+                    "visits": 1122,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "June",
+                    "visits": 1114,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "July",
+                    "visits": 984,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "August",
+                    "visits": 711,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "September",
+                    "visits": 665,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "October",
+                    "visits": 580,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "November",
+                    "visits": 443,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "Canada",
+                    "visits": 441,
+                    "color" : "#6CB9EC"
+                },
+                {
+                    "country": "December",
+                    "visits": 395,
+                    "color" : "#6CB9EC"
+                }
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "country";
+                chart.startDuration = 1;
+                
+
+                // AXES
+                // category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.labelRotation = 0;
+                categoryAxis.gridPosition = "start";
+
+                // value
+                // in case you don't want to change default settings of value axis,
+                // you don't need to create it, as one value axis is created automatically.
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.valueField = "visits";
+                graph.balloonText = "[[category]]: <b>[[value]]</b>";
+                graph.type = "column";
+                graph.lineAlpha = 0;
+                graph.fillAlphas = 0.8;
+                graph.colorField = "color";
+                chart.addGraph(graph);
+
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorAlpha = 0;
+                chartCursor.zoomable = false;
+                chartCursor.categoryBalloonEnabled = false;
+                chart.addChartCursor(chartCursor);
+
+                chart.creditsPosition = "top-right";
+
+                chart.write("chartdiv");
+            });
+        </script>
+	
+	
+    <script>
+            var chart2;
+
+            var chartData2 = [
+                {
+                    "country2": "Monday",
+                    "visits": 250
+                },
+                {
+                    "country2": "Tuesday",
+                    "visits": 190
+                },
+                {
+                    "country2": "Wednesday",
+                    "visits": 201
+                },
+                {
+                    "country2": "Thursday",
+                    "visits": 130
+                },
+                {
+                    "country2": "Friday",
+                    "visits": 225
+                },
+                {
+                    "country2": "Saturday",
+                    "visits": 250
+                },
+                {
+                    "country2": "Sunday",
+                    "visits": 320
+                }
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart2 = new AmCharts.AmSerialChart();
+                chart2.dataProvider = chartData2;
+                chart2.categoryField = "country2";
+                chart2.startDuration = 1;
+
+                // AXES
+                // category
+                var categoryAxis2 = chart2.categoryAxis;
+                categoryAxis2.labelRotation = 0;
+                categoryAxis2.gridPosition = "start";
+
+                // value
+                // in case you don't want to change default settings of value axis,
+                // you don't need to create it, as one value axis is created automatically.
+
+                // GRAPH
+                var graph2 = new AmCharts.AmGraph();
+                graph2.valueField = "visits";
+                graph2.balloonText = "[[category]]: <b>[[value]]</b>";
+                graph2.type = "column";
+                graph2.lineAlpha = 0;
+                graph2.fillAlphas = 0.8;
+                chart2.addGraph(graph2);
+
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorAlpha = 0;
+                chartCursor.zoomable = false;
+                chartCursor.categoryBalloonEnabled = false;
+                chart2.addChartCursor(chartCursor);
+
+                chart2.creditsPosition = "top-right";
+
+                chart2.write("divForDays");
+            });
+        </script>	
+	
 	
 	<!-- Socket.IO -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>

@@ -108,7 +108,7 @@ public class BidderController {
 			User u = (User) ses.getAttribute("logedUser");
 			Offer temp = this.personService.getOffer(Integer.parseInt(groc_id), u.getId());
 			if (temp!=null){
-				redirectAttributes.addFlashAttribute("addedNewOffer", "Offer already created!");
+				redirectAttributes.addFlashAttribute("addedNewOffer2", "Offer already created!");
 				return "redirect:/restaurant/"+idRest;
 			}
 			Offer of =  new Offer();
@@ -185,7 +185,7 @@ public class BidderController {
 		
 		GrocaryList gl = this.personService.findGrocery(Integer.parseInt(grocaryId));
 		if (offer.getAccepted()==0 || offer.getAccepted()==1){
-			redirectAttributes.addFlashAttribute("updatedOffer","Currently it can not be changed!");
+			redirectAttributes.addFlashAttribute("updatedOffer2","Currently it can not be changed!");
 			return "redirect:/restaurant/"+restId;
 		}
 		java.util.Date td = new java.util.Date();
@@ -193,7 +193,7 @@ public class BidderController {
 		System.out.println(today + "  GL date: "+gl.getGLto());
 		if(today.compareTo(gl.getGLto())>0){
 			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			redirectAttributes.addFlashAttribute("updatedOffer","Date for changing bids has expired!");
+			redirectAttributes.addFlashAttribute("updatedOffer2","Date for changing bids has expired!");
 			return "redirect:/restaurant/"+restId;
 		}
 		
