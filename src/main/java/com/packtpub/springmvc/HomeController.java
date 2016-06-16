@@ -114,10 +114,6 @@ public class HomeController {
 				}
 			}
 			
-			List<TablePosition> tempPosition = new ArrayList<TablePosition>();
-			for (TableOne tp:tables){
-				tempPosition.add(tp.getTableposition());
-			}
 			for (Shift ss : shiftsRest) {
 				tempShift.add(ss);
 			}
@@ -153,11 +149,11 @@ public class HomeController {
 				}
 			}
 			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
+			model.addAttribute("tables",tables);
 			model.addAttribute("offerForGroc",offerForGroc);
 			model.addAttribute("grocList",grocList);
 			model.addAttribute("listaSvihItema",listaItema);
 			model.addAttribute("ponude",ponude);
-			model.addAttribute("tablePositions",tempPosition);
 			model.addAttribute("alchDrink",ad);
 			model.addAttribute("NonalchDrink",nad);
 			model.addAttribute("MainCours",a);

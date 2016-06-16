@@ -1036,8 +1036,8 @@
 														<div class="gridster" style="width: 100%">
 														
 															<ul class="ull">
-																<c:forEach var="position" items="${tablePositions}">
-																	<li id="${position.id}" class="sto" data-row="${position.row }" data-col="${position.col}" data-sizex="${position.size_x}" data-sizey="${position.size_y}"><a href="<c:url value="deleteTable/${position.id}/${restoran.id}"/>"><button class="btn btn-primary btn-md" style="border-color:#F33A59;background-color:#F33A59">Delete</button> </a></li>
+																<c:forEach var="position" items="${tables}">
+																	<li title="Guest number: ${position.guest_num} Reon: ${position.reon_id.reon_num}" id="${position.tableposition.id}" class="sto" data-row="${position.tableposition.row }" data-col="${position.tableposition.col}" data-sizex="${position.tableposition.size_x}" data-sizey="${position.tableposition.size_y}"><a href="<c:url value="deleteTable/${position.tableposition.id}/${restoran.id}"/>"><button class="btn btn-primary btn-md" style="border-color:#F33A59;background-color:#F33A59">Delete</button> </a></li>
 																</c:forEach>
 															</ul>
 														</div>
