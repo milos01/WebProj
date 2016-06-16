@@ -77,6 +77,12 @@ public class Table_schedule {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return "Table_schedule [id=" + id + ", table=" + table + ", reserved_from=" + reserved_from + ", reserved_to="
+				+ reserved_to + ", date=" + date + "]";
+	}
 	
 	
 }

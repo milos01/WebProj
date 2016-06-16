@@ -482,11 +482,13 @@
 											</div>
 											<div class="text-center p-lg h-150">
 
-												<h3>Dialog will disappear after 1 minute of your inactivity</h3>
+												<h3>Dialog will disappear after 1 minute of your
+													inactivity</h3>
 												<i class="fa fa-hand-o-up fa-4x"></i>
 
 											</div>
 											<div class="wrapper wrapper-content animated fadeIn">
+											<form action="${restaurant.id}/reserveTable" method="post">
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="tabs-container">
@@ -499,59 +501,67 @@
 																	href="#tab-5${table.id}"><i class="fa fa-database"></i></a></li>
 															</ul>
 															<div class="tab-content">
-																<div id="tab-3${table.id}" class="tab-pane active">
-																	<div class="panel-body">
-																		<div class="col-md-6">
-																			<p class="font-bold">From:</p>
-																			<input class="touchspin1" name="res_from" type="text"
-																				value="16" name="demo2" id="fromInput${table.id}">
-																		</div>
-																		<div class="col-md-6">
+																
+																	<div id="tab-3${table.id}" class="tab-pane active">
+																		<div class="panel-body">
+																			<div class="col-md-6">
+																				<p class="font-bold">From:</p>
+																				<input class="touchspin1" name="res_from"
+																					type="text" value="16" name="demo2"
+																					id="fromInput${table.id}">
+																			</div>
+																			<div class="col-md-6">
 
-																			<p class="font-bold">To:</p>
-																			<input class="touchspin1" name="res_to" type="text"
-																				value="17" name="demo3" id="toInput${table.id}">
-																		</div>
-																	</div>
-																</div>
-																<div id="tab-4${table.id}" class="tab-pane">
-																	<div class="panel-body">
-
-																		<div class="col-md-12">
-																			<div class="chat-users" style="max-height: 300px">
-																				<div class="users-list">
-																					<c:forEach var="friend"
-																						items="${logedUser.starter_friend}">
-																						<div class="chat-user" style="border-bottom: none">
-																							<img class="chat-avatar"
-																								src="/springmvc/resources/img/a1.jpg" alt="">
-																							<div class="chat-user-name">
-																								<a href="#">${friend.firstName}
-																									${friend.lastName}</a>
-																							</div>
-																							<div class="checkbox checkbox-default pull-right"
-																								style="margin-top: -25px; margin-right: -10px">
-																								<input id="checkbox6" type="checkbox"> <label
-																									for="checkbox6"></label>
-																							</div>
-																						</div>
-
-																					</c:forEach>
-																				</div>
-
+																				<p class="font-bold">To:</p>
+																				<input class="touchspin1" name="res_to" type="text"
+																					value="17" name="demo3" id="toInput${table.id}">
 																			</div>
 																		</div>
 																	</div>
-																</div>
-																<div id="tab-5${table.id}" class="tab-pane">
-																	<div class="panel-body">
-																		<strong>Donec quam felis</strong> ${table.id} c
+																	<div id="tab-4${table.id}" class="tab-pane">
+																		<div class="panel-body">
+
+																			<div class="col-md-12">
+																				<div class="chat-users" style="max-height: 300px">
+																					<div class="users-list">
+																						<c:forEach var="friend"
+																							items="${logedUser.starter_friend}">
+																							<div class="chat-user"
+																								style="border-bottom: none">
+																								<img class="chat-avatar"
+																									src="/springmvc/resources/img/a1.jpg" alt="">
+																								<div class="chat-user-name">
+																									<a href="#">${friend.firstName}
+																										${friend.lastName}</a>
+																								</div>
+																								<div
+																									class="checkbox checkbox-default pull-right"
+																									style="margin-top: -25px; margin-right: -10px">
+																									<input id="checkbox6" type="checkbox">
+																									<label for="checkbox6"></label>
+																								</div>
+																							</div>
+
+																						</c:forEach>
+																					</div>
+
+																				</div>
+																			</div>
+																		</div>
 																	</div>
-																</div>
+																	<div id="tab-5${table.id}" class="tab-pane">
+																		<div class="panel-body" style="text-align:center;">
+																			<button type="submit" class="btn btn-primary" style="margin:20px 0px">Finish reservating</button>
+																		</div>
+																	</div>
+																	<input type ="hidden" value="${table.id}" name="tableId">
+																	<input type ="hidden" value="${table.guest_num}" name="guestNum">
+																	<input type ="hidden" value="${restaurant.id}" name="resId">
 															</div>
 														</div>
 													</div>
 												</div>
+												</form>
 											</div>
 										</div>
 									</div>

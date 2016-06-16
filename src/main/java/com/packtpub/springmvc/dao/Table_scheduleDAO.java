@@ -2,6 +2,7 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.TablePosition;
 import com.packtpub.springmvc.model.Table_schedule;
@@ -22,4 +23,11 @@ public interface Table_scheduleDAO {
 	public TablePosition findTablePosition(int id);
 	
 	public void removeTableSchedule(int id);
+	public boolean addTableSchedule(Table_schedule ts);
+	
+	public TableOne findTableOne(int id);
+	
+	public boolean addReservarion(Reservation res);
+	
+	
 }

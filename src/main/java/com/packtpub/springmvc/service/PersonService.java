@@ -15,6 +15,7 @@ import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -164,4 +165,10 @@ public interface PersonService {
 	public Offer findOffer(int idOf);
 	
 	public List<Offer> getOffers(int grocery_id);
+
+	public boolean addTableSchedule(Table_schedule ts);
+	
+	public TableOne findTableOn(int id);
+	
+	public boolean addReservations(Reservation res);
 }

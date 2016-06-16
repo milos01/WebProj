@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.TablePosition;
@@ -110,7 +111,7 @@ private SessionFactory sessionFactory;
 	}
 	@Override
 	public void removeTableSchedule(int id) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("delete FROM Table_schedule tp where tp.id=:id");
 		query.setParameter("id", id);
@@ -119,5 +120,35 @@ private SessionFactory sessionFactory;
 		session.close();
 		
 	}
+	@Override
+	public boolean addTableSchedule(Table_schedule ts) {
+		Session session = sessionFactory.getCurrentSession();
+			System.out.println(ts.toString());
+			session.persist(ts);
+			return true;
+		
+		
+		
+	}
+	@Override
+	public TableOne findTableOne(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query1 =  session.createQuery("FROM TableOne to WHERE to.id =:string_id");
+		query1.setParameter("string_id", id);
+		TableOne tt = null;
+		List<TableOne> tables = query1.list();
+		for(TableOne to:tables){
+			tt = to;
+		}
+	
+		return tt;
+	}
+	@Override
+	public boolean addReservarion(Reservation res) {
+		Session session = sessionFactory.getCurrentSession();
+		session.persist(res);
+		return true;
+	}
+	
 
 }

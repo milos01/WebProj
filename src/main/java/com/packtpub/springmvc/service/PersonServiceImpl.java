@@ -25,6 +25,7 @@ import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -475,13 +476,19 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void createOffer(Offer of) {
 		this.bidderDAO.createOffer(of);
-		
+	}
+	public boolean addTableSchedule(Table_schedule ts) {
+		boolean work = this.tableDAO.addTableSchedule(ts);
+		return work;
 	}
 
 	@Override
 	@Transactional
 	public Offer getOffer(int grocery_id, int user_id) {
 		return this.bidderDAO.getOffer(grocery_id, user_id);
+	}
+	public TableOne findTableOn(int id) {
+		return this.tableDAO.findTableOne(id);
 	}
 
 	@Override
@@ -506,6 +513,10 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public List<Offer> getOffers(int grocery_id) {
 		return this.bidderDAO.getOffers(grocery_id);
+	}
+	public boolean addReservations(Reservation res) {
+		// TODO Auto-generated method stub
+		return this.tableDAO.addReservarion(res);
 	}
 
 }
