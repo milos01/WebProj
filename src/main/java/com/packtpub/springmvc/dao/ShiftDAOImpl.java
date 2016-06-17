@@ -39,4 +39,10 @@ public class ShiftDAOImpl implements ShiftDAO {
 		
 	}
 
+	@Override
+	public void addNewRestShift(Shift sh) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(sh);
+	}
+
 }

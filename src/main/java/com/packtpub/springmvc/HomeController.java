@@ -1,6 +1,7 @@
 package com.packtpub.springmvc;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
+import javax.tools.ToolProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,7 @@ import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.Shift;
@@ -108,9 +111,16 @@ public class HomeController {
 			
 			List<TableOne> tables = new ArrayList<TableOne>();
 			Set<Reon>listareona = restaurant.getReons();
+			
+			List<ReonTypes> tipoviReona = new ArrayList<ReonTypes>();
+			
 			for (Reon r:listareona){
 				for (TableOne tb:r.getTables()){
 					tables.add(tb);
+				}
+				
+				for(ReonTypes rt:r.getReonTypes()){
+					tipoviReona.add(rt);
 				}
 			}
 			
@@ -148,6 +158,7 @@ public class HomeController {
 					offerForGroc.add(of);
 				}
 			}
+			List<ReonTypes> sviTipovi = this.personService.getAllReaonTypes();
 			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
 			model.addAttribute("tables",tables);
 			model.addAttribute("offerForGroc",offerForGroc);
@@ -163,6 +174,8 @@ public class HomeController {
 			model.addAttribute("restaurantShifts", tempShift);
 			model.addAttribute("restoran", restaurant);
 			model.addAttribute("menadzer", s);
+			model.addAttribute("tipoviReona", tipoviReona);
+			model.addAttribute("sviTipovi", sviTipovi);
 		}
 
 		return "home";
@@ -371,6 +384,89 @@ public class HomeController {
 		}
 		this.personService.addFoodItem(fi);
 		redirectAttributes.addFlashAttribute("newItemAdded", "Item successfully added!");
+		return "redirect:/home";
+
+	}
+	
+	@RequestMapping(value = "/newRestShift",method = RequestMethod.POST)
+	public String newRestShift(@RequestParam("idRest") String restID,@RequestParam("startTime") String start,@RequestParam("endTime") String end,@RequestParam("name") String name,RedirectAttributes redirectAttributes){
+		
+		Shift ns = new Shift();
+		long startTime = 0;
+		long endTime = 0;
+		Time st = null;
+		Time en = null;
+		try {
+			startTime = new SimpleDateFormat("hh:mm:ss").parse(start).getTime();
+			endTime = new SimpleDateFormat("hh:mm:ss").parse(end).getTime();
+			
+			ns.setShift_entry(name);
+			st = new Time(startTime);
+			en = new Time(endTime);
+			
+			ns.setEnd_shift(en);
+			ns.setStart_shift(st);
+			ns.setRestaurant(this.personService.getRestaurant(Integer.parseInt(restID)));
+			this.personService.addNewRestShift(ns);
+			redirectAttributes.addFlashAttribute("shiftRestAdded","Shift is successflly added!");
+		}
+		catch(ParseException e){
+			redirectAttributes.addFlashAttribute("shiftRestAdded2","Enter a valid time format!");
+		}
+		return "redirect:/home";
+
+	}
+	
+	@RequestMapping(value = "/NewReonType",method = RequestMethod.POST)
+	public String NewReonType(@ModelAttribute("type") ReonTypes rt,RedirectAttributes redirectAttributes){
+		
+		List<ReonTypes> tipovi = this.personService.getAllReaonTypes();
+		for(ReonTypes rtt:tipovi){
+			if(rtt.getName().equals(rt.getName())){
+				redirectAttributes.addFlashAttribute("reonTypeAdded","Type with that name already exist!");
+				return "redirect:/home";
+			}
+		}
+		
+		this.personService.addNewReonType(rt);
+		redirectAttributes.addFlashAttribute("reonTypeAdded1","Type is successflly added!");
+		return "redirect:/home";
+
+	}
+	
+	@RequestMapping(value = "/newRestReon",method = RequestMethod.POST)
+	public String newRestReon(@RequestParam("idRest") String restID,@RequestParam("reonType_id") String rtID,RedirectAttributes redirectAttributes){
+		
+		Restaurant rest = this.personService.getRestaurant(Integer.parseInt(restID));
+		ReonTypes rt = this.personService.findReonTypes(Integer.parseInt(rtID));
+		List<Integer> restReons = new ArrayList<Integer>();
+		for(Reon rr:rest.getReons()){
+			restReons.add(rr.getReon_num());
+		}
+		
+		for(Reon reon:rt.getReoni()){
+			if(reon.getRestaurant().getId()==rest.getId()){
+				redirectAttributes.addFlashAttribute("newReonToRest","Reon is already exists!");
+				return "redirect:/home";
+			}
+		}
+		
+		Collections.sort(restReons);
+		int reonNum = restReons.get((restReons.size()-1))+1;
+		
+		Reon noviReon = new Reon();
+		
+		noviReon.setReon_num(reonNum);
+		noviReon.setRestaurant(rest);
+		this.personService.addNewReonToRest(noviReon);
+		
+		rest.setReon_num(rest.getReon_num()+1);
+		this.personService.updateRestaurant(rest);
+		
+		rt.getReoni().add(noviReon);
+		
+		this.personService.refresType(rt);
+		redirectAttributes.addFlashAttribute("newReonToRest","Reon is successflly added!");
 		return "redirect:/home";
 
 	}

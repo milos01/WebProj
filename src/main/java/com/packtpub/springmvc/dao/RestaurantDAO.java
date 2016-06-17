@@ -2,8 +2,9 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
+import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Restaurant;
-import com.packtpub.springmvc.model.User;
 
 public interface RestaurantDAO {
 	public void addRestaurant(Restaurant res);
@@ -15,5 +16,15 @@ public interface RestaurantDAO {
 	public void removeRestaurant(int id);
 	
 	public void updateRestaurant(Restaurant r);
+	
+	public void addNewReonType(ReonTypes rt);
+	
+	public List<ReonTypes> getAllReaonTypes();
 
+	public void referesType(ReonTypes rt);
+	
+	public ReonTypes findReonTypes(int id);
+	
+	public void addNewReonToRest(Reon r);
+	
 }

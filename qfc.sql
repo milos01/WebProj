@@ -114,3 +114,17 @@ INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`,
 INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('0', '2016-06-25', '1400', '90', '1', '6');
 INSERT INTO `questforchef`.`offer` (`accepted`, `deadline`, `price`, `warranty`, `grocaryList_id`, `user_id`) VALUES ('2', '2016-06-25', '1400', '90', '2', '6');
 INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName`, `password`, `shoe_num`, `restaurant_id`, `role_id`,`con_num`, `picture_path`) VALUES ('1994-09-22','kiki@gmail.com', 'Kiki', 'Kikic', 'pass', '42', '1', '7','XL', 'a6.jpg');
+
+INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Basta');
+INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Pusacki');
+INSERT INTO `questforchef`.`reontypes` (`id`, `name`) VALUES ('Ne pusacki');
+INSERT INTO `questforchef`.`reontypes` (`id`, `name`) VALUES ('Vip');
+
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('1', '1');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('2', '2');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('3', '3');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('4', '4');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('1', '5');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('2', '6');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('3', '7');
+INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('4', '8');

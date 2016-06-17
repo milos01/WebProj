@@ -13,4 +13,6 @@ public interface ShiftDAO {
 	
 	public void addNewShiftForStaff(Shift_schedule s);
 	
+	public void addNewRestShift(Shift sh);
+	
 }

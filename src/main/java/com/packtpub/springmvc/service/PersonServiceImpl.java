@@ -25,6 +25,8 @@ import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
+import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -517,6 +519,42 @@ public class PersonServiceImpl implements PersonService {
 	public boolean addReservations(Reservation res) {
 		// TODO Auto-generated method stub
 		return this.tableDAO.addReservarion(res);
+	}
+
+	@Override
+	@Transactional
+	public void addNewRestShift(Shift sh) {
+		this.shiftDAO.addNewRestShift(sh);
+	}
+
+	@Override
+	@Transactional
+	public void addNewReonType(ReonTypes rt) {
+			this.restaurantDAO.addNewReonType(rt);
+	}
+
+	@Override
+	@Transactional
+	public List<ReonTypes> getAllReaonTypes() {
+		return this.restaurantDAO.getAllReaonTypes();
+	}
+
+	@Override
+	@Transactional
+	public void refresType(ReonTypes rt) {
+		this.restaurantDAO.referesType(rt);
+	}
+
+	@Override
+	@Transactional
+	public ReonTypes findReonTypes(int id) {
+		return this.restaurantDAO.findReonTypes(id);
+	}
+
+	@Override
+	@Transactional
+	public void addNewReonToRest(Reon r) {
+		this.restaurantDAO.addNewReonToRest(r);
 	}
 
 }

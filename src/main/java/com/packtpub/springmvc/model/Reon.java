@@ -39,6 +39,9 @@ public class Reon {
 	@OneToMany(mappedBy="reon_id", cascade=CascadeType.ALL) 
 	private Set<TableOne> tables;
 	
+	@ManyToMany(mappedBy="reoni")
+	private Set<ReonTypes> reonTypes;
+	
 	public Set<Staff> getStaffsReon() {
 		return staffsReon;
 	}
@@ -78,6 +81,14 @@ public class Reon {
 
 	public void setTables(Set<TableOne> tables) {
 		this.tables = tables;
+	}
+
+	public Set<ReonTypes> getReonTypes() {
+		return reonTypes;
+	}
+
+	public void setReonTypes(Set<ReonTypes> reonTypes) {
+		this.reonTypes = reonTypes;
 	}
 
 	@Override

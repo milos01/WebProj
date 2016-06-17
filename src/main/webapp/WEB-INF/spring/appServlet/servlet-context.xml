@@ -98,6 +98,7 @@
 				<beans:value>com.packtpub.springmvc.model.FoodListItem</beans:value>
 				<beans:value>com.packtpub.springmvc.model.GrocaryList</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Offer</beans:value>
+				<beans:value>com.packtpub.springmvc.model.ReonTypes</beans:value>
 			</beans:list>
 		</beans:property>
 

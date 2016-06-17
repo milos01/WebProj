@@ -71,6 +71,14 @@ public class Shift {
 	public void setEnd_shift(Time end_shift) {
 		this.end_shift = end_shift;
 	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 	
 	
 }

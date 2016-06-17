@@ -25,6 +25,10 @@
 <link rel='stylesheet' href='../springmvc/resources/fullcalendar/fullcalendar.css' />
 <link href='../springmvc/resources/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
 
+<link rel='stylesheet' href='../springmvc/resources/timePicker/bootstrap-datetimepicker.min.css' />
+<script src='../springmvc/resources/timePicker/bootstrap-datetimepicker.min.js'></script>
+
+
 <script src='../springmvc/resources/fullcalendar/lib/moment.min.js'></script>
 <script src='../springmvc/resources/fullcalendar/fullcalendar.js'></script>
 
@@ -117,6 +121,13 @@
 		</div>
 	</c:if>
 	
+	<c:if test="${!empty newReonToRest}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newReonToRest}</strong>
+		</div>
+	</c:if>
+	
 	<c:if test="${!empty acceptedOffer}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
@@ -142,6 +153,34 @@
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
 			<strong>${passwodChanged}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty reonTypeAdded}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${reonTypeAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty reonTypeAdded1}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${reonTypeAdded1}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty shiftRestAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${shiftRestAdded2}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty shiftRestAdded}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${shiftRestAdded}</strong>
 		</div>
 	</c:if>
 	
@@ -1001,6 +1040,14 @@
 																	data-target="#openMenuRest">
 																	<i class="fa fa-book"></i> Menu
 																</button>
+																<button class="btn btn-white btn-sm" data-toggle="modal"
+																	data-target="#addNewShiftRest">
+																	<i class="fa fa-clock-o"></i> Add shift
+																</button>
+																<button class="btn btn-white btn-sm" data-toggle="modal"
+																	data-target="#addNewReonRest">
+																	Add new reon
+																</button>
 															</div>
 														</div>
 
@@ -1077,7 +1124,7 @@
 											<input type="hidden" name="id" value="${restoran.id}">
 											<div class="modal-footer" style="margin-top: 15px;">
 												<button type="submit" class="btn btn-success"
-														style="background: #1ab394">Save</button>
+														style="background: #1ab394;border:1px solid #1ab394">Save</button>
 												<button type="button" class="btn btn-default"
 													data-dismiss="modal">Close</button>
 											</div>
@@ -1087,6 +1134,130 @@
 							</div>
 							<!-- END DODAVANJE NOVOG STOLA -->
 
+						<!-- Dodavanje nove smene  -->
+							<div id="addNewShiftRest" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Add new shift</h4>
+										</div>
+													<div style="height: 406px;">
+														<div class="tab-panels" style="border-top: 1px solid #E0E0E0">
+															<div >
+																		<p style="border-bottom:1px solid #E0E0E0;border-bottom-color:#E0E0E0;font-family: Helvetica;font-size: 14px"> Current shifts</p>
+																					<div style="width: 200px;position:relative;top: 0px;margin-left: 10px;">
+																						<c:forEach var="shift" items="${restaurantShifts}">
+																							<p style="font-size:15px">${shift.shift_entry} ${shift.start_shift} - ${shift.end_shift}</p>
+																						</c:forEach>
+																						
+																					</div>
+																		<div style="border-left:1px solid #E0E0E0;float:right;position: absolute; top: 73px;left: 294px;">
+																			<h3 align="center">New shift</h3>
+																			<form action="newRestShift" method="POST">
+																				<input class="form-control" name="name" type="text"
+																					placeholder="Name" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+																					
+																			<input class="form-control" name="startTime" type="text"
+																					id="timePick" placeholder="Start: hh:mm:ss " required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																			
+																				<input class="form-control" name="endTime" type="text"
+																					placeholder="End: hh:mm:ss" required
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																				
+																				<input type="hidden" name="idRest" value="${restoran.id}"/>
+																				<div class="modal-footer" style="margin-top: 115px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Add shift</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																			    </div>
+																			</form>
+																	</div>
+														</div>
+													</div>
+												</div>
+									</div>
+								</div>
+							</div>
+							<!-- END dodavanje nove smene restoranu -->
+							
+							<!-- Dodela novog reona restoranu -->
+							<div id="addNewReonRest" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Add new reon</h4>
+										</div>
+													<div style="height: 315px;">
+														<div class="tab-panels" style="border-top: 1px solid #E0E0E0">
+															<div >
+																		<p style="border-bottom:1px solid #E0E0E0;border-bottom-color:#E0E0E0;font-family: Helvetica;font-size: 14px"> Current reons</p>
+																					<div style="width: 200px;position:relative;top: 0px;margin-left: 10px;">
+																						<c:forEach var="reon" items="${tipoviReona}">
+																							<p style="font-size:15px">${reon.name}</p>
+																						</c:forEach>
+																						
+																					</div>
+																		<div style="border-left:1px solid #E0E0E0;float:right;position: absolute; top: 73px;left: 294px;">
+																			<h3 align="center">New reon</h3>
+																			<form action="newRestReon" method="POST">
+																				
+																				<select class="form-control" name="reonType_id"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					<option value="">Reon types</option>
+																					<c:forEach var="i" items="${sviTipovi}">
+																							<option value="${i.id}">${i.name}</option>
+																					</c:forEach>
+																				</select>
+																				<button type="button" class="btn btn-white btn-sm" data-toggle="modal"
+																					data-target="#newTypeReon" style="position: relative;left: 200px">
+																					Add new type
+																				</button>
+																				<input type="hidden" name="idRest" value="${restoran.id}"/>
+																				<div class="modal-footer" style="margin-top: 115px;">
+																					<button type="submit" class="btn btn-success"
+																						style="background: #1ab394;border: 1px solid #1ab394">Add reon</button>
+																					<button type="button" class="btn btn-default"
+																						data-dismiss="modal">Close</button>
+																			    </div>
+																			</form>
+																	</div>
+														</div>
+													</div>
+												</div>
+									</div>
+								</div>
+							</div>
+							<!-- END dodele reona restorana -->
+				
+							<div id="newTypeReon" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Add new shift</h4>
+										</div>
+										<form action="NewReonType" method="POST">
+											<input class="form-control" name="name" type="text"
+												placeholder="Name" required
+											style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
+										
+											<div class="modal-footer" style="margin-top: 115px;">
+												<button type="submit" class="btn btn-success"
+												style="background: #1ab394;border: 1px solid #1ab394">Add</button>
+												<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+				
+				
 							<script type="text/javascript">
 								var map;
 								var marker;
@@ -1181,7 +1352,7 @@
 
 											<div class="modal-footer" style="margin-top: 15px;">
 												<button type="submit" class="btn btn-success"
-																						style="background: #1ab394">Save</button>
+																						style="background: #1ab394;border:1px solid #1ab394">Save</button>
 												<button type="button" class="btn btn-default"
 																						data-dismiss="modal">Close</button>
 											</div>

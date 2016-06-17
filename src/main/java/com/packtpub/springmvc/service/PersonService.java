@@ -15,6 +15,8 @@ import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
+import com.packtpub.springmvc.model.Reon;
+import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -171,4 +173,16 @@ public interface PersonService {
 	public TableOne findTableOn(int id);
 	
 	public boolean addReservations(Reservation res);
+	
+	public void addNewRestShift(Shift sh);
+	
+	public void addNewReonType(ReonTypes rt);
+	
+	public List<ReonTypes> getAllReaonTypes();
+	
+	public void refresType(ReonTypes rt);
+	
+	public ReonTypes findReonTypes(int id);
+	
+	public void addNewReonToRest(Reon r);
 }
