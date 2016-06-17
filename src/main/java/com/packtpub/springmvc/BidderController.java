@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -74,6 +75,14 @@ public class BidderController {
 	@RequestMapping(value="/addNewItemToCart", method = RequestMethod.POST)
 	public String newItemToCart(@ModelAttribute("item") FoodItem fi,@RequestParam("quantity") String kolicina,@RequestParam("grocery_id") String gr_id,RedirectAttributes redirectAttributes){
 		
+		int kol;
+		try{
+			kol = Integer.parseInt(kolicina);
+		}
+		catch(NumberFormatException e){
+			redirectAttributes.addFlashAttribute("itemToCardAdded2","Quantity must be a number!");
+			return "redirect:/home";
+		}
 		
 		FoodListItem fli =  new FoodListItem();
 		fli.setFooditem(fi);
@@ -92,6 +101,14 @@ public class BidderController {
 		Date from = getFormatedDate(dateFrom);
 		Date to = getFormatedDate(dateTo);
 		Restaurant r = this.personService.getRestaurant(Integer.parseInt(idRest));
+		Set<GrocaryList> listG = r.getGrocaryList();
+		for(GrocaryList grl:listG){
+			if (from.compareTo(grl.getGLfrom())==0 && to.compareTo(grl.getGLto())==0){
+				redirectAttributes.addFlashAttribute("GroceryAdded2","Grocery list already exists with same date!");
+				return "redirect:/home";
+			}
+		}
+		
 		gl.setGLfrom(from);
 		gl.setGLto(to);
 		gl.setRestaurant(r);
@@ -109,6 +126,15 @@ public class BidderController {
 			Offer temp = this.personService.getOffer(Integer.parseInt(groc_id), u.getId());
 			if (temp!=null){
 				redirectAttributes.addFlashAttribute("addedNewOffer2", "Offer already created!");
+				return "redirect:/restaurant/"+idRest;
+			}
+			
+			int kol;
+			try{
+				kol = Integer.parseInt(price);
+			}
+			catch(NumberFormatException e){
+				redirectAttributes.addFlashAttribute("addedNewOffer2", "Price must be real number!");
 				return "redirect:/restaurant/"+idRest;
 			}
 			Offer of =  new Offer();

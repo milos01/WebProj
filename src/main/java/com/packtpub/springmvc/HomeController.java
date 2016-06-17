@@ -192,6 +192,11 @@ public class HomeController {
 		staff.setRole(temp);
 		staff.setRestaurant(temp2);
 
+		Staff staffTemp = this.personService.getStaff(staff.getEmail());
+		if(staffTemp!=null){
+			redirectAttributes.addFlashAttribute("newStaffAdded2", "Employees email already exists!");
+			return "redirect:/home";
+		}
 		try {
 			Date tempDate = getFormatedDate(bd);
 			staff.setBirth_date(tempDate);
@@ -212,7 +217,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/newStaffShift", method = RequestMethod.POST)
 	public String addNewShiftStaff(@RequestParam("shift_entry") String naziv, @RequestParam("shift_date") String datum,
-			@RequestParam("reonNumber") String reonNumb, @RequestParam("staffID") String staffID,@RequestParam("restID") String restID)
+			@RequestParam("reonNumber") String reonNumb, @RequestParam("staffID") String staffID,@RequestParam("restID") String restID,RedirectAttributes redirectAttributes)
 			throws ParseException {
 
 		Shift_schedule sc = new Shift_schedule();
@@ -220,6 +225,15 @@ public class HomeController {
 		Date temp = getFormatedDate(datum);
 		sc.setShift_date(temp);
 		Staff stf = this.personService.getStaff(staffID);
+		
+		Set<Shift_schedule> listaSmenaRadnika = stf.getShift_schedule();
+		for(Shift_schedule shc:listaSmenaRadnika){
+			if(temp.compareTo(shc.getShift_date())==0 && shc.getShift_entry().equals(naziv)){
+				redirectAttributes.addFlashAttribute("smenaRadnika2", "Shift is already created!");
+				return "redirect:/home";
+			}
+		}
+		
 		this.personService.addNewStaffShift(sc);
 		stf.getShift_schedule().add(sc);
 		
@@ -227,6 +241,7 @@ public class HomeController {
 		if (reonNumb.equals(" ")) {
 			System.out.println("YES");
 			this.personService.refreshShift(stf);
+			redirectAttributes.addFlashAttribute("smenaRadnika", "Shift is successfully created!");
 			return "redirect:/home";
 		} else {
 			int brojReona = Integer.parseInt(reonNumb);
@@ -241,6 +256,7 @@ public class HomeController {
 			System.out.println(ren.toString());
 			stf.getReons().add(ren);
 			this.personService.refreshShift(stf);
+			redirectAttributes.addFlashAttribute("smenaRadnika", "Shift is successfully created!");
 		}
 		
 		return "redirect:/home";
@@ -250,12 +266,18 @@ public class HomeController {
 	public String addNewFood(@ModelAttribute("food") Food rest,@RequestParam("restID") String restID,RedirectAttributes redirectAttributes){
 		Restaurant r =this.personService.getRestaurant(Integer.parseInt(restID));
 		Menu m = r.getMenu();
-		
 		if (rest.getType().equals("Appetizer")){
 			Appetizer a = new Appetizer();
 			a.setName(rest.getName());
 			a.setPrice(rest.getPrice());
 			a.setPicture(rest.getPicture());
+			Set<Appetizer> temp = m.getAppetizer();
+			for(Appetizer apt:temp){
+				if(apt.getName().equalsIgnoreCase(rest.getName())){
+					redirectAttributes.addFlashAttribute("newDishAdded2", "Dish already exists!");
+					return "redirect:/home";
+				}
+			}
 			this.personService.addAppetizer(a);
 			m.getAppetizer().add(a);
 			this.personService.updateMenu(m);
@@ -265,6 +287,13 @@ public class HomeController {
 			a.setName(rest.getName());
 			a.setPrice(rest.getPrice());
 			a.setPicture(rest.getPicture());
+			Set<Desert> temp = m.getDesert();
+			for(Desert apt:temp){
+				if(apt.getName().equalsIgnoreCase(rest.getName())){
+					redirectAttributes.addFlashAttribute("newDishAdded2", "Dish already exists!");
+					return "redirect:/home";
+				}
+			}
 			this.personService.addDesert(a);
 			m.getDesert().add(a);
 			this.personService.updateMenu(m);
@@ -274,6 +303,13 @@ public class HomeController {
 			a.setName(rest.getName());
 			a.setPrice(rest.getPrice());
 			a.setPicture(rest.getPicture());
+			Set<MainCourse> temp = m.getMainCourse();
+			for(MainCourse apt:temp){
+				if(apt.getName().equalsIgnoreCase(rest.getName())){
+					redirectAttributes.addFlashAttribute("newDishAdded2", "Dish already exists!");
+					return "redirect:/home";
+				}
+			}
 			this.personService.addMainCourse(a);
 			m.getMainCourse().add(a);
 			this.personService.updateMenu(m);
@@ -292,6 +328,13 @@ public class HomeController {
 			ad.setPrice(rest.getPrice());
 			ad.setQuantity(rest.getQuantity());
 			ad.setPicture(rest.getPicture());
+			Set<AlcoholicDrink> temp = vc.getAlcoholicDrink();
+			for(AlcoholicDrink apt:temp){
+				if(apt.getName().equalsIgnoreCase(rest.getName())){
+					redirectAttributes.addFlashAttribute("newDishAdded2", "Drink already exists!");
+					return "redirect:/home";
+				}
+			}
 			this.personService.addAlcoholicDrink(ad);
 			vc.getAlcoholicDrink().add(ad);
 			this.personService.updateVineCard(vc);
@@ -302,6 +345,13 @@ public class HomeController {
 			ad.setPrice(rest.getPrice());
 			ad.setQuantity(rest.getQuantity());
 			ad.setPicture(rest.getPicture());
+			Set<NonAlcoholicDrink> temp = vc.getNonAlcoholicDrink();
+			for(NonAlcoholicDrink apt:temp){
+				if(apt.getName().equalsIgnoreCase(rest.getName())){
+					redirectAttributes.addFlashAttribute("newDishAdded2", "Drink already exists!");
+					return "redirect:/home";
+				}
+			}
 			this.personService.AddNonAlcoholicDrink(ad);
 			vc.getNonAlcoholicDrink().add(ad);
 			this.personService.updateVineCard(vc);
@@ -379,7 +429,7 @@ public class HomeController {
 		
 		FoodItem name = this.personService.findFoodItem(fi.getName());
 		if (name!=null){
-			redirectAttributes.addFlashAttribute("newItemAdded", "Item with that name already exists!");
+			redirectAttributes.addFlashAttribute("newItemAdded2", "Item with that name already exists!");
 			return "redirect:/home";
 		}
 		this.personService.addFoodItem(fi);
@@ -396,6 +446,14 @@ public class HomeController {
 		long endTime = 0;
 		Time st = null;
 		Time en = null;
+		Restaurant rest = this.personService.getRestaurant(Integer.parseInt(restID));
+		for(Shift ss:rest.getShifts()){
+			if(ss.getShift_entry().equals(name)){
+				redirectAttributes.addFlashAttribute("shiftRestAdded2","Shift with name "+name+" alredy exists!");
+				return "redirect:/home";
+			}
+		}
+		
 		try {
 			startTime = new SimpleDateFormat("hh:mm:ss").parse(start).getTime();
 			endTime = new SimpleDateFormat("hh:mm:ss").parse(end).getTime();
@@ -406,7 +464,7 @@ public class HomeController {
 			
 			ns.setEnd_shift(en);
 			ns.setStart_shift(st);
-			ns.setRestaurant(this.personService.getRestaurant(Integer.parseInt(restID)));
+			ns.setRestaurant(rest);
 			this.personService.addNewRestShift(ns);
 			redirectAttributes.addFlashAttribute("shiftRestAdded","Shift is successflly added!");
 		}

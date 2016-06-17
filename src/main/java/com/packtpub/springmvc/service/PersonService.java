@@ -185,4 +185,14 @@ public interface PersonService {
 	public ReonTypes findReonTypes(int id);
 	
 	public void addNewReonToRest(Reon r);
+	
+	public MainCourse getRestMainCourse(String name);
+	
+	public Appetizer getRestAppetizer(String name);
+	
+	public Desert getRestDesert(String name);
+	
+	public AlcoholicDrink getRestAlcholic(String name);
+	
+	public NonAlcoholicDrink getNonAlcoholic(String name);
 }

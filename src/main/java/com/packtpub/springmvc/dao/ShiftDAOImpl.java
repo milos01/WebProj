@@ -44,5 +44,4 @@ public class ShiftDAOImpl implements ShiftDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(sh);
 	}
-
 }

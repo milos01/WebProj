@@ -557,4 +557,34 @@ public class PersonServiceImpl implements PersonService {
 		this.restaurantDAO.addNewReonToRest(r);
 	}
 
+	@Override
+	@Transactional
+	public MainCourse getRestMainCourse(String name) {
+		return this.menuDAO.getRestMainCourse(name);
+	}
+
+	@Override
+	@Transactional
+	public Appetizer getRestAppetizer(String name) {
+		return this.menuDAO.getRestAppetizer(name);
+	}
+
+	@Override
+	@Transactional
+	public Desert getRestDesert(String name) {
+		return this.menuDAO.getRestDesert(name);
+	}
+
+	@Override
+	@Transactional
+	public AlcoholicDrink getRestAlcholic(String name) {
+		return this.menuDAO.getRestAlcholic(name);
+	}
+
+	@Override
+	@Transactional
+	public NonAlcoholicDrink getNonAlcoholic(String name) {
+		return this.menuDAO.getNonAlcoholic(name);
+	}
+
 }

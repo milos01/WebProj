@@ -177,6 +177,35 @@
 		</div>
 	</c:if>
 	
+	<c:if test="${!empty newStaffAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newStaffAdded2}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty newDishAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newDishAdded2}</strong>
+		</div>
+	</c:if>
+	
+	
+	<c:if test="${!empty smenaRadnika}">
+		<div class="alert alert-success" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${smenaRadnika}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty smenaRadnika2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${smenaRadnika2}</strong>
+		</div>
+	</c:if>
+	
 	<c:if test="${!empty shiftRestAdded}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
@@ -195,6 +224,13 @@
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
 			<strong>${itemToCardAdded}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty GroceryAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${GroceryAdded2}</strong>
 		</div>
 	</c:if>
 	
@@ -246,6 +282,21 @@
 			<strong>${updatedRest}</strong>
 		</div>
 	</c:if>
+	
+	<c:if test="${!empty itemToCardAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${itemToCardAdded2}</strong>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty newItemAdded2}">
+		<div class="alert alert-danger" id="errorAlert"
+			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			<strong>${newItemAdded2}</strong>
+		</div>
+	</c:if>
+	
 	
 	<div class="alert alert-success alrtTable" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%;z-index: 10000; display:none">
@@ -2203,9 +2254,18 @@
 																				<input class="form-control" name="name" type="text"
 																					id="name" placeholder="Name" required
 																					style="width: 300px; height: 45px; margin: auto auto; margin-top:15px;">
-																				<input class="form-control" name="type" type="text"
-																					id="price" placeholder="Type " required
-																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+																					
+																				<select class="form-control" id="type" name="type"
+																					placeholder="Type"
+																					style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+																					required>
+																					<option value="">Measuring code</option>
+																					<option value="g">g</option>
+																					<option value="kg">kg</option>
+																					<option value="dl">dl</option>
+																					<option value="l">l</option>
+																				</select>
+																				
 																				<div class="modal-footer" style="margin-top: 115px;">
 																					<button type="submit" class="btn btn-success"
 																						style="background: #1ab394;border: 1px solid #1ab394">Add item</button>

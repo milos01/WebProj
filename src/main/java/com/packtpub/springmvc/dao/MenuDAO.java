@@ -39,4 +39,11 @@ public interface MenuDAO {
 	public void updateMainCourse(MainCourse mc);
 	public List<MainCourse> listMainCourse();
 	public MainCourse findMainCourse(int id);
+	
+	public MainCourse getRestMainCourse(String name);
+	public Appetizer getRestAppetizer(String name);
+	public Desert getRestDesert(String name);
+	
+	public AlcoholicDrink getRestAlcholic(String name);
+	public NonAlcoholicDrink getNonAlcoholic(String name);
 }

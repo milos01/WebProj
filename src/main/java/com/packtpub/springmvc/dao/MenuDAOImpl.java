@@ -220,4 +220,69 @@ public class MenuDAOImpl implements MenuDAO {
 		session.merge(ad);
 		
 	}
+
+	@Override
+	public MainCourse getRestMainCourse(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM MainCourse u WHERE u.name = :string_id");
+		query1.setParameter("string_id", name);
+		List<MainCourse> userList = query1.list();
+		MainCourse tk = null;
+		for (MainCourse users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public Appetizer getRestAppetizer(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM Appetizer u WHERE u.name = :string_id");
+		query1.setParameter("string_id", name);
+		List<Appetizer> userList = query1.list();
+		Appetizer tk = null;
+		for (Appetizer users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public Desert getRestDesert(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM Desert u WHERE u.name = :string_id");
+		query1.setParameter("string_id", name);
+		List<Desert> userList = query1.list();
+		Desert tk = null;
+		for (Desert users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public AlcoholicDrink getRestAlcholic(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM AlcoholicDrink u WHERE u.name = :string_id");
+		query1.setParameter("string_id", name);
+		List<AlcoholicDrink> userList = query1.list();
+		AlcoholicDrink tk = null;
+		for (AlcoholicDrink users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
+
+	@Override
+	public NonAlcoholicDrink getNonAlcoholic(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 = session.createQuery("FROM NonAlcoholicDrink u WHERE u.name = :string_id");
+		query1.setParameter("string_id", name);
+		List<NonAlcoholicDrink> userList = query1.list();
+		NonAlcoholicDrink tk = null;
+		for (NonAlcoholicDrink users : userList) {
+			tk = users;
+		}
+		return tk;
+	}
 }
