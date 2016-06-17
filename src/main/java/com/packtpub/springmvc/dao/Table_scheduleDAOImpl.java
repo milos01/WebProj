@@ -111,7 +111,7 @@ private SessionFactory sessionFactory;
 	}
 	@Override
 	public void removeTableSchedule(int id) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("delete FROM Table_schedule tp where tp.id=:id");
 		query.setParameter("id", id);

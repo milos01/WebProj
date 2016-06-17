@@ -102,7 +102,7 @@ public class TableController {
 		
 		TableOne to = null;
 		for(TableOne table:tables){
-			if (table.getId()==tp.getId()){
+			if (table.getTableposition().getId()==tp.getId()){
 				to = table;
 			}
 		}
@@ -117,13 +117,16 @@ public class TableController {
 				redirectAttributes.addFlashAttribute("deletedTable", "Table is currently reserved, can not be deleted!");
 				return "redirect:/home";
 			}
-			else if(reservedDate.compareTo(today)<0 && ts.getTable().getReserved()==1){
-				this.personService.removeTableSchedule(ts.getId());
-			}
+//			else if(reservedDate.compareTo(today)<0 && ts.getTable().getReserved()==1){
+//				this.personService.removeTableSchedule(ts.getId());
+//			}
 			else {
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+				System.out.println(ts.getId());
 				this.personService.removeTableSchedule(ts.getId());
 			}
 		}
+		System.out.println("ddddddddddddddddddddddddddddddddddddd");
 		this.personService.removeTable(to);
 		this.personService.removeTalbePosition(tp);
 		redirectAttributes.addFlashAttribute("deletedTable", "Table successfully deleted!");
