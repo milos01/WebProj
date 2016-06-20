@@ -30,7 +30,16 @@ $(function() {
 		$('#reserveButton' + data.id).css("border", "1px solid gray");
 
 	});
-
+	
+	$(".menuButton").click(function(){
+//		$(".menuDiv").hide();
+		var divId = $(this).attr("id");
+		var num = divId.match(/\d+/);
+		$("#menuDiv"+num).toggle();
+	});
+		
+	
+	
 	$(".closeButt").click(function() {
 		$(".reserveDiv").hide();
 		closeTextId = $(this).attr("id");

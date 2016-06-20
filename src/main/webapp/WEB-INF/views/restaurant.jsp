@@ -72,6 +72,13 @@
 	background-color: #4CAF50;
 	color: white;
 }
+.menuButton{
+	cursor:pointer;
+}
+
+.resSpan{
+	cursor:pointer;
+}
 </style>
 <body>
 
@@ -471,14 +478,16 @@
 									<c:when test="${eql == 1}">
 										<div
 											style="width: 100px; height: 100px; border-radius: 50px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+											<span class="menuButton" id="mennu${table.id}" style="position:absolute;margin-left:-22px;margin-top:15px;color:orange">Orders</span>
+											<div style="border:1px solid gray;box-shadow: 0px 0px 2px #afafaf;display:none;width:120px;border-radius:5px;position:absolute;z-index:999;margin-top:37px;margin-left:-13px;background:#fff" id="menuDiv${table.id}"class="menuDiv">
 											<c:forEach var="myTable" items="${table.tables}">
+											
 												<c:forEach var="myTable2" items="${myTable.reservations}">
-												
 													<c:choose>
 														<c:when test="${myTable2.user.id == logedUser.id}">
-															<button type="button" class="btn btn-info"
+															<span type="button" class="resSpan"
 																data-toggle="modal" data-target="#myModal${myTable2.id}"
-																style="position: absolute">Order food</button>
+																style="float:left;padding:3px">Res: ${myTable2.table_schedule.reserved_from}h - ${myTable2.table_schedule.reserved_to}h</span><br>
 
 														</c:when>
 													</c:choose>
@@ -495,6 +504,7 @@
 																</div>
 																<div class="modal-body">
 																	<p>${myTable2.id}</p>
+																
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-default"
@@ -506,8 +516,9 @@
 													</div>
 												</c:forEach>
 											</c:forEach>
+											</div>
 											<p style="text-align: center; margin-top: 40px">
-												<i>Unavailable</i> <i>
+												<i>Unavailable ${table.id}</i> <i>
 
 													<p style="text-align: center; color: red;">${timeFrom1}h
 														- ${timeTo1}h</p>
@@ -525,7 +536,7 @@
 													data-width="100" data-height="100" disabled />
 												<button class="btn btn-primary resButtons" type="submit"
 													style="margin-top: 5px;" id="reserveButton${table.id}"
-													data-toggle="modal" data-target="#reserve${table.id}">Reserve</button>
+													data-toggle="modal" data-target="#reserve${table.id}">${table.id} Reserve</button>
 											</div>
 										</div>
 

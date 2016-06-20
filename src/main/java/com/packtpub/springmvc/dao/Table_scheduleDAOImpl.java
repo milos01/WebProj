@@ -37,7 +37,7 @@ private SessionFactory sessionFactory;
 	@Override
 	public List<TableOne> allTables(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM TableOne to WHERE to.reon_id.id =:string_id");
+		Query query1 =  session.createQuery("FROM TableOne to WHERE to.reon_id.restaurant.id =:string_id");
 		query1.setParameter("string_id", id);
 		List<TableOne> tables = query1.list();
 		return tables;
