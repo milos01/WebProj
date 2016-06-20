@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.packtpub.springmvc.model.CalendarJSONShow;
 import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.Shift;
 import com.packtpub.springmvc.model.Shift_schedule;
 import com.packtpub.springmvc.model.Staff;
 import com.packtpub.springmvc.model.User;
@@ -29,6 +30,17 @@ public class JSONController {
 	@Qualifier(value = "personService")
 	public void setPersonService(PersonService ps){
 		this.personService=ps;
+	}
+	
+	@RequestMapping(value="/getStaffShiftss/json", method = RequestMethod.GET, headers="Accept=*/*",  produces="application/json")
+	public @ResponseBody List<CalendarJSONShow> getStaffShiftsInJSON(HttpSession session){
+		User u = (User) session.getAttribute("logedUser");
+		Staff s = this.personService.getStaff(u.getEmail());
+		List<CalendarJSONShow> jsonShowCal = new ArrayList<CalendarJSONShow>();
+		for(Shift_schedule ss : s.getShift_schedule()){
+			jsonShowCal.add(getJSONStaffFormat(ss, s));
+		}
+		return jsonShowCal;
 	}
 	
 	@RequestMapping(value="/getShiftss/json", method = RequestMethod.GET, headers="Accept=*/*",  produces="application/json")
@@ -53,6 +65,18 @@ public class JSONController {
 			}
 		}
 		return jsonShowCal;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public CalendarJSONShow getJSONStaffFormat(Shift_schedule smena,Staff s){
+		CalendarJSONShow cs = new CalendarJSONShow();
+		for(Shift sh : s.getRestaurant().getShifts()){
+			if(sh.getShift_entry().equals(smena.getShift_entry())){
+				cs.setTitle(smena.getShift_entry() + " " + sh.getStart_shift().getHours()+":"+sh.getStart_shift().getMinutes()+" - "+ sh.getEnd_shift().getHours()+":"+sh.getEnd_shift().getMinutes());
+			}
+		}
+		cs.setStart(smena.getShift_date());
+		return cs;
 	}
 	
 	public CalendarJSONShow getJSONFormat(Shift_schedule smena,Staff s){

@@ -37,6 +37,18 @@ public class Shift_schedule {
 	
 	@ManyToMany(mappedBy="shift_schedule")
 	private Set<Staff> staffs;
+	
+	private int reonNum;
+	
+	
+
+	public int getReonNum() {
+		return reonNum;
+	}
+
+	public void setReonNum(int reonNum) {
+		this.reonNum = reonNum;
+	}
 
 	public int getId() {
 		return id;

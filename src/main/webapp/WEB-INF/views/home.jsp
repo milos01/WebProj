@@ -431,10 +431,14 @@
 				<!-- Waiter side menu -->
 				<c:choose>
 					<c:when test="${logedUser.role.roleName == 'Waiter'}">
-						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Shift schedule</span></a></li>
+						<li><a href="home.html"><i class="fa fa-user-plus"></i>
+								<span class="nav-label">Home</span></a></li>
+						<li><a href="#"><i class="fa fa-user-plus"></i>
+								<span class="nav-label" data-toggle="modal" data-target="#showCalendarShiftsWaiter">Shift schedule</span></a></li>
 						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
 								<span class="nav-label">Order's inbox</span></a></li>
+						<li><a href="tableSchedule"><i class="fa fa-user-plus"></i>
+								<span class="nav-label">Table schedule</span></a></li>
 						<li><a href="#"><i class="fa fa-wrench"></i> <span
 								class="nav-label" data-toggle="modal"
 								data-target="#updateUserModal">Update profile</span></a></li>
@@ -763,6 +767,85 @@
 			<!-- Waiter central part -->
 			<c:choose>
 				<c:when test="${logedUser.role.roleName == 'Waiter'}">
+				
+					<script type="text/javascript">
+						
+						/*
+							jQuery document ready
+						*/
+						
+						$(document).ready(function()
+						{
+							/*
+								date store today date.
+								d store today date.
+								m store current month.
+								y store current year.
+							*/
+							var date = new Date();
+							var d = date.getDate();
+							var m = date.getMonth();
+							var y = date.getFullYear();
+							
+							/*
+								Initialize fullCalendar and store into variable.
+								Why in variable?
+								Because doing so we can use it inside other function.
+								In order to modify its option later.
+							*/
+					
+							var calendar = $('#calendar').fullCalendar(
+							{
+								/*
+									header option will define our calendar header.
+									left define what will be at left position in calendar
+									center define what will be at center position in calendar
+									right define what will be at right position in calendar
+								*/
+								header:
+								{
+									left: 'prev,next today',
+									center: 'title',
+									right: 'month,agendaWeek,agendaDay'
+								},
+								/*
+									defaultView option used to define which view to show by default,
+									for example we have used agendaWeek.
+								*/
+								defaultView: 'month',
+								/*
+									selectable:true will enable user to select datetime slot
+									selectHelper will add helpers for selectable.
+								*/
+								selectable: true,
+								selectHelper: true,
+								/*
+									when user select timeslot this option code will execute.
+									It has three arguments. Start,end and allDay.
+									Start means starting time of event.
+									End means ending time of event.
+									allDay means if events is for entire day or not.
+								*/
+				
+								/*
+									editable: true allow user to edit events.
+								*/
+								editable: false,
+								/*
+									events is the main option for calendar.
+									for demo we have added predefined events in json object.
+								*/
+								
+								events: {
+									url: "getStaffShiftss/json",
+									type: 'GET'
+								}				
+							});
+							
+						});
+				
+					</script>
+					
 					<!-- List of restaurants -->
 					<div class="wrapper wrapper-content">
 						<div class="row">
@@ -799,7 +882,23 @@
 						</div>
 					</div>
 
-
+					<div id="showCalendarShiftsWaiter" class="modal fade" role="dialog">
+								<div class="modal-dialog" style="width: 725px">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Shifts</h4>
+										</div>
+										<div id='calendar'></div>
+									</div>
+								</div>
+							</div>
+							<script type="text/javascript">
+								$('#showCalendarShiftsWaiter').on('shown.bs.modal', function () {
+									   $("#calendar").fullCalendar('render');
+									});
+							</script>
+					
 				</c:when>
 			</c:choose>
 			<!--  Bidder central part -->

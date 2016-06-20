@@ -234,12 +234,13 @@ public class HomeController {
 			}
 		}
 		
-		this.personService.addNewStaffShift(sc);
-		stf.getShift_schedule().add(sc);
+		
 		
 		
 		if (reonNumb.equals(" ")) {
 			System.out.println("YES");
+			this.personService.addNewStaffShift(sc);
+			stf.getShift_schedule().add(sc);
 			this.personService.refreshShift(stf);
 			redirectAttributes.addFlashAttribute("smenaRadnika", "Shift is successfully created!");
 			return "redirect:/home";
@@ -254,6 +255,9 @@ public class HomeController {
 				}
 			}
 			System.out.println(ren.toString());
+			sc.setReonNum(brojReona);
+			this.personService.addNewStaffShift(sc);
+			stf.getShift_schedule().add(sc);
 			stf.getReons().add(ren);
 			this.personService.refreshShift(stf);
 			redirectAttributes.addFlashAttribute("smenaRadnika", "Shift is successfully created!");

@@ -117,8 +117,8 @@ INSERT INTO `questforchef`.`Staff` (`birth_date`,`email`, `firstName`, `lastName
 
 INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Basta');
 INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Pusacki');
-INSERT INTO `questforchef`.`reontypes` (`id`, `name`) VALUES ('Ne pusacki');
-INSERT INTO `questforchef`.`reontypes` (`id`, `name`) VALUES ('Vip');
+INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Ne pusacki');
+INSERT INTO `questforchef`.`reontypes` (`name`) VALUES ('Vip');
 
 INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('1', '1');
 INSERT INTO `questforchef`.`reontypes_reon` (`reonType_id`, `reon_id`) VALUES ('2', '2');
