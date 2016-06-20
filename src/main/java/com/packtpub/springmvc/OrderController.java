@@ -4,10 +4,12 @@ import java.sql.Date;
 import java.text.ParseException;
 
 import javax.print.attribute.standard.PresentationDirection;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +51,29 @@ public class OrderController {
 			}else{
 				order.setRadyOnTime(0);
 			}
+			order.setRate(0);
+			order.setAccepted(0);
+			
+			personService.addOrder(order);
+		
+		return "redirect:/home";
+	}
+	@RequestMapping(value = "/restaurant/{id}/placeOrderSecond", method = RequestMethod.POST)
+	public String placeOrderSecond(
+			@RequestParam(value = "resId") int resId, HttpSession session) {
+		
+			User user = (User) session.getAttribute("logeduser");
+			
+			Reservation res = (Reservation) personService.findReservation(resId);
+
+			Order order = new Order();
+//			order.setUser(user);
+//			order.setReservation(res);
+//			if (isOntime != null) {
+//				order.setRadyOnTime(1);
+//			}else{
+//				order.setRadyOnTime(0);
+//			}
 			order.setRate(0);
 			order.setAccepted(0);
 			

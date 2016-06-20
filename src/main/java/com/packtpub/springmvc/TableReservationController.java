@@ -92,6 +92,7 @@ public class TableReservationController {
 	public String home(Model model, RedirectAttributes redirectAttributes, @RequestParam("rid") int rid, @RequestParam("userid") int userid, @RequestParam("fromId") int fromId, @RequestParam("resid") int resid,  HttpSession session) {
 
 //		System.err.println(this.getSession(session).getFirstName());
+		System.err.println(resid);
 		int checkUser = 0;
 		User user = (User)session.getAttribute("logedUser");
 		if (user != null) {
@@ -101,6 +102,7 @@ public class TableReservationController {
 		model.addAttribute("reastaurantId", rid);
 		model.addAttribute("reservation",personService.findReservation(resid));
 		
+		System.err.println(personService.findReservation(resid));
 		model.addAttribute("user", personService.findPerson(fromId));
 		model.addAttribute("checkUser",checkUser);
 //		System.err.println(session.getAttribute("logedUser"));

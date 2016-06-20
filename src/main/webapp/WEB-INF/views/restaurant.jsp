@@ -72,12 +72,13 @@
 	background-color: #4CAF50;
 	color: white;
 }
-.menuButton{
-	cursor:pointer;
+
+.menuButton {
+	cursor: pointer;
 }
 
-.resSpan{
-	cursor:pointer;
+.resSpan {
+	cursor: pointer;
 }
 </style>
 <body>
@@ -88,25 +89,25 @@
 			<strong>${addedNewOffer}</strong>
 		</div>
 	</c:if>
-	
-	
+
+
 	<c:if test="${!empty addedNewOffer2}">
 		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
 			<strong>${addedNewOffer2}</strong>
 		</div>
 	</c:if>
-	
+
 	<c:if test="${!empty updatedOffer}">
 		<div class="alert alert-success" id="errorAlert"
 			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
 			<strong>${updatedOffer}</strong>
 		</div>
 	</c:if>
-	
+
 	<c:if test="${!empty updatedOffer2}">
 		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
 			<strong>${updatedOffer2}</strong>
 		</div>
 	</c:if>
@@ -478,44 +479,55 @@
 									<c:when test="${eql == 1}">
 										<div
 											style="width: 100px; height: 100px; border-radius: 50px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
-											<span class="menuButton" id="mennu${table.id}" style="position:absolute;margin-left:-22px;margin-top:15px;color:orange">Orders</span>
-											<div style="border:1px solid gray;box-shadow: 0px 0px 2px #afafaf;display:none;width:120px;border-radius:5px;position:absolute;z-index:999;margin-top:37px;margin-left:-13px;background:#fff" id="menuDiv${table.id}"class="menuDiv">
-											<c:forEach var="myTable" items="${table.tables}">
-											
-												<c:forEach var="myTable2" items="${myTable.reservations}">
-													<c:choose>
-														<c:when test="${myTable2.user.id == logedUser.id}">
-															<span type="button" class="resSpan"
-																data-toggle="modal" data-target="#myModal${myTable2.id}"
-																style="float:left;padding:3px">Res: ${myTable2.table_schedule.reserved_from}h - ${myTable2.table_schedule.reserved_to}h</span><br>
+											<span class="menuButton" id="mennu${table.id}"
+												style="position: absolute; margin-left: -22px; margin-top: 15px; color: orange">Orders</span>
+											<div
+												style="border: 1px solid gray; box-shadow: 0px 0px 2px #afafaf; display: none; width: 120px; border-radius: 5px; position: absolute; z-index: 999; margin-top: 37px; margin-left: -13px; background: #fff"
+												id="menuDiv${table.id}" class="menuDiv">
+												<c:forEach var="myTable" items="${table.tables}">
 
-														</c:when>
-													</c:choose>
-													<!-- Modal -->
-													<div id="myModal${myTable2.id}" class="modal fade" role="dialog">
-														<div class="modal-dialog">
+													<c:forEach var="myTable2" items="${myTable.reservations}">
+														<c:choose>
+															<c:when test="${myTable2.user.id == logedUser.id}">
+																<span type="button" class="resSpan" data-toggle="modal"
+																	data-target="#myModal${myTable2.id}"
+																	style="float: left; padding: 3px">Res:
+																	${myTable2.table_schedule.reserved_from}h -
+																	${myTable2.table_schedule.reserved_to}h</span>
+																<br>
 
-															<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close"
-																		data-dismiss="modal">&times;</button>
-																	<h4 class="modal-title">Modal Header</h4>
+															</c:when>
+														</c:choose>
+														<!-- Modal -->
+														<div id="myModal${myTable2.id}" class="modal fade"
+															role="dialog">
+															<div class="modal-dialog">
+
+																<!-- Modal content-->
+																<div class="modal-content">
+																	<form action="${myTable2.res_restaurant.id}/placeOrderSecond" method="POST">
+																		<div class="modal-header">
+																			<button type="button" class="close"
+																				data-dismiss="modal">&times;</button>
+																			<h4 class="modal-title">Modal Header</h4>
+																		</div>
+																		<div class="modal-body">
+																			<input type ="hidden" name="resId" value="${myTable2.id}">
+																			<p>${myTable2.id}</p>
+
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-default"
+																				data-dismiss="modal">Close</button>
+																			<button type="submit" class="btn btn-primary">Order</button>
+																		</div>
+																	</form>
 																</div>
-																<div class="modal-body">
-																	<p>${myTable2.id}</p>
-																
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-default"
-																		data-dismiss="modal">Close</button>
-																</div>
+
 															</div>
-
 														</div>
-													</div>
+													</c:forEach>
 												</c:forEach>
-											</c:forEach>
 											</div>
 											<p style="text-align: center; margin-top: 40px">
 												<i>Unavailable ${table.id}</i> <i>
@@ -536,7 +548,8 @@
 													data-width="100" data-height="100" disabled />
 												<button class="btn btn-primary resButtons" type="submit"
 													style="margin-top: 5px;" id="reserveButton${table.id}"
-													data-toggle="modal" data-target="#reserve${table.id}">${table.id} Reserve</button>
+													data-toggle="modal" data-target="#reserve${table.id}">${table.id}
+													Reserve</button>
 											</div>
 										</div>
 
@@ -610,8 +623,8 @@
 																								<div
 																									class="checkbox checkbox-default pull-right"
 																									style="margin-top: -25px; margin-right: -10px">
-																									<input value = "${friend.id}" type="checkbox" name="userIds">
-																									<label for="checkbox6"></label>
+																									<input value="${friend.id}" type="checkbox"
+																										name="userIds"> <label for="checkbox6"></label>
 																								</div>
 																							</div>
 
