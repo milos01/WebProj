@@ -102,7 +102,6 @@ public class TableReservationController {
 		model.addAttribute("reastaurantId", rid);
 		model.addAttribute("reservation",personService.findReservation(resid));
 		
-		System.err.println(personService.findReservation(resid));
 		model.addAttribute("user", personService.findPerson(fromId));
 		model.addAttribute("checkUser",checkUser);
 //		System.err.println(session.getAttribute("logedUser"));

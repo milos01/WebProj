@@ -112,7 +112,7 @@
 														</tr>
 													</thead>
 													<tbody>
-													${reservation}
+													
 														<c:forEach var="menuItem"
 															items="${reservation.res_restaurant.menu.appetizer}">
 															<tr>

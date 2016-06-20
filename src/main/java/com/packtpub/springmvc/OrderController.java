@@ -62,12 +62,14 @@ public class OrderController {
 	public String placeOrderSecond(
 			@RequestParam(value = "resId") int resId, HttpSession session) {
 		
-			User user = (User) session.getAttribute("logeduser");
+			User user = (User) session.getAttribute("logedUser");
 			
 			Reservation res = (Reservation) personService.findReservation(resId);
 
 			Order order = new Order();
-//			order.setUser(user);
+			order.setUser(user);
+			order.setReservation(res);
+			order.setRadyOnTime(0);
 //			order.setReservation(res);
 //			if (isOntime != null) {
 //				order.setRadyOnTime(1);
