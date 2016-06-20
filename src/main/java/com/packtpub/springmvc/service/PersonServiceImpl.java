@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.packtpub.springmvc.dao.BidderDAO;
 import com.packtpub.springmvc.dao.MenuDAO;
+import com.packtpub.springmvc.dao.OrderDAO;
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
@@ -27,6 +28,7 @@ import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
+import com.packtpub.springmvc.model.Order;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -69,6 +71,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private BidderDAO bidderDAO;
+	
+	@Autowired 
+	private OrderDAO orderDAO;
 	
 	@Override
 	@Transactional
@@ -479,6 +484,8 @@ public class PersonServiceImpl implements PersonService {
 	public void createOffer(Offer of) {
 		this.bidderDAO.createOffer(of);
 	}
+	@Override
+	@Transactional
 	public boolean addTableSchedule(Table_schedule ts) {
 		boolean work = this.tableDAO.addTableSchedule(ts);
 		return work;
@@ -489,6 +496,8 @@ public class PersonServiceImpl implements PersonService {
 	public Offer getOffer(int grocery_id, int user_id) {
 		return this.bidderDAO.getOffer(grocery_id, user_id);
 	}
+	@Override
+	@Transactional
 	public TableOne findTableOn(int id) {
 		return this.tableDAO.findTableOne(id);
 	}
@@ -516,6 +525,8 @@ public class PersonServiceImpl implements PersonService {
 	public List<Offer> getOffers(int grocery_id) {
 		return this.bidderDAO.getOffers(grocery_id);
 	}
+	@Override
+	@Transactional
 	public boolean addReservations(Reservation res) {
 		// TODO Auto-generated method stub
 		return this.tableDAO.addReservarion(res);
@@ -525,6 +536,10 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void addNewRestShift(Shift sh) {
 		this.shiftDAO.addNewRestShift(sh);
+	}
+	public Reservation findReservation(int id) {
+		
+		return this.restaurantDAO.findReservation(id);
 	}
 
 	@Override
@@ -585,6 +600,13 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public NonAlcoholicDrink getNonAlcoholic(String name) {
 		return this.menuDAO.getNonAlcoholic(name);
+	}
+	@Override
+	@Transactional
+	public boolean addOrder(Order ord) {
+		
+		return this.orderDAO.addOrder(ord);
+
 	}
 
 }

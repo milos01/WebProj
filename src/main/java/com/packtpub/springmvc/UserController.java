@@ -73,6 +73,27 @@ public class UserController {
 			}
 		}
 	}
+	@RequestMapping(value="/restaurant/{id}/user/{userid}/from/{fromId}/loginSecond", method = RequestMethod.POST)
+	public String userLoginSecond(@RequestParam String loginEmailSecond,@RequestParam String loginPasswordSecond, Model model, RedirectAttributes redirectAttributes, HttpSession session,HttpServletRequest request){
+		if(loginEmailSecond.equals("") || loginPasswordSecond.equals("")){
+			redirectAttributes.addFlashAttribute("errorMessage", "Username and password must not be empty");
+			return "redirect:/restaurant/1/reservation/5/user/1/from/3/order";
+		}
+		User u = personService.loginUser(loginEmailSecond, loginPasswordSecond);
+		if (u == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "User not exists!");
+			return "redirect:/restaurant/1/reservation/5/user/1/from/3/order";
+		}else{
+			if (u.getPassword().equals(loginPasswordSecond)) {
+				
+				session.setAttribute("logedUser",u);
+				return "redirect:/restaurant/1/reservation/5/user/1/from/3/order";
+			}else{
+				redirectAttributes.addFlashAttribute("errorMessage", "Check your password!");
+				return "redirect:/restaurant/1/reservation/5/user/1/from/3/order";
+			}
+		}
+	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerUser(  @ModelAttribute("User") @Valid User u, BindingResult bindres, final HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		if (bindres.hasErrors()) {
@@ -85,7 +106,7 @@ public class UserController {
 		this.personService.addPerson(u);
 		final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 		System.out.println(appUrl);
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(u, request.getLocale(), appUrl));
+//        eventPublisher.publishEvent(new OnRegistrationCompleteEvent("alooo"));
         redirectAttributes.addFlashAttribute("successMessage", "Activation mail was send to privited mail adress");
         return "redirect:/";
 	}
@@ -154,9 +175,17 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session ) {
+    public String logout(HttpSession session, HttpServletRequest req ) {
         session.removeAttribute("logedUser");
+        
         return "redirect:/";
+    }
+	
+	@RequestMapping(value = "/restaurant/{id}/user/{userid}/from/{fromId}/logoutSecond", method = RequestMethod.GET)
+    public String logout2(HttpSession session) {
+        session.removeAttribute("logedUser");
+        
+        return "redirect:/restaurant/1/reservation/5/user/1/from/3/order";
     }
 	
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)

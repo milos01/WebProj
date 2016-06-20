@@ -33,7 +33,7 @@
 <link
 	href="../resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
 	rel="stylesheet">
-	<script src="../resources/js/jquery-2.1.1.js"></script>
+<script src="../resources/js/jquery-2.1.1.js"></script>
 <style type="text/css">
 .starrr {
 	display: inline-block;
@@ -45,34 +45,39 @@
 	cursor: pointer;
 	color: #ffd119;
 }
+
 #customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
 }
 
 #customers td, #customers th {
-    border: 1px solid #ddd;
-    text-align: left;
-    padding: 8px;
+	border: 1px solid #ddd;
+	text-align: left;
+	padding: 8px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2}
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2
+}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {
+	background-color: #ddd;
+}
 
 #customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: #4CAF50;
-    color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background-color: #4CAF50;
+	color: white;
 }
 </style>
 <body>
 
 	<c:if test="${!empty addedNewOffer}">
 		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
 			<strong>${addedNewOffer}</strong>
 		</div>
 	</c:if>
@@ -87,7 +92,7 @@
 	
 	<c:if test="${!empty updatedOffer}">
 		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
+			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
 			<strong>${updatedOffer}</strong>
 		</div>
 	</c:if>
@@ -200,15 +205,15 @@
 								class="nav-label">Add restaurant</span></a></li>
 					</c:when>
 				</c:choose>
-				
+
 				<c:choose>
 					<c:when test="${logedUser.role.roleName == 'Bidder'}">
-						<li><a data-toggle="modal"
-							data-target="#bidderProfilUp"><i class="fa fa-user"></i>
-								<span class="nav-label">Update profil</span></a></li>
-						<li><a data-toggle="modal"
-							data-target="#bidderPassword"><i class="fa fa-key"></i>
-								<span class="nav-label">Change password</span></a></li>
+						<li><a data-toggle="modal" data-target="#bidderProfilUp"><i
+								class="fa fa-user"></i> <span class="nav-label">Update
+									profil</span></a></li>
+						<li><a data-toggle="modal" data-target="#bidderPassword"><i
+								class="fa fa-key"></i> <span class="nav-label">Change
+									password</span></a></li>
 					</c:when>
 				</c:choose>
 				<!-- Regular user side menu -->
@@ -432,8 +437,11 @@
 								%>
 
 								<c:forEach var="checked" items="${checkedTables}">
+
+									<%-- ${checked.table.reon_id.restaurant.id} --%>
 									<c:choose>
-										<c:when test="${checked.table.restaurant_id == restaurant.id}">
+										<c:when
+											test="${checked.table.reon_id.restaurant.id == restaurant.id}">
 
 											<c:choose>
 												<c:when test="${table.id == checked.table.id}">
@@ -462,12 +470,50 @@
 								<c:choose>
 									<c:when test="${eql == 1}">
 										<div
-											style="width: 100px; height: 100px; border-radius: 50px; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+											style="width: 100px; height: 100px; border-radius: 50px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+											<c:forEach var="myTable" items="${table.tables}">
+												<c:forEach var="myTable2" items="${myTable.reservations}">
+												
+													<c:choose>
+														<c:when test="${myTable2.user.id == logedUser.id}">
+															<button type="button" class="btn btn-info"
+																data-toggle="modal" data-target="#myModal${myTable2.id}"
+																style="position: absolute">Order food</button>
+
+														</c:when>
+													</c:choose>
+													<!-- Modal -->
+													<div id="myModal${myTable2.id}" class="modal fade" role="dialog">
+														<div class="modal-dialog">
+
+															<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close"
+																		data-dismiss="modal">&times;</button>
+																	<h4 class="modal-title">Modal Header</h4>
+																</div>
+																<div class="modal-body">
+																	<p>${myTable2.id}</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default"
+																		data-dismiss="modal">Close</button>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</c:forEach>
+											</c:forEach>
 											<p style="text-align: center; margin-top: 40px">
-												<i>Unavailable</i> <i><p
-														style="text-align: center; color: red; margin-top: -10px">${timeFrom1}h
-														- ${timeTo1}h</p></i>
+												<i>Unavailable</i> <i>
+
+													<p style="text-align: center; color: red;">${timeFrom1}h
+														- ${timeTo1}h</p>
+												</i>
 											</p>
+
 										</div>
 
 									</c:when>
@@ -485,6 +531,7 @@
 
 									</c:otherwise>
 								</c:choose>
+
 								<!-- Reservating dialog -->
 								<div class="modal fade reserveDiv" role="dialog"
 									id="reserve${table.id}">
@@ -503,20 +550,20 @@
 
 											</div>
 											<div class="wrapper wrapper-content animated fadeIn">
-											<form action="${restaurant.id}/reserveTable" method="post">
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="tabs-container">
-															<ul class="nav nav-tabs">
-																<li class="active"><a data-toggle="tab"
-																	href="#tab-3${table.id}"> <i class="fa fa-clock-o"></i></a></li>
-																<li class=""><a data-toggle="tab"
-																	href="#tab-4${table.id}"><i class="fa fa-desktop"></i></a></li>
-																<li class=""><a data-toggle="tab"
-																	href="#tab-5${table.id}"><i class="fa fa-database"></i></a></li>
-															</ul>
-															<div class="tab-content">
-																
+												<form action="${restaurant.id}/reserveTable" method="post">
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="tabs-container">
+																<ul class="nav nav-tabs">
+																	<li class="active"><a data-toggle="tab"
+																		href="#tab-3${table.id}"> <i class="fa fa-clock-o"></i></a></li>
+																	<li class=""><a data-toggle="tab"
+																		href="#tab-4${table.id}"><i class="fa fa-desktop"></i></a></li>
+																	<li class=""><a data-toggle="tab"
+																		href="#tab-5${table.id}"><i class="fa fa-database"></i></a></li>
+																</ul>
+																<div class="tab-content">
+
 																	<div id="tab-3${table.id}" class="tab-pane active">
 																		<div class="panel-body">
 																			<div class="col-md-6">
@@ -552,7 +599,7 @@
 																								<div
 																									class="checkbox checkbox-default pull-right"
 																									style="margin-top: -25px; margin-right: -10px">
-																									<input id="checkbox6" type="checkbox">
+																									<input value = "${friend.id}" type="checkbox" name="userIds">
 																									<label for="checkbox6"></label>
 																								</div>
 																							</div>
@@ -565,17 +612,19 @@
 																		</div>
 																	</div>
 																	<div id="tab-5${table.id}" class="tab-pane">
-																		<div class="panel-body" style="text-align:center;">
-																			<button type="submit" class="btn btn-primary" style="margin:20px 0px">Finish reservating</button>
+																		<div class="panel-body" style="text-align: center;">
+																			<button type="submit" class="btn btn-primary"
+																				style="margin: 20px 0px">Finish reservating</button>
 																		</div>
 																	</div>
-																	<input type ="hidden" value="${table.id}" name="tableId">
-																	<input type ="hidden" value="${table.guest_num}" name="guestNum">
-																	<input type ="hidden" value="${restaurant.id}" name="resId">
+																	<input type="hidden" value="${table.id}" name="tableId">
+																	<input type="hidden" value="${table.guest_num}"
+																		name="guestNum"> <input type="hidden"
+																		value="${restaurant.id}" name="resId">
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
 												</form>
 											</div>
 										</div>
@@ -596,7 +645,7 @@
 
 				</c:when>
 			</c:choose>
-			
+
 			<c:choose>
 				<c:when test="${logedUser.role.roleName == 'Bidder'}">
 
@@ -625,38 +674,41 @@
 									</c:forEach>
 								</table>
 							</div>
-							<div
-								style="margin-top: 10px;">
-							<button data-toggle="modal"
-								data-target="#openMenuRest1${grocary.id}"
-								class="btn btn-primary btn-md" style="margin-left: 14px">Leave
-								bid</button>
-							</br>
-							<button data-toggle="modal" data-target="#ponudaZa${grocary.id}"
-								class="btn btn-primary btn-md"
-								style="margin-top: 10px; margin-left: 14px">Show my
-								offer</button>
-							<c:forEach  var="offers" items="${listaPonuda}">
-								<c:if test="${grocary.id==offers.grocaryList.id}">
-									<c:if test="${logedUser.id==offers.user.id}">
-										<c:choose>
-										  <c:when test="${offers.accepted==0}">
-										    <p style="margin-top: 10px; margin-left: 440px;color:red">  Close</p>
-										  </c:when>
-										  <c:when test="${offers.accepted==1}">
-										    <p style="margin-top: 10px; margin-left: 440px;color:green"> Accepted</p>
-										  </c:when>
-										   <c:when test="${offers.accepted==2}">
-										    <p style="margin-top: 10px; margin-left: 440px">    Waiting to
-									answer...</p>
-										  </c:when>
-										  <c:otherwise>
-										    <p style="margin-top: 10px; margin-left: 440px">No offer</p>
-										  </c:otherwise>
-										</c:choose>
+							<div style="margin-top: 10px;">
+								<button data-toggle="modal"
+									data-target="#openMenuRest1${grocary.id}"
+									class="btn btn-primary btn-md" style="margin-left: 14px">Leave
+									bid</button>
+								</br>
+								<button data-toggle="modal" data-target="#ponudaZa${grocary.id}"
+									class="btn btn-primary btn-md"
+									style="margin-top: 10px; margin-left: 14px">Show my
+									offer</button>
+								<c:forEach var="offers" items="${listaPonuda}">
+									<c:if test="${grocary.id==offers.grocaryList.id}">
+										<c:if test="${logedUser.id==offers.user.id}">
+											<c:choose>
+												<c:when test="${offers.accepted==0}">
+													<p style="margin-top: 10px; margin-left: 440px; color: red">
+														Close</p>
+												</c:when>
+												<c:when test="${offers.accepted==1}">
+													<p
+														style="margin-top: 10px; margin-left: 440px; color: green">
+														Accepted</p>
+												</c:when>
+												<c:when test="${offers.accepted==2}">
+													<p style="margin-top: 10px; margin-left: 440px">
+														Waiting to answer...</p>
+												</c:when>
+												<c:otherwise>
+													<p style="margin-top: 10px; margin-left: 440px">No
+														offer</p>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
 									</c:if>
-								</c:if>
-							</c:forEach>
+								</c:forEach>
 							</div>
 						</div>
 						</br>
@@ -670,7 +722,7 @@
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Offer from ${grocary.GLfrom} to
-							${grocary.GLto}</h4>
+											${grocary.GLto}</h4>
 									</div>
 
 									<h3 align="center">Create offer</h3>
@@ -678,9 +730,9 @@
 										<input class="form-control" name="price" type="text"
 											placeholder="Price"
 											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-									 	<select class="form-control" name="warranty"
+										<select class="form-control" name="warranty"
 											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-											 value=1>
+											value=1>
 											<option value="">Warranty</option>
 											<option value=50>50 %</option>
 											<option value=60>60 %</option>
@@ -688,11 +740,8 @@
 											<option value=80>80 %</option>
 											<option value=90>90 %</option>
 											<option value=100>100 %</option>
-										</select> 
-										
-										
-									<input class="form-control" name="deadline" type="date"
-											 required
+										</select> <input class="form-control" name="deadline" type="date"
+											required
 											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
 										<input type="hidden" name="groc_id" value="${grocary.id}">
 										<div class="modal-footer" style="margin-top: 115px;">
@@ -706,9 +755,9 @@
 							</div>
 						</div>
 						<!-- End adding items-->
-						
+
 						<!-- Proveri ponudu -->
-						<c:forEach  var="offer" items="${listaPonuda}">
+						<c:forEach var="offer" items="${listaPonuda}">
 							<c:if test="${grocary.id==offer.grocaryList.id}">
 								<c:if test="${logedUser.id==offer.user.id}">
 									<div id="ponudaZa${grocary.id}" class="modal fade"
@@ -719,113 +768,115 @@
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
 													<h4 class="modal-title">My offer</h4>
 												</div>
-			
+
 												<form action="${restaurant.id}/changeOffer" method="POST">
-													<input class="form-control" name="price" type="text" id="price" placeholder="Price" required
-															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" value="${offer.price}">
-															
-													<select class="form-control warr${grocary.id}" name="warranty"
-															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-															>
-																<option value="50">50 %</option>
-																<option value="60">60 %</option>
-																<option value="70">70 %</option>
-																<option value="80">80 %</option>
-																<option value="90">90 %</option>
-																<option value="100">100 %</option>
-													</select> 
-									
-													<input class="form-control" name="deadline" type="date" id="price" placeholder="Price" required
-															style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" value="${offer.deadline}">
-															
-													<input type="hidden" name="grocaryId" value="${grocary.id}">
-													<input type="hidden" name="accepted" value="${offer.accepted}">
+													<input class="form-control" name="price" type="text"
+														id="price" placeholder="Price" required
+														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+														value="${offer.price}"> <select
+														class="form-control warr${grocary.id}" name="warranty"
+														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+														<option value="50">50 %</option>
+														<option value="60">60 %</option>
+														<option value="70">70 %</option>
+														<option value="80">80 %</option>
+														<option value="90">90 %</option>
+														<option value="100">100 %</option>
+													</select> <input class="form-control" name="deadline" type="date"
+														id="price" placeholder="Price" required
+														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+														value="${offer.deadline}"> <input type="hidden"
+														name="grocaryId" value="${grocary.id}"> <input
+														type="hidden" name="accepted" value="${offer.accepted}">
 													<input type="hidden" name="id" value="${offer.id}">
-													
-														<div class="modal-footer" style="margin-top: 115px;">
-															<button type="submit" class="btn btn-success"
-																style="background: #1ab394; border: 1px solid #1ab394">Change</button>
-															<button type="button" class="btn btn-default"
-																data-dismiss="modal">Close</button>
-														</div>
+
+													<div class="modal-footer" style="margin-top: 115px;">
+														<button type="submit" class="btn btn-success"
+															style="background: #1ab394; border: 1px solid #1ab394">Change</button>
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+													</div>
 												</form>
 												<script type="text/javascript">
-													$(".warr${grocary.id} > option").each(function() {
-														text1 = "${offer.warranty}";
-													   if (text1==this.value){
-														   this.selected = true;
-													   }
-													});
+													$(
+															".warr${grocary.id} > option")
+															.each(
+																	function() {
+																		text1 = "${offer.warranty}";
+																		if (text1 == this.value) {
+																			this.selected = true;
+																		}
+																	});
 												</script>
 											</div>
 										</div>
 									</div>
-								</c:if> 
+								</c:if>
 							</c:if>
 						</c:forEach>
 					</c:forEach>
 
-					<div id="bidderPassword" class="modal fade"
-							role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Password</h4>
-									</div>
-
-									<form action="bidderPasswordChange" method="POST">
-										<input class="form-control" name="oldPass" type="password"
-											placeholder="Old password" required
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-										<input class="form-control" name="newPass1" type="password"
-											placeholder="New passwod" required
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-										<input class="form-control" name="newPass2" type="password"
-											placeholder="Repeat new passwod" required
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-				
-										<div class="modal-footer" style="margin-top: 115px;">
-											<button type="submit" class="btn btn-success"
-												style="background: #1ab394; border: 1px solid #1ab394">Update</button>
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">Close</button>
-										</div>
-									</form>
+					<div id="bidderPassword" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Password</h4>
 								</div>
+
+								<form action="bidderPasswordChange" method="POST">
+									<input class="form-control" name="oldPass" type="password"
+										placeholder="Old password" required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+									<input class="form-control" name="newPass1" type="password"
+										placeholder="New passwod" required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+									<input class="form-control" name="newPass2" type="password"
+										placeholder="Repeat new passwod" required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+
+									<div class="modal-footer" style="margin-top: 115px;">
+										<button type="submit" class="btn btn-success"
+											style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
+								</form>
 							</div>
 						</div>
-						
-						<div id="bidderProfilUp" class="modal fade"
-								role="dialog">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Password</h4>
-										</div>
-	
-										<form action="bidderProfUpdate" method="POST">
-											<input class="form-control" name="fName" type="text"
-												placeholder="First name" value="${logedUser.firstName} " required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-											<input class="form-control" name="lName" type="text"
-												placeholder="Last name" value="${logedUser.lastName} " required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-											<input class="form-control" name="NewMail" type="email" value="${logedUser.email}"
-												placeholder="Email" required
-												style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-					
-											<div class="modal-footer" style="margin-top: 115px;">
-												<button type="submit" class="btn btn-success"
-													style="background: #1ab394; border: 1px solid #1ab394">Update</button>
-												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
-											</div>
-										</form>
-									</div>
+					</div>
+
+					<div id="bidderProfilUp" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Password</h4>
 								</div>
+
+								<form action="bidderProfUpdate" method="POST">
+									<input class="form-control" name="fName" type="text"
+										placeholder="First name" value="${logedUser.firstName} "
+										required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+									<input class="form-control" name="lName" type="text"
+										placeholder="Last name" value="${logedUser.lastName} "
+										required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+									<input class="form-control" name="NewMail" type="email"
+										value="${logedUser.email}" placeholder="Email" required
+										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
+
+									<div class="modal-footer" style="margin-top: 115px;">
+										<button type="submit" class="btn btn-success"
+											style="background: #1ab394; border: 1px solid #1ab394">Update</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
+								</form>
 							</div>
+						</div>
+					</div>
 
 				</c:when>
 			</c:choose>

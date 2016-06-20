@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 
 public interface RestaurantDAO {
@@ -20,6 +21,8 @@ public interface RestaurantDAO {
 	public void addNewReonType(ReonTypes rt);
 	
 	public List<ReonTypes> getAllReaonTypes();
+
+	public Reservation findReservation(int id);
 
 	public void referesType(ReonTypes rt);
 	

@@ -36,7 +36,7 @@ public class Reservation {
 	@NotNull
 	private Restaurant res_restaurant;
 	
-	@ManyToOne(targetEntity = Table_schedule.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Table_schedule.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "table_schedule_id")
 	@NotNull
 	private Table_schedule table_schedule;

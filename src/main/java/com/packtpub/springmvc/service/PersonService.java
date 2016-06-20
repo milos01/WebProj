@@ -17,6 +17,7 @@ import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
+import com.packtpub.springmvc.model.Order;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -195,4 +196,8 @@ public interface PersonService {
 	public AlcoholicDrink getRestAlcholic(String name);
 	
 	public NonAlcoholicDrink getNonAlcoholic(String name);
+	
+	public Reservation findReservation(int id);
+	
+	public boolean addOrder(Order ord);
 }

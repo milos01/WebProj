@@ -37,6 +37,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" />
+		<beans:property name="username" value="milosa942@gmail.com" />
+		<beans:property name="password" value="mikasumaher" />
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
@@ -99,6 +101,9 @@
 				<beans:value>com.packtpub.springmvc.model.GrocaryList</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Offer</beans:value>
 				<beans:value>com.packtpub.springmvc.model.ReonTypes</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Order</beans:value>
+				<beans:value>com.packtpub.springmvc.model.OrderedItem</beans:value>
+
 			</beans:list>
 		</beans:property>
 
@@ -108,12 +113,17 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
-				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop> -->
+				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>-->
 			</beans:props>
 		</beans:property>
 	</beans:bean>
 
 	<beans:bean id="personDAO" class="com.packtpub.springmvc.dao.PersonDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="orderDAO" class="com.packtpub.springmvc.dao.OrderDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>

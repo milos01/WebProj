@@ -8,9 +8,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
+
+import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
+import com.packtpub.springmvc.model.TableOne;
 import com.packtpub.springmvc.model.User;
 import com.packtpub.springmvc.model.VerificationToken;
 
@@ -104,6 +108,18 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	public void addNewReonToRest(Reon r) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(r);
+	}
+	public Reservation findReservation(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query1 =  session.createQuery("FROM Reservation to WHERE to.id =:string_id");
+		query1.setParameter("string_id", id);
+		Reservation tt = null;
+		List<Reservation> tables = query1.list();
+		for(Reservation to:tables){
+			tt = to;
+		}
+	
+		return tt;
 	}
 
 }
