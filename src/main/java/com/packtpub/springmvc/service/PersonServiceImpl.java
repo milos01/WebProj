@@ -537,6 +537,8 @@ public class PersonServiceImpl implements PersonService {
 	public void addNewRestShift(Shift sh) {
 		this.shiftDAO.addNewRestShift(sh);
 	}
+	@Override
+	@Transactional
 	public Reservation findReservation(int id) {
 		
 		return this.restaurantDAO.findReservation(id);
