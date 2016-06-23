@@ -29,6 +29,7 @@ import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Order;
+import com.packtpub.springmvc.model.OrderedItem;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -214,8 +215,8 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public List<Table_schedule> checkForFreeTables(String res_date, int res_from, int res_to, int peopleNum) {
-		return this.tableDAO.table_schedule_list(res_from, res_to, peopleNum);
+	public List<Table_schedule> checkForFreeTables(String res_date, String res_from, String res_to, int peopleNum) {
+		return this.tableDAO.table_schedule_list(res_date,res_from, res_to, peopleNum);
 	}
 
 	@Override
@@ -609,6 +610,41 @@ public class PersonServiceImpl implements PersonService {
 		
 		return this.orderDAO.addOrder(ord);
 
+	}
+
+	@Override
+	@Transactional
+	public boolean addOrderedItem(OrderedItem item) {
+		// TODO Auto-generated method stub
+		return this.orderDAO.addOrderedItem(item);
+	}
+
+	@Override
+	@Transactional
+	public List<Order> allOrders(User user) {
+		// TODO Auto-generated method stub
+		return this.orderDAO.allOrders(user);
+	}
+
+	@Override
+	@Transactional
+	public OrderedItem findItem(int id) {
+		
+		return this.orderDAO.findOrderedItem(id);
+	}
+
+	@Override
+	@Transactional
+	public Order findOrder(int id) {
+		// TODO Auto-generated method stub
+		return this.orderDAO.findOrder(id);
+	}
+
+	@Override
+	@Transactional
+	public void updateOrder(Order ord) {
+		// TODO Auto-generated method stub
+		this.orderDAO.updateOrder(ord);
 	}
 
 }

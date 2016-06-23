@@ -28,6 +28,10 @@ public class OrderedItem {
 	@NotNull
 	private Order order;
 	
+	private int foodType;
+	
+	private int foodId;
+	
 	private double quantity;
 	
 	private int ready;
@@ -35,6 +39,31 @@ public class OrderedItem {
 	public int getId() {
 		return id;
 	}
+
+
+	public int getFoodType() {
+		return foodType;
+	}
+
+
+
+	public void setFoodType(int foodType) {
+		this.foodType = foodType;
+	}
+
+
+
+	public int getFoodId() {
+		return foodId;
+	}
+
+
+
+	public void setFoodId(int foodId) {
+		this.foodId = foodId;
+	}
+
+
 
 	public void setId(int id) {
 		this.id = id;

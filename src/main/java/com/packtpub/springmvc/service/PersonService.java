@@ -18,6 +18,7 @@ import com.packtpub.springmvc.model.Offer;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Order;
+import com.packtpub.springmvc.model.OrderedItem;
 import com.packtpub.springmvc.model.Reservation;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
@@ -75,7 +76,7 @@ public interface PersonService {
 	
 	public User findUserByName(String fname, String lname);
 
-	public List<Table_schedule> checkForFreeTables(String res_date, int res_from, int res_to, int pn);
+	public List<Table_schedule> checkForFreeTables(String res_date, String res_from, String res_to, int pn);
 	
 	public List<TableOne> allTables(int id);
 
@@ -200,4 +201,14 @@ public interface PersonService {
 	public Reservation findReservation(int id);
 	
 	public boolean addOrder(Order ord);
+	
+	public boolean addOrderedItem(OrderedItem item);
+	
+	public List<Order> allOrders(User user);
+	
+	public OrderedItem findItem(int id);
+	
+	public Order findOrder(int id);
+	
+	public void updateOrder(Order ord);
 }

@@ -86,7 +86,7 @@
 								<c:when test="${user.id == logedUser.id}">
 									<div class="col-lg-6">
 										<h2>You have been invited to join meal with your friend
-											${logedUser.firstName}. Here you can choose food that will be
+											${reservation.user.firstName}. Here you can choose food that will be
 											served to you.</h2>
 									</div>
 
@@ -132,7 +132,7 @@
 																	style="width: 60px"></td>
 																<td class="text-right">
 																	<div class="btn-group">
-																		<input type="checkbox" value="" name="">
+																		<input type="checkbox" value="1-${menuItem.id}" name="meals">
 																	</div>
 																</td>
 															</tr>
@@ -154,8 +154,8 @@
 																	style="width: 60px"></td>
 																<td class="text-right">
 																	<div class="btn-group">
-																		<input type="checkbox" value="${menuItem.id}"
-																			name="menuItemId">
+																		<input type="checkbox" value="2-${menuItem.id}"
+																			name="meals">
 																	</div>
 																</td>
 															</tr>
@@ -177,7 +177,51 @@
 																	style="width: 60px"></td>
 																<td class="text-right">
 																	<div class="btn-group">
-																		<input type="checkbox" value="" name="">
+																		<input type="checkbox" value="3-${menuItem.id}" name="meals">
+																	</div>
+																</td>
+															</tr>
+														</c:forEach>
+														<c:forEach var="menuItem"
+															items="${reservation.res_restaurant.vineCard.alcoholicDrink}">
+															<tr>
+																<td>${menuItem.name}</td>
+																<td>$ ${menuItem.price}.00</td>
+																<td>It is a long established fact that a reader
+																	will be distracted by the readable content of a page
+																	when looking at its layout. The point of using Lorem
+																	Ipsum is that it has a more-or-less normal distribution
+																	of letters, as opposed to using 'Content here, content
+																	here', making it look like readable English.</td>
+																<td></td>
+																<td></td>
+																<td><input type="text" name="quantity"
+																	style="width: 60px"></td>
+																<td class="text-right">
+																	<div class="btn-group">
+																		<input type="checkbox" value="4-${menuItem.id}" name="meals">
+																	</div>
+																</td>
+															</tr>
+														</c:forEach>
+														<c:forEach var="menuItem"
+															items="${reservation.res_restaurant.vineCard.nonAlcoholicDrink}">
+															<tr>
+																<td>${menuItem.name}</td>
+																<td>$ ${menuItem.price}.00</td>
+																<td>It is a long established fact that a reader
+																	will be distracted by the readable content of a page
+																	when looking at its layout. The point of using Lorem
+																	Ipsum is that it has a more-or-less normal distribution
+																	of letters, as opposed to using 'Content here, content
+																	here', making it look like readable English.</td>
+																<td></td>
+																<td></td>
+																<td><input type="text" name="quantity"
+																	style="width: 60px"></td>
+																<td class="text-right">
+																	<div class="btn-group">
+																		<input type="checkbox" value="5-${menuItem.id}" name="meals">
 																	</div>
 																</td>
 															</tr>

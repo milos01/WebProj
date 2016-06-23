@@ -31,10 +31,10 @@ public class Table_schedule {
 	private TableOne table;
 	
 	@NotNull
-	private int reserved_from;
+	private Time reserved_from;
 	
 	@NotNull
-	private int reserved_to;
+	private Time reserved_to;
 	
 	@NotNull
 	private Date date;
@@ -67,20 +67,21 @@ public class Table_schedule {
 	public void setTable(TableOne table) {
 		this.table = table;
 	}
+	
 
-	public int getReserved_from() {
+	public Time getReserved_from() {
 		return reserved_from;
 	}
 
-	public void setReserved_from(int reserved_from) {
+	public void setReserved_from(Time reserved_from) {
 		this.reserved_from = reserved_from;
 	}
 
-	public int getReserved_to() {
+	public Time getReserved_to() {
 		return reserved_to;
 	}
 
-	public void setReserved_to(int reserved_to) {
+	public void setReserved_to(Time reserved_to) {
 		this.reserved_to = reserved_to;
 	}
 

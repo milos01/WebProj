@@ -34,6 +34,15 @@
 
 <script src="../springmvc/resources/chart/amcharts.js" type="text/javascript"></script>
 <script src="../springmvc/resources/chart/serial.js" type="text/javascript"></script>
+<link
+	href="../springmvc/resources/css/plugins/footable/footable.core.css"
+	rel="stylesheet">
+<link href="../springmvc/resources/css/animate.css"
+	rel="stylesheet">
+<!-- FooTable -->
+<link
+	href="../springmvc/resources/css/plugins/footable/footable.core.css"
+	rel="stylesheet">
 
 <style type="text/css">
 .panel {
@@ -531,56 +540,104 @@
 									</div>
 								</div>
 							</div>
+							<div class="wrapper wrapper-content animated fadeInRight ecommerce" style="margin-top:-19px">
 							<div class="col-lg-6">
-								<div class="ibox" style="">
-									<div class="ibox-content">
-										<div class="ibox-content ibox-heading"
-											style="background-color: #fff; border-top: none;">
-											<h3>
-												<i class="fa fa-history"></i> Recent visits
-											</h3>
+								<div class="ibox">
+										<div class="ibox-content">
+											
+
+												<table
+													class="footable table table-stripped toggle-arrow-tiny"
+													data-page-size="15">
+													<thead>
+
+														<tr>
+
+															<th data-toggle="true">Order ID</th>
+															<th data-hide="phone">Price</th>
+															<th data-hide="all">Description</th>
+															<th data-sort-ignore="true"></th>
+															<th data-hide="" data-sort-ignore="true"></th>
+															<th data-hide="phone" data-sort-ignore="true">Rate</th>
+															<th class="text-right" data-sort-ignore="true">Select</th>
+
+														</tr>
+													</thead>
+													<tbody>
+													
+														<c:forEach var="order"
+															items="${orders}">
+															
+															<tr>
+																<td>${order.id}</td>
+																
+																<td></td>
+																
+																<td>
+																	Desc.
+																 </td>
+																<td></td>
+																<td></td>
+																<c:choose>
+																<c:when test="${order.rateNum == 0 and currTime - order.reservation.table_schedule.date.getTime() > 0}">
+																	<form action="home/rateMeal" method="POST">
+																	
+																<td><input type="text" name="rate"
+																	style="width: 60px"></td>
+																<td class="text-right">
+																<input type="hidden" name="orderId" value="${order.id}">
+																	<c:forEach var="orderItem2"
+															items="${order.orderedItems}">
+																	
+																	<input type="hidden" name="food" value="${orderItem2.id}">
+																	</c:forEach>
+																	<div class="btn-group">
+																		<input type="submit" value="Rate" name="">
+																	</div>
+																	</td>
+																</form>
+																
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${order.rateNum != 0}">
+																		<td><span style="margin-left:5px">${order.rateNum}</span></td>
+																		<td><span style="margin-left:52px">Rated</span></td>
+																		</c:when>
+																	</c:choose>
+																	<c:choose>
+																		<c:when test="${order.rateNum == 0 and currTime - order.reservation.table_schedule.date.getTime() < 0}">
+																			<c:choose>
+																<c:when test="${order.accepted == 0}">
+																
+																	<td></td>
+																	<td><input type="submit" value="Edit" name="" style="margin-left:50px"></td>
+																</c:when>
+																<c:otherwise>
+																	<td></td>
+																	<td></td>
+																</c:otherwise>
+																</c:choose>
+																			
+																			
+																			
+																			
+																
+																	
+																	</c:when>
+																	</c:choose>
+																</c:otherwise>
+																
+																</c:choose>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+
+											
 										</div>
-										<div class="table-responsive">
-											<table class="table table-striped">
-
-												<tbody>
-													<tr>
-														<td>Testone Restaurant</td>
-														<td>Inceptos Hymenaeos Ltd</td>
-														<td>Jul 18, 2015</td>
-														<td>4</td>
-													</tr>
-													<tr>
-														<td>Testtwo Restaurant</td>
-														<td>Nec Euismod In Company</td>
-														<td>Jul 16, 2015</td>
-														<td>5</td>
-
-													</tr>
-													<tr>
-														<td>Testthree Restaurant</td>
-														<td>Erat Volutpat</td>
-														<td>Jul 18, 2015</td>
-														<td>3</td>
-													</tr>
-													<tr>
-														<td>Testfout Restaurant</td>
-														<td>Tellus Ltd</td>
-														<td>Jul 22, 2015</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>Testfive Restaurant</td>
-														<td>Nec Euismod In Company</td>
-														<td>Jul 16, 2015</td>
-														<td>2</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-
 									</div>
-								</div>
+							</div>
 							</div>
 						</div>
 						<div class="row" ng-controller="addFriendController">
@@ -2440,6 +2497,10 @@
 	
 	<!-- <script type="text/javascript" src="../springmvc/resources/gridster/assets/jquery.js"></script> -->
 	<script type="text/javascript" src="../springmvc/resources/gridster/assets/jquery.gridster.js"></script>
+	<script src="../springmvc/resources/js/plugins/pace/pace.min.js"></script>
+	<!-- FooTable -->
+	<script
+		src="../springmvc/resources/js/plugins/footable/footable.all.min.js"></script>
 	<script type="text/javascript">
 			var gridster;
 
@@ -2848,6 +2909,7 @@
 		<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+	
 
 	<script>
 		$(document)

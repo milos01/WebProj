@@ -5,16 +5,20 @@
 window.onbeforeunload = function() {
 	var fromNum = $("#typedFrom").val();
 	var toNum = $("#typedTo").val();
+	var dateK = $("#typedDate").val();
 
 	localStorage.setItem("fromValue", fromNum);
 	localStorage.setItem("toValue", toNum);
+	localStorage.setItem("dateK", dateK);
 };
 $(function() {
 	var r = localStorage.getItem("fromValue");
 	var r2 = localStorage.getItem("toValue");
+	var r3 = localStorage.getItem("dateK");
 
 	$("#typedFrom").val(r);
 	$("#typedTo").val(r2);
+	$("#typedDate").val(r3);
 	socket = io.connect('http://localhost:3000');
 
 	$('.resButtons').click(function() {
@@ -32,7 +36,6 @@ $(function() {
 	});
 	
 	$(".menuButton").click(function(){
-//		$(".menuDiv").hide();
 		var divId = $(this).attr("id");
 		var num = divId.match(/\d+/);
 		$("#menuDiv"+num).toggle();
@@ -53,20 +56,26 @@ $(function() {
 		$('#reserveButton' + data.id).css("color", "#fff");
 		$('#reserveButton' + data.id).css("border", "1px solid #1ab394");
 	});
-
+	
 	$('.reserveDiv').on('shown.bs.modal', function() {
-		$(document).idleTimer(5000);
+		$(document).idleTimer(60000);
 	});
+	
+	$('.reserveDiv').on('hidden.bs.modal', function (e) {
+		$( document ).idleTimer("destroy");
+	});
+	
 	$(document).on(
 			"idle.idleTimer",
 			function(event, elem, obj) {
 				toastr.options = {
 					"positionClass" : "toast-top-right",
-					"timeOut" : 8000
+					"timeOut" : 4000
 				}
-
-				toastr.warning('You can call any function after idle timeout.',
+				$('.reserveDiv').modal("hide");
+				toastr.warning('We did not receve your activity for 1 minute.',
 						'Idle time');
+				socket.emit('closeReserve', buttonIdNumber);
 				$('.custom-alert').fadeIn();
 				$('.custom-alert-active').fadeOut();
 
@@ -117,8 +126,10 @@ $(".resButtons").click(function() {
 
 	var r = localStorage.getItem("fromValue");
 	var r2 = localStorage.getItem("toValue");
-
+	var r3 = localStorage.getItem("dateK");
+	
 	$("#fromInput" + buttonIdNumber).val(r);
 	$("#toInput" + buttonIdNumber).val(r2);
+	$("#dateInput" + buttonIdNumber).val(r3);
 
 });

@@ -28,6 +28,8 @@ public class MainCourse {
 	
 	private int price;
 	
+	private double rate;
+	
 	@Column(name = "picture_path")
 	@NotBlank
 	private String picture;
@@ -38,6 +40,20 @@ public class MainCourse {
 	public int getId() {
 		return id;
 	}
+	
+	
+
+	public double getRate() {
+		return rate;
+	}
+
+
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
+
 
 	public void setId(int id) {
 		this.id = id;

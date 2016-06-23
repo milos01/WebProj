@@ -2,6 +2,7 @@ package com.packtpub.springmvc;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Locale;
 
 import javax.mail.Session;
@@ -45,15 +46,30 @@ public class TableReservationController {
     private ApplicationEventPublisher eventPublisher;
 	
 	@RequestMapping(value = "/restaurant/{id}/reserveTable", method = RequestMethod.POST)
-	public String reserveTable(@RequestParam("res_from")int resFrom, @RequestParam(value = "userIds") int[] userIds, @RequestParam("res_to")int resTo, @RequestParam("resId")int resId,@RequestParam("tableId") int table_id, @RequestParam("guestNum") int guestNum, @PathVariable(value = "id") final String idd, HttpSession session){
+	public String reserveTable(@RequestParam("res_from")String resFrom,@RequestParam("date_res")String resDate, @RequestParam(value = "userIds", required=false) int[] userIds, @RequestParam("res_to")String resTo, @RequestParam("resId")int resId,@RequestParam("tableId") int table_id, @RequestParam("guestNum") int guestNum, @PathVariable(value = "id") final String idd, HttpSession session){
 		System.out.println(resFrom + " " + resTo + " " + table_id + " " + idd );
 		
+		String[] dateParts = resDate.split("-");
+		System.err.println(dateParts[0]);
+		System.err.println(dateParts[1]);
+		System.err.println(dateParts[2]);
+		
+		String [] timeParts = resFrom.split(":");
+		String hourFrom = timeParts[0];
+		String minuteFrom = timeParts[1];
+		
+		String [] timeParts2 = resTo.split(":");
+		String hourFrom2 = timeParts2[0];
+		String minuteFrom2 = timeParts2[1];
+		
+		Time timeFrom = new Time(Integer.parseInt(hourFrom), Integer.parseInt(minuteFrom), 00);
+		Time timeTo = new Time(Integer.parseInt(hourFrom2), Integer.parseInt(minuteFrom2), 00);
 		TableOne to = personService.findTableOn(table_id);
 		Table_schedule ts = new Table_schedule();
 		System.err.println(ts.toString());
-		ts.setDate(new Date(1111,11,11));
-		ts.setReserved_from(resFrom);
-		ts.setReserved_to(resTo);
+		ts.setDate(new Date(116,Integer.parseInt(dateParts[1]),Integer.parseInt(dateParts[2])));
+		ts.setReserved_from(timeFrom);
+		ts.setReserved_to(timeTo);
 		ts.setTable(to);
 		personService.addTableSchedule(ts);
 		
@@ -67,10 +83,10 @@ public class TableReservationController {
 		res.setPeople_num(guestNum);
 		personService.addReservations(res);
 		
-		for (int i = 0; i < userIds.length; i++) {
-			User us = personService.findPerson(userIds[i]);
-			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(us, res,user));
-		}
+//		for (int i = 0; i < userIds.length; i++) {
+//			User us = personService.findPerson(userIds[i]);
+//			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(us, res,user));
+//		}
 		return "redirect:/restaurant/"+idd;
 	}
 	@RequestMapping(value = "/restaurant/{id}/reservation/{resid}/user/{userid}/from/{fromId}/order", method = RequestMethod.GET)

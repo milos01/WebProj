@@ -14,6 +14,8 @@
 	rel="stylesheet">
 
 <link href="../resources/css/animate.css" rel="stylesheet">
+<link href="../resources/css/plugins/clockpicker/clockpicker.css"
+	rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet">
 <link
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
@@ -30,6 +32,11 @@
 <link
 	href="../resources/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"
 	rel="stylesheet">
+<!-- FooTable -->
+<link href="../resources/css/plugins/footable/footable.core.css"
+	rel="stylesheet">
+
+<link href="../resources/css/animate.css" rel="stylesheet">
 <link
 	href="../resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
 	rel="stylesheet">
@@ -386,35 +393,40 @@
 									<div class="ibox-content">
 										<div class="row">
 											<form action="${restaurant.id}/check" method="POST">
-												<div class="col-md-4">
-													<div class="text-center">
-														<div class="m-r-md inline">
-															<input type="text" value="0" name="guestNum"
-																class="dial m-r-sm" data-fgColor="#1AB394"
-																data-width="85" data-height="85" />
-														</div>
-													</div>
-												</div>
-
-												<div class="col-md-2">
+												<div class="col-md-3">
 
 													<p class="font-bold">Date:</p>
 
 													<input class="form-control" name="res_date" type="date"
-														value="" name="demo1">
+														value="" name="demo1" id="typedDate">
 												</div>
 												<div class="col-md-2">
+													<!-- From date -->
 													<p class="font-bold">From:</p>
-													<input class="touchspin1" name="res_from" type="text"
-														value="16" name="demo2" id="typedFrom">
+													<div class="input-group clockpicker" data-autoclose="true">
+
+														<input class="form-control" name="res_from" type="text"
+															value="16:00" name="demo2" id="typedFrom"> <span
+															class="input-group-addon"> <span
+															class="fa fa-clock-o"></span>
+														</span>
+													</div>
+													<!-- End From date -->
+
 												</div>
 												<div class="col-md-2">
-
 													<p class="font-bold">To:</p>
-													<input class="touchspin1" name="res_to" type="text"
-														value="17" name="demo3" id="typedTo">
+													<!-- To date -->
+													<div class="input-group clockpicker" data-autoclose="true">
+														<input class="form-control" name="res_to" type="text"
+															value="17" name="demo3" id="typedTo"> <span
+															class="input-group-addon"> <span
+															class="fa fa-clock-o"></span>
+														</span>
+													</div>
+													<!-- End To date -->
 												</div>
-												<div class="col-md-1">
+												<div class="col-md-1 pull-right" style="margin-right: 15px">
 													<button type="submit" class="btn btn-primary"
 														style="margin-top: 27px;"check">Check</button>
 												</div>
@@ -426,7 +438,12 @@
 							</div>
 						</div>
 						<div class="row">
-							<c:forEach var="table" items="${tables}">
+							
+							<c:forEach var="i" begin="1" end="7">
+							   <c:forEach var="j" begin="1" end="7">
+							   		<div class="container" style="border:1px solid #fff;width:145px;height:145px; float:left">
+							   			<c:forEach var="table" items="${tables}">
+							   				<c:if test="${table.tableposition.row == j and table.tableposition.col == i}">
 								<%
 									int check = 0;
 												pageContext.setAttribute("check", check);
@@ -445,8 +462,8 @@
 								%>
 
 								<c:forEach var="checked" items="${checkedTables}">
-
-									<%-- ${checked.table.reon_id.restaurant.id} --%>
+								
+									
 									<c:choose>
 										<c:when
 											test="${checked.table.reon_id.restaurant.id == restaurant.id}">
@@ -463,13 +480,15 @@
 													%>
 													<c:set var="from" value="${checked.reserved_from}" />
 													<c:set var="to" value="${checked.reserved_to}" />
+
 													<%
-														int timeFrom1 = (Integer) pageContext.getAttribute("from");
-																						int timeTo1 = (Integer) pageContext.getAttribute("to");
+														String timeFrom1 = pageContext.getAttribute("from").toString();
+																						timeFrom1 = timeFrom1.substring(0, timeFrom1.length() - 3);
+																						String timeTo1 = pageContext.getAttribute("to").toString();
+																						timeTo1 = timeTo1.substring(0, timeTo1.length() - 3);
 																						pageContext.setAttribute("timeFrom1", timeFrom1);
 																						pageContext.setAttribute("timeTo1", timeTo1);
 													%>
-
 												</c:when>
 											</c:choose>
 										</c:when>
@@ -478,9 +497,30 @@
 								<c:choose>
 									<c:when test="${eql == 1}">
 										<div
-											style="width: 100px; height: 100px; border-radius: 50px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
-											<span class="menuButton" id="mennu${table.id}"
-												style="position: absolute; margin-left: -22px; margin-top: 15px; color: orange">Orders</span>
+											style="width: 100px; height: 100px; border-radius: 50px;margin-top:20px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
+											<%
+												int test = 0;
+																	pageContext.setAttribute("test", test);
+											%>
+											<c:forEach var="myTable" items="${table.tables}">
+												<c:forEach var="myTable2" items="${myTable.reservations}">
+													<c:choose>
+														<c:when test="${myTable2.user.id == logedUser.id}">
+															<%
+																test = 1;
+																									pageContext.setAttribute("test", test);
+															%>
+														</c:when>
+													</c:choose>
+												</c:forEach>
+											</c:forEach>
+											<c:if test="${test == 1}">
+												<span class="menuButton" id="mennu${table.id}"
+													style="position: absolute; margin-left: -22px; margin-top: 15px; color: orange">Orders
+													<i class="fa fa-angle-down" aria-hidden="true"></i>
+												</span>
+											</c:if>
+
 											<div
 												style="border: 1px solid gray; box-shadow: 0px 0px 2px #afafaf; display: none; width: 120px; border-radius: 5px; position: absolute; z-index: 999; margin-top: 37px; margin-left: -13px; background: #fff"
 												id="menuDiv${table.id}" class="menuDiv">
@@ -491,9 +531,10 @@
 															<c:when test="${myTable2.user.id == logedUser.id}">
 																<span type="button" class="resSpan" data-toggle="modal"
 																	data-target="#myModal${myTable2.id}"
-																	style="float: left; padding: 3px">Res:
-																	${myTable2.table_schedule.reserved_from}h -
-																	${myTable2.table_schedule.reserved_to}h</span>
+																	style="float: left; padding: 3px">R:
+																	${myTable2.table_schedule.reserved_from.toString().substring(0,5)}h
+																	-
+																	${myTable2.table_schedule.reserved_to.toString().substring(0,5)}h</span>
 																<br>
 
 															</c:when>
@@ -505,18 +546,170 @@
 
 																<!-- Modal content-->
 																<div class="modal-content">
-																	<form action="${myTable2.res_restaurant.id}/placeOrderSecond" method="POST">
+																	<form
+																		action="${myTable2.res_restaurant.id}/placeOrderSecond"
+																		method="POST">
 																		<div class="modal-header">
 																			<button type="button" class="close"
 																				data-dismiss="modal">&times;</button>
 																			<h4 class="modal-title">Modal Header</h4>
 																		</div>
-																		<div class="modal-body">
-																			<input type ="hidden" name="resId" value="${myTable2.id}">
-																			<p>${myTable2.id}</p>
+																		<div class="modal-body" style="padding: 0px">
+
+																			<div class="ibox">
+																				<div class="ibox-content">
+																					<table
+																						class="footable table table-stripped toggle-arrow-tiny"
+																						data-page-size="15">
+																						<thead>
+
+																							<tr>
+
+																								<th data-toggle="true">Product Name</th>
+																								<th data-hide="phone">Price</th>
+																								<th data-hide="all"></th>
+																								<th data-sort-ignore="true"></th>
+																								<th data-hide="" data-sort-ignore="true"></th>
+																								<th data-hide="phone" data-sort-ignore="true">Quantity</th>
+																								<th class="text-right" data-sort-ignore="true">Select</th>
+
+																							</tr>
+																						</thead>
+																						<tbody>
+
+																							<c:forEach var="menuItem"
+																								items="${myTable2.res_restaurant.menu.appetizer}">
+																								<tr>
+																									<td>${menuItem.name}</td>
+
+																									<td>$ ${menuItem.price}.00</td>
+																									<td><img alt="image"
+																										class="img-circle m-t-xs img-responsive"
+																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
+																									
+																									</td>
+																									
+																									<td></td>
+																									<td></td>
+																									<td><input type="text" name="quantity"
+																										style="width: 60px"></td>
+																									<td class="text-right">
+																										<div class="btn-group">
+																											<input type="checkbox" value="1-${menuItem.id}" name="meals">
+																										</div>
+																									</td>
+																								</tr>
+																							</c:forEach>
+																							<c:forEach var="menuItem"
+																								items="${myTable2.res_restaurant.menu.mainCourse}">
+																								<tr>
+																									<td>${menuItem.name}</td>
+																									<td>$ ${menuItem.price}.00</td>
+																									<td>
+																										<img alt="image"
+																										class="img-circle m-t-xs img-responsive"
+																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
+																									
+																									</td>
+																									<td></td>
+																									<td></td>
+																									<td><input type="text" name="quantity"
+																										style="width: 60px"></td>
+																									<td class="text-right">
+																										<div class="btn-group">
+																											<input type="checkbox" value="2-${menuItem.id}"
+																												name="meals">
+																										</div>
+																									</td>
+																								</tr>
+																							</c:forEach>
+																							<c:forEach var="menuItem"
+																								items="${myTable2.res_restaurant.menu.desert}">
+																								<tr>
+																									<td>${menuItem.name}</td>
+																									<td>$ ${menuItem.price}.00</td>
+																									<td>
+																										<img alt="image"
+																										class="img-circle m-t-xs img-responsive"
+																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
+																									
+																									</td>
+																									<td></td>
+																									<td></td>
+																									<td><input type="text" name="quantity"
+																										style="width: 60px"></td>
+																									<td class="text-right">
+																										<div class="btn-group">
+																											<input type="checkbox" value="3-${menuItem.id}" name="meals">
+																										</div>
+																									</td>
+																								</tr>
+																								
+																							</c:forEach>
+																							<c:forEach var="menuItem"
+																								items="${myTable2.res_restaurant.vineCard.alcoholicDrink}">
+																								<tr>
+																									<td>${menuItem.name}</td>
+																									<td>$ ${menuItem.price}.00</td>
+																									<td>
+																										<img alt="image"
+																										class="img-circle m-t-xs img-responsive"
+																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
+																									
+																									</td>
+																									<td></td>
+																									<td></td>
+																									<td><input type="text" name="quantity"
+																										style="width: 60px"></td>
+																									<td class="text-right">
+																										<div class="btn-group">
+																											<input type="checkbox" value="4-${menuItem.id}" name="meals">
+																										</div>
+																									</td>
+																								</tr>
+																								
+																							</c:forEach>
+																							<c:forEach var="menuItem"
+																								items="${myTable2.res_restaurant.vineCard.nonAlcoholicDrink}">
+																								<tr>
+																									<td>${menuItem.name}</td>
+																									<td>$ ${menuItem.price}.00</td>
+																									<td>
+																										<img alt="image"
+																										class="img-circle m-t-xs img-responsive"
+																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
+																									
+																									</td>
+																									<td></td>
+																									<td></td>
+																									<td><input type="text" name="quantity"
+																										style="width: 60px"></td>
+																									<td class="text-right">
+																										<div class="btn-group">
+																											<input type="checkbox" value="5-${menuItem.id}" name="meals">
+																										</div>
+																									</td>
+																								</tr>
+																								
+																							</c:forEach>
+																						</tbody>
+
+																					</table>
+
+																				</div>
+																			</div>
+
 
 																		</div>
 																		<div class="modal-footer">
+																			<input type="hidden" name="resId"
+																				value="${myTable2.id}">
+																			<div class="btn-group pull-left"
+																				style="margin-top: 6px">
+																				Ready on arrival time <input type="checkbox"
+																					value="1" name="OnTime">
+																			</div>
+																			<input type="hidden" value="">
 																			<button type="button" class="btn btn-default"
 																				data-dismiss="modal">Close</button>
 																			<button type="submit" class="btn btn-primary">Order</button>
@@ -541,13 +734,13 @@
 
 									</c:when>
 									<c:otherwise>
-										<div style="float: left; margin-right: 10px; z-index: -1">
+										<div style="float: left; margin-left: 7px;margin-top:4px; z-index: -1">
 											<div class="" style="width: 102px;">
 												<input type="text" value="${table.guest_num}"
 													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
 													data-width="100" data-height="100" disabled />
 												<button class="btn btn-primary resButtons" type="submit"
-													style="margin-top: 5px;" id="reserveButton${table.id}"
+													style="margin-top: 1px;margin-left:5px" id="reserveButton${table.id}"
 													data-toggle="modal" data-target="#reserve${table.id}">${table.id}
 													Reserve</button>
 											</div>
@@ -582,25 +775,33 @@
 																	<li class="active"><a data-toggle="tab"
 																		href="#tab-3${table.id}"> <i class="fa fa-clock-o"></i></a></li>
 																	<li class=""><a data-toggle="tab"
-																		href="#tab-4${table.id}"><i class="fa fa-desktop"></i></a></li>
+																		href="#tab-4${table.id}"><i class="fa fa-user-plus"></i></a></li>
 																	<li class=""><a data-toggle="tab"
-																		href="#tab-5${table.id}"><i class="fa fa-database"></i></a></li>
+																		href="#tab-5${table.id}"><i class="fa fa-flag-checkered"></i></a></li>
 																</ul>
 																<div class="tab-content">
 
 																	<div id="tab-3${table.id}" class="tab-pane active">
 																		<div class="panel-body">
-																			<div class="col-md-6">
+																			<div class="col-md-4">
+
+																				<p class="font-bold">Date:</p>
+																				<input class="touchspin1" name="date_res" type="text"
+																					value="17" name="demo3" id="dateInput${table.id}">
+																				
+																			</div>
+																			<div class="col-md-4">
 																				<p class="font-bold">From:</p>
 																				<input class="touchspin1" name="res_from"
 																					type="text" value="16" name="demo2"
 																					id="fromInput${table.id}">
 																			</div>
-																			<div class="col-md-6">
+																			<div class="col-md-4">
 
 																				<p class="font-bold">To:</p>
 																				<input class="touchspin1" name="res_to" type="text"
 																					value="17" name="demo3" id="toInput${table.id}">
+																				
 																			</div>
 																		</div>
 																	</div>
@@ -642,6 +843,7 @@
 																		</div>
 																	</div>
 																	<input type="hidden" value="${table.id}" name="tableId">
+																	
 																	<input type="hidden" value="${table.guest_num}"
 																		name="guestNum"> <input type="hidden"
 																		value="${restaurant.id}" name="resId">
@@ -654,8 +856,14 @@
 										</div>
 									</div>
 								</div>
-
+							</c:if>
 							</c:forEach>
+							
+							   		</div>
+								</c:forEach>
+							</c:forEach>
+							
+						</div>
 						</div>
 					</div>
 
@@ -1027,6 +1235,21 @@
 	<!-- Sparkline demo data  -->
 	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
 	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+	<script src="../resources/js/plugins/pace/pace.min.js"></script>
+
+	<!-- FooTable -->
+	<script src="../resources/js/plugins/footable/footable.all.min.js"></script>
+	<!-- Clock picker -->
+	<script src="../resources/js/plugins/clockpicker/clockpicker.js"></script>
+	<!-- Page-Level Scripts -->
+	<script>
+		$(document).ready(function() {
+
+			$('.footable').footable();
+			$('.clockpicker').clockpicker();
+
+		});
+	</script>
 	<script type="text/javascript">
 		
 	</script>

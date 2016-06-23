@@ -28,6 +28,8 @@ public class Desert {
 	
 	private int price;
 	
+	private double rate;
+	
 	@Column(name = "picture_path")
 	@NotBlank
 	private String picture;
@@ -35,6 +37,24 @@ public class Desert {
 	@ManyToMany(mappedBy="desert")
 	private Set<Menu> menu;
 	
+	
+	
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
+	public Set<Menu> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Set<Menu> menu) {
+		this.menu = menu;
+	}
+
 	public int getId() {
 		return id;
 	}

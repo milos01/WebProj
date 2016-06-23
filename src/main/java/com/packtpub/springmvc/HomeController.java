@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 import javax.tools.ToolProvider;
 
+import org.hibernate.dialect.lock.PessimisticEntityLockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ import com.packtpub.springmvc.model.MainCourse;
 import com.packtpub.springmvc.model.Menu;
 import com.packtpub.springmvc.model.NonAlcoholicDrink;
 import com.packtpub.springmvc.model.Offer;
+import com.packtpub.springmvc.model.Order;
+import com.packtpub.springmvc.model.OrderedItem;
 import com.packtpub.springmvc.model.Reon;
 import com.packtpub.springmvc.model.ReonTypes;
 import com.packtpub.springmvc.model.Restaurant;
@@ -84,8 +88,14 @@ public class HomeController {
 			return "redirect:/";
 		}
 		List<Restaurant> restaurants = this.personService.listRestaurants();
+		User user = (User)session.getAttribute("logedUser");
+		List<Order> allOrders = this.personService.allOrders(user);
 		model.addAttribute("restaurants", restaurants);
+		model.addAttribute("orders", allOrders);
 		
+		Calendar cal = Calendar.getInstance();
+		
+		model.addAttribute("currTime",cal.getTimeInMillis());
 		User u = (User) session.getAttribute("logedUser");
 		
 		if (u.getRole().getRoleName().equalsIgnoreCase("Bidder")){
@@ -160,6 +170,7 @@ public class HomeController {
 			}
 			List<ReonTypes> sviTipovi = this.personService.getAllReaonTypes();
 			List<FoodItem> listaItema = this.personService.GetAllFoodItems();
+			
 			model.addAttribute("tables",tables);
 			model.addAttribute("offerForGroc",offerForGroc);
 			model.addAttribute("grocList",grocList);
@@ -212,6 +223,48 @@ public class HomeController {
 	public String editRestaurant(@ModelAttribute("restoran1") Restaurant rest, RedirectAttributes redirectAttributes) {
 		this.personService.updateRestaurant(rest);
 		redirectAttributes.addFlashAttribute("updatedRest", "Restaurant successfully updated");
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "home/rateMeal", method = RequestMethod.POST)
+	public String rateMeal(@RequestParam("rate") int rate,@RequestParam("orderId") int ordId, @RequestParam("food") int[] items) {
+		System.err.println(rate);
+		Order order = personService.findOrder(ordId);
+		order.setRate(rate);
+		personService.updateOrder(order);
+		for (int i = 0; i < items.length; i++) {
+			OrderedItem item = personService.findItem(items[i]);
+			int foodType = item.getFoodType();
+			int foodId = item.getFoodId();
+			if(foodId == 1){
+				Appetizer app = personService.findAppetizer(foodId);
+				double newRate = (app.getRate() + rate)/2;
+				app.setRate(newRate);
+				personService.updateAppetizer(app);
+			}else if(foodId == 2){
+				MainCourse mc = personService.findMainCourse(foodId);
+				double newRate = (mc.getRate() + rate)/2;
+				mc.setRate(newRate);
+				personService.updateMainCourse(mc);
+			}else if(foodId == 3){
+				Desert des = personService.findDesert(foodId);
+				double newRate = (des.getRate() + rate)/2;
+				des.setRate(newRate);
+				personService.updateDesert(des);;
+			}else if( foodId == 4){
+				AlcoholicDrink adrink = personService.findAlchDrink(foodId);
+				double newRate = (adrink.getRate() + rate)/2;
+				adrink.setRate(newRate);
+				personService.updateAlcoholicDrink(adrink);
+			}else if(foodId == 5){
+				NonAlcoholicDrink nadrink = personService.findNoNAlchDrink(foodId);
+				double newRate = (nadrink.getRate() + rate)/2;
+				nadrink.setRate(newRate);
+				
+			}
+		}
+//		this.personService.updateRestaurant(rest);
+//		redirectAttributes.addFlashAttribute("updatedRest", "Restaurant successfully updated");
 		return "redirect:/home";
 	}
 

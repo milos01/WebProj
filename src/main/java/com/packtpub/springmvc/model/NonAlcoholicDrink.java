@@ -26,6 +26,8 @@ public class NonAlcoholicDrink {
 	
 	private int price;
 	
+	private double rate;
+	
 	private String quantity;
 	
 	@Column(name = "picture_path")
@@ -38,6 +40,20 @@ public class NonAlcoholicDrink {
 	public int getId() {
 		return id;
 	}
+	
+	
+
+	public double getRate() {
+		return rate;
+	}
+
+
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
+
 
 	public void setId(int id) {
 		this.id = id;

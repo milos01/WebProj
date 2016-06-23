@@ -49,6 +49,15 @@ public class Order {
 	public void setOrderedItems(Set<OrderedItem> orderedItems) {
 		this.orderedItems = orderedItems;
 	}
+	
+
+	public double getRateNum() {
+		return rateNum;
+	}
+
+	public void setRateNum(double rateNum) {
+		this.rateNum = rateNum;
+	}
 
 	public int getId() {
 		return id;

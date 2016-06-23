@@ -1,5 +1,8 @@
 package com.packtpub.springmvc.dao;
 
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -24,13 +27,35 @@ private SessionFactory sessionFactory;
 		this.sessionFactory = sf;
 	}
 	@Override
-	public List<Table_schedule> table_schedule_list(int from, int to, int pepleNum) {
-		System.err.println(pepleNum);
+	public List<Table_schedule> table_schedule_list(String res_from, String from, String to, int pepleNum) {
+//		System.err.println(pepleNum);
+		String [] timeParts = from.split(":");
+		String hour = timeParts[0];
+		String minute = timeParts[1];
+		
+		String [] timeToParts = to.split(":");
+		String hourTo = timeToParts[0];
+		String minuteTo = timeToParts[1];
+		
+		String [] dateParts = res_from.split("-");
+		int year = Integer.parseInt(dateParts[0]);
+		int month = Integer.parseInt(dateParts[1]);
+		int day = Integer.parseInt(dateParts[2]);
+		
+		System.err.println(year + " " + month + " "+ day);
+////		Time now = new Time(Calendar.getInstance().getTime().getTime());
+		
+		Time fromTime = new Time(Integer.parseInt(hour), Integer.parseInt(minute),00);
+		Time toTime = new Time(Integer.parseInt(hourTo), Integer.parseInt(minuteTo),00);
+		Date dateRes = new Date(116,month-1,day);
+		System.err.println(dateRes.getTime());
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM Table_schedule ts WHERE ((ts.reserved_from >:string_from and ts.reserved_from <:string_to) or (ts.reserved_to >:string_from and ts.reserved_to <:string_to)) or (ts.reserved_from <:string_from and ts.reserved_to >:string_to) ORDER BY ts.table.id ASC");
-		query1.setParameter("string_from", from);
-		query1.setParameter("string_to", to);
+		Query query1 =  session.createQuery("FROM Table_schedule ts WHERE (((ts.reserved_from >:string_from and ts.reserved_from <:string_to) and ts.date =:string_date) or ((ts.reserved_to >:string_from and ts.reserved_to <:string_to) and ts.date =:string_date)) or ((ts.reserved_from <:string_from and ts.reserved_to >:string_to) and ts.date =:string_date)  ORDER BY ts.table.id ASC");
+		query1.setParameter("string_from", fromTime);
+		query1.setParameter("string_to", toTime);
+		query1.setParameter("string_date", dateRes);
 		List<Table_schedule> tables = query1.list();
+		System.err.println(tables.size());
 		return tables;
 	}
 
