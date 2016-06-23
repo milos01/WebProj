@@ -647,4 +647,12 @@ public class PersonServiceImpl implements PersonService {
 		this.orderDAO.updateOrder(ord);
 	}
 
+	@Override
+	@Transactional
+	public void deleteOrder(OrderedItem order) {
+		this.orderDAO.deleteOrder(order);
+		
+		
+	}
+
 }

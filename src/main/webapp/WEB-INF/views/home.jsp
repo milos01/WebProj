@@ -611,7 +611,103 @@
 																<c:when test="${order.accepted == 0}">
 																
 																	<td></td>
-																	<td><input type="submit" value="Edit" name="" style="margin-left:50px"></td>
+																	<td><input data-toggle="modal" data-target="#myModal${order.id}" type="submit" value="Edit" name="" style="margin-left:50px"></td>
+																	<!-- Modal -->
+																		<div id="myModal${order.id}" class="modal fade" role="dialog">
+																		  <div class="modal-dialog">
+																		
+																		    <!-- Modal content-->
+																		    <div class="modal-content">
+																		      <div class="modal-header">
+																		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+																		        <h4 class="modal-title">Edit order</h4>
+																		      </div>
+																		      <div class="modal-body" style="height:400px">
+																		      	
+																		        <c:forEach var="orderItem2" items="${order.orderedItems}">
+																		        
+																		        	<c:choose>
+																						<c:when test="${orderItem2.foodType == 1}">
+																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.appetizer}">
+																								<c:choose>
+																									<c:when test="${orderItem3.id == orderItem2.foodId}">
+																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
+																		        						<form action="home/updateOrder" method="POST">
+																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
+																		        							<button type="submit">Delete</button>
+																		        						</form>
+																		        						</span></div>
+																		        					</c:when>
+																		        				</c:choose>
+																		        			</c:forEach>
+																						</c:when>
+																						<c:when test="${orderItem2.foodType == 2}">
+																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.mainCourse}">
+																								<c:choose>
+																									<c:when test="${orderItem3.id == orderItem2.foodId}">
+																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
+																		        							<form action="home/updateOrder" method="POST">
+																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
+																		        							<button type="submit">Delete</button>
+																		        						</form>
+																		        						</span></div>
+																		        					</c:when>
+																		        				</c:choose>
+																		        			</c:forEach>
+																						</c:when>
+																						<c:when test="${orderItem2.foodType == 3}">
+																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.desert}">
+																								<c:choose>
+																									<c:when test="${orderItem3.id == orderItem2.foodId}">
+																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
+																		        							<form action="home/updateOrder" method="POST">
+																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
+																		        							<button type="submit">Delete</button>
+																		        						</form>
+																		        						</span></div>
+																		        					</c:when>
+																		        				</c:choose>
+																		        			</c:forEach>
+																						</c:when>
+																						<c:when test="${orderItem2.foodType == 4}">
+																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.vineCard.alcoholicDrink}">
+																								<c:choose>
+																									<c:when test="${orderItem3.id == orderItem2.foodId}">
+																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
+																		        							<form action="home/updateOrder" method="POST">
+																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
+																		        							<button type="submit">Delete</button>
+																		        						</form>
+																		        						</span></div>
+																		        					</c:when>
+																		        				</c:choose>
+																		        			</c:forEach>
+																						</c:when>
+																						<c:when test="${orderItem2.foodType == 5}">
+																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.vineCard.nonAlcoholicDrink}">
+																								<c:choose>
+																									<c:when test="${orderItem3.id == orderItem2.foodId}">
+																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
+																		        							<form action="home/updateOrder" method="POST">
+																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
+																		        							<button type="submit">Delete</button>
+																		        						</form>
+																		        						</span></div>
+																		        					</c:when>
+																		        				</c:choose>
+																		        			</c:forEach>
+																						</c:when>
+																					</c:choose>
+																		        	 
+																		        </c:forEach>
+																		      </div>
+																		      <div class="modal-footer">
+																		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																		      </div>
+																		    </div>
+																		
+																		  </div>
+																		</div>
 																</c:when>
 																<c:otherwise>
 																	<td></td>

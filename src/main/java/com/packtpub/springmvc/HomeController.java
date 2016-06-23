@@ -267,6 +267,16 @@ public class HomeController {
 //		redirectAttributes.addFlashAttribute("updatedRest", "Restaurant successfully updated");
 		return "redirect:/home";
 	}
+	
+	@RequestMapping(value = "home/updateOrder", method = RequestMethod.POST)
+	public String updateOrder(@RequestParam("itemId") int orId) {
+		System.err.println(orId);
+		OrderedItem order = personService.findItem(orId);
+		personService.deleteOrder(order);
+//		this.personService.updateRestaurant(rest);
+//		redirectAttributes.addFlashAttribute("updatedRest", "Restaurant successfully updated");
+		return "redirect:/home";
+	}
 
 	@RequestMapping(value = "/newStaffShift", method = RequestMethod.POST)
 	public String addNewShiftStaff(@RequestParam("shift_entry") String naziv, @RequestParam("shift_date") String datum,

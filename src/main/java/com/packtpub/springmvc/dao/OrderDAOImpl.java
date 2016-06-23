@@ -89,5 +89,12 @@ public class OrderDAOImpl implements OrderDAO{
 		session.merge(ord);
 		
 	}
+	
+	@Override
+	public void deleteOrder(OrderedItem ord) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.delete(ord);
+		
+	}
 
 }

@@ -211,4 +211,6 @@ public interface PersonService {
 	public Order findOrder(int id);
 	
 	public void updateOrder(Order ord);
+	
+	public void deleteOrder(OrderedItem order);
 }

@@ -18,4 +18,6 @@ public interface OrderDAO {
 	public Order findOrder(int id);
 	
 	public void updateOrder(Order ord);
+
+	void deleteOrder(OrderedItem order);
 }

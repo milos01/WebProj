@@ -67,7 +67,7 @@ public class TableReservationController {
 		TableOne to = personService.findTableOn(table_id);
 		Table_schedule ts = new Table_schedule();
 		System.err.println(ts.toString());
-		ts.setDate(new Date(116,Integer.parseInt(dateParts[1]),Integer.parseInt(dateParts[2])));
+		ts.setDate(new Date(116,Integer.parseInt(dateParts[1])-1,Integer.parseInt(dateParts[2])));
 		ts.setReserved_from(timeFrom);
 		ts.setReserved_to(timeTo);
 		ts.setTable(to);
