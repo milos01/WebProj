@@ -25,7 +25,7 @@
 <link rel='stylesheet' href='../springmvc/resources/fullcalendar/fullcalendar.css' />
 <link href='../springmvc/resources/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
 
-<link rel='stylesheet' href='../springmvc/resources/timePicker/bootstrap-datetimepicker.min.css' />
+
 <script src='../springmvc/resources/timePicker/bootstrap-datetimepicker.min.js'></script>
 
 
@@ -105,212 +105,12 @@
 </style>
 
 </head>
-<body ng-app="App">
-	<c:if test="${errors.errorCount gt 0}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index:10000">
-			<c:forEach items="${errors.allErrors}" var="error">
-				<strong>${error.defaultMessage}</strong>
-				<br />
-			</c:forEach>
-		</div>
-	</c:if>
 	
-	<c:if test="${!empty deletedTable}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${deletedTable}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newItemAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newItemAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newReonToRest}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newReonToRest}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty acceptedOffer}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${acceptedOffer}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty bidderProfUp}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${bidderProfUp}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty wrongPass}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${wrongPass}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty passwodChanged}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${passwodChanged}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty reonTypeAdded}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${reonTypeAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty reonTypeAdded1}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${reonTypeAdded1}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty shiftRestAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${shiftRestAdded2}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newStaffAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newStaffAdded2}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newDishAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newDishAdded2}</strong>
-		</div>
-	</c:if>
+<body ng-app="qfcApp" ng-controller="MyCtrl">
 	
 	
-	<c:if test="${!empty smenaRadnika}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${smenaRadnika}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty smenaRadnika2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${smenaRadnika2}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty shiftRestAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${shiftRestAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty GroceryAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${GroceryAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty itemToCardAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${itemToCardAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty GroceryAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${GroceryAdded2}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newTableAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newTableAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newStaffAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newStaffAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newDishAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newDishAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newDrinkAdded}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newDrinkAdded}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty DishUpdated}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${DishUpdated}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty DrinkUpdated}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${DrinkUpdated}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty updatedRest}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${updatedRest}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty itemToCardAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${itemToCardAdded2}</strong>
-		</div>
-	</c:if>
-	
-	<c:if test="${!empty newItemAdded2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000;">
-			<strong>${newItemAdded2}</strong>
-		</div>
-	</c:if>
 	
 	
-	<div class="alert alert-success alrtTable" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%;z-index: 10000; display:none">
-			<strong>Positions successfully saved!</strong>
-	</div>
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -381,6 +181,58 @@
 		</div>
 	</div>
 	<!-- End update staff -->
+	<!-- Add restaurant modal-->
+	<div id="registerRestaurantModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width: 400px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add restaurant</h4>
+				</div>
+				<form ng-submit="submitAddRes()" ng-controller="addResController" novalidate>
+					<input class="form-control" name="name" type="text" id=""
+						placeholder="Name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"> <input class="form-control"
+						type="text" id="Address" placeholder="Address"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						name="firstName" /> <input
+						class="form-control" name="city" type="text" id="lastName"
+						placeholder="City"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" /> <input class="form-control"
+						type="text" id="" name="Phone"
+						placeholder="Phone"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						<input class="form-control"
+						type="text" id="" name="Email"
+						placeholder="Email"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						<input class="form-control"
+						type="text" id="" name="site"
+						placeholder="Site"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						<input class="form-control"
+						type="text" id="" name="PIB"
+						placeholder="PIB"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						<input class="form-control"
+						type="text" id="" name="acc"
+						placeholder="Acc"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						<input class="form-control"
+						type="text" id="" name="picture"
+						placeholder="Picture"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+
+					<div class="modal-footer" style="margin-top: 15px;">
+						<button type="submit" class="btn btn-success"
+							style="background: #1ab394">Add</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End restaurant staff -->
 	<div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 		<div class="sidebar-collapse">
@@ -400,80 +252,12 @@
 					<div class="logo-element">QFC</div>
 				</li>
 				<!-- Admin side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Admin'}">
-						<li><a data-toggle="modal"
+
+						<!-- <li><a data-toggle="modal"
 							data-target="#registerRestaurantModal"><i class="fa fa-plus"></i>
-								<span class="nav-label">Add restaurant</span></a></li>
-						<li><a data-toggle="modal"
-							data-target="#registerBidderModal"><i class="fa fa-plus"></i>
-								<span class="nav-label">Add bidder</span></a></li>
-					</c:when>
-				</c:choose>
+								<span class="nav-label">Add restaurant</span></a></li> -->
 				
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Bidder'}">
-						<li><a data-toggle="modal"
-							data-target="#bidderProfilUp"><i class="fa fa-user"></i>
-								<span class="nav-label">Update profil</span></a></li>
-						<li><a data-toggle="modal"
-							data-target="#bidderPassword"><i class="fa fa-key"></i>
-								<span class="nav-label">Change password</span></a></li>
-								
-						<li><a data-toggle="modal"
-							data-target="#listaIzdatihPonuda"><i class="fa fa-list"></i>
-								<span class="nav-label">Orphaned deals</span></a></li>	
-								
-					</c:when>
-				</c:choose>
-				
-				<!-- Regular user side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Regular user'}">
-						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Add friends</span></a></li>
-						<li><a href="#"><i class="fa fa-wrench"></i> <span
-								class="nav-label" data-toggle="modal"
-								data-target="#updateUserModal">Update profile</span></a></li>
-					</c:when>
-				</c:choose>
-				<!-- Waiter side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Waiter'}">
-						<li><a href="home.html"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Home</span></a></li>
-						<li><a href="#"><i class="fa fa-user-plus"></i>
-								<span class="nav-label" data-toggle="modal" data-target="#showCalendarShiftsWaiter">Shift schedule</span></a></li>
-						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Order's inbox</span></a></li>
-						<li><a href="tableSchedule"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Table schedule</span></a></li>
-						<li><a href="#"><i class="fa fa-wrench"></i> <span
-								class="nav-label" data-toggle="modal"
-								data-target="#updateUserModal">Update profile</span></a></li>
-					</c:when>
-				</c:choose>
-				<!-- Manager side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName	 == 'Manager'}">
 
-
-						<li class="promeniCent" rel="panel1" class="active"><a><i
-								class="fa fa-share-square-o"></i> <span class="nav-label">Update
-									restaurant</span></a></li>
-						<li class="promeniCent" rel="panel2"><a><i
-								class="fa fa-users"></i> <span class="nav-label">Employees</span></a></li>
-						<li class="promeniCent" rel="panel3"><a><i
-								class="fa fa-line-chart"></i> <span class="nav-label">Reports</span></a></li>
-
-						<li class="promeniCent" rel="panel4"><a><i
-								class="fa fa-shopping-cart"></i> <span class="nav-label">Groceries</span></a></li>
-
-					</c:when>
-				</c:choose>
-
-				<li><a href="grid_options.html"><i class="fa fa-user"></i>
-						<span class="nav-label">View profile</span></a></li>
 			</ul>
 
 		</div>
@@ -508,11 +292,11 @@
 				</nav>
 			</div>
 			<!-- Regular user central part -->
-			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Regular user'}">
+		
+				
 					<div class="wrapper wrapper-content">
 						<div class="row">
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<div class="ibox float-e-margins">
 									<div class="ibox-content ibox-heading"
 										style="background-color: #fff;">
@@ -522,401 +306,49 @@
 									</div>
 									<div class="ibox-content">
 										<div class="feed-activity-list">
-											<c:forEach var="restaurant" items="${restaurants}">
-												<div class="feed-element">
+											<div >
+											 
+											  <input class="form-control" type="search" ng-model="q" placeholder="filter friends..." aria-label="filter friends" style="margin-bottom:20px"/>
+											  <ul class="example-animate-container">
+											  
+											    <li class="animate-repeat" ng-repeat="friend in friends | filter:q as results" nop friendss="friends" idx="friend.id">
+											      <div class="feed-element">
 													<div style="background:#f8f8f9; float:left;height:100px;width:100px;margin-right:10px">
 													 	<p style="text-align:center;margin-top:40px">[image]</p>
 													</div>
-													<div ">
+													<div>
 														<small class="pull-right">1m ago</small> <strong><a
-															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
+															href="restaurant/{{friend.id}}" style="color: #676a6c">{{friend.name}}</a></strong>
 														<div>Lorem Ipsum is simply dummy text of the
 															printing and typesetting industry. Lorem Ipsum</div>
-														<small class="text-muted">Open 9 am - 11 pm</small>
+														<small class="text-muted"></small>
+														 <div id="deletea"></div>
 													</div>
 												</div>
-											</c:forEach>
+											    </li>
+											    <li class="animate-repeat" ng-if="results.length === 0">
+											      <strong>No results found...</strong>
+											    </li>
+											  </ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="wrapper wrapper-content animated fadeInRight ecommerce" style="margin-top:-19px">
-							<div class="col-lg-6">
-								<div class="ibox">
-										<div class="ibox-content">
-											
-
-												<table
-													class="footable table table-stripped toggle-arrow-tiny"
-													data-page-size="15">
-													<thead>
-
-														<tr>
-
-															<th data-toggle="true">Order ID</th>
-															<th data-hide="phone">Price</th>
-															<th data-hide="all">Description</th>
-															<th data-sort-ignore="true"></th>
-															<th data-hide="" data-sort-ignore="true"></th>
-															<th data-hide="phone" data-sort-ignore="true">Rate</th>
-															<th class="text-right" data-sort-ignore="true">Select</th>
-
-														</tr>
-													</thead>
-													<tbody>
-													
-														<c:forEach var="order"
-															items="${orders}">
-															
-															<tr>
-																<td>${order.id}</td>
-																
-																<td></td>
-																
-																<td>
-																	Desc.
-																 </td>
-																<td></td>
-																<td></td>
-																<c:choose>
-																<c:when test="${order.rateNum == 0 and currTime - order.reservation.table_schedule.date.getTime() > 0}">
-																	<form action="home/rateMeal" method="POST">
-																	
-																<td><input type="text" name="rate"
-																	style="width: 60px"></td>
-																<td class="text-right">
-																<input type="hidden" name="orderId" value="${order.id}">
-																	<c:forEach var="orderItem2"
-															items="${order.orderedItems}">
-																	
-																	<input type="hidden" name="food" value="${orderItem2.id}">
-																	</c:forEach>
-																	<div class="btn-group">
-																		<input type="submit" value="Rate" name="">
-																	</div>
-																	</td>
-																</form>
-																
-																</c:when>
-																<c:otherwise>
-																	<c:choose>
-																		<c:when test="${order.rateNum != 0}">
-																		<td><span style="margin-left:5px">${order.rateNum}</span></td>
-																		<td><span style="margin-left:52px">Rated</span></td>
-																		</c:when>
-																	</c:choose>
-																	<c:choose>
-																		<c:when test="${order.rateNum == 0 and currTime - order.reservation.table_schedule.date.getTime() < 0}">
-																			<c:choose>
-																<c:when test="${order.accepted == 0}">
-																
-																	<td></td>
-																	<td><input data-toggle="modal" data-target="#myModal${order.id}" type="submit" value="Edit" name="" style="margin-left:50px"></td>
-																	<!-- Modal -->
-																		<div id="myModal${order.id}" class="modal fade" role="dialog">
-																		  <div class="modal-dialog">
-																		
-																		    <!-- Modal content-->
-																		    <div class="modal-content">
-																		      <div class="modal-header">
-																		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-																		        <h4 class="modal-title">Edit order</h4>
-																		      </div>
-																		      <div class="modal-body" style="height:400px">
-																		      	
-																		        <c:forEach var="orderItem2" items="${order.orderedItems}">
-																		        
-																		        	<c:choose>
-																						<c:when test="${orderItem2.foodType == 1}">
-																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.appetizer}">
-																								<c:choose>
-																									<c:when test="${orderItem3.id == orderItem2.foodId}">
-																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
-																		        						<form action="home/updateOrder" method="POST">
-																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
-																		        							<button type="submit">Delete</button>
-																		        						</form>
-																		        						</span></div>
-																		        					</c:when>
-																		        				</c:choose>
-																		        			</c:forEach>
-																						</c:when>
-																						<c:when test="${orderItem2.foodType == 2}">
-																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.mainCourse}">
-																								<c:choose>
-																									<c:when test="${orderItem3.id == orderItem2.foodId}">
-																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
-																		        							<form action="home/updateOrder" method="POST">
-																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
-																		        							<button type="submit">Delete</button>
-																		        						</form>
-																		        						</span></div>
-																		        					</c:when>
-																		        				</c:choose>
-																		        			</c:forEach>
-																						</c:when>
-																						<c:when test="${orderItem2.foodType == 3}">
-																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.menu.desert}">
-																								<c:choose>
-																									<c:when test="${orderItem3.id == orderItem2.foodId}">
-																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
-																		        							<form action="home/updateOrder" method="POST">
-																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
-																		        							<button type="submit">Delete</button>
-																		        						</form>
-																		        						</span></div>
-																		        					</c:when>
-																		        				</c:choose>
-																		        			</c:forEach>
-																						</c:when>
-																						<c:when test="${orderItem2.foodType == 4}">
-																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.vineCard.alcoholicDrink}">
-																								<c:choose>
-																									<c:when test="${orderItem3.id == orderItem2.foodId}">
-																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
-																		        							<form action="home/updateOrder" method="POST">
-																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
-																		        							<button type="submit">Delete</button>
-																		        						</form>
-																		        						</span></div>
-																		        					</c:when>
-																		        				</c:choose>
-																		        			</c:forEach>
-																						</c:when>
-																						<c:when test="${orderItem2.foodType == 5}">
-																							<c:forEach var="orderItem3" items="${order.reservation.res_restaurant.vineCard.nonAlcoholicDrink}">
-																								<c:choose>
-																									<c:when test="${orderItem3.id == orderItem2.foodId}">
-																		        						<div style="width:100%;border-top:1px solid #ccc;float:left"><span style="padding:5px">${orderItem3.name}
-																		        							<form action="home/updateOrder" method="POST">
-																		        							<input type="hidden" value="${orderItem2.id}" name="itemId">
-																		        							<button type="submit">Delete</button>
-																		        						</form>
-																		        						</span></div>
-																		        					</c:when>
-																		        				</c:choose>
-																		        			</c:forEach>
-																						</c:when>
-																					</c:choose>
-																		        	 
-																		        </c:forEach>
-																		      </div>
-																		      <div class="modal-footer">
-																		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																		      </div>
-																		    </div>
-																		
-																		  </div>
-																		</div>
-																</c:when>
-																<c:otherwise>
-																	<td></td>
-																	<td></td>
-																</c:otherwise>
-																</c:choose>
-																			
-																			
-																			
-																			
-																
-																	
-																	</c:when>
-																	</c:choose>
-																</c:otherwise>
-																
-																</c:choose>
-															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-
-											
-										</div>
-									</div>
-							</div>
-							</div>
+							
+							
 						</div>
-						<div class="row" ng-controller="addFriendController">
-							<div class="navbar-header">
-								<form role="search" class="navbar-form-custom"
-									action="addFriend" method="POST">
-									<div class="form-group">
-										<input ng-model="friendsSearch" type="text"
-											placeholder="Search for friends..." class="form-control"
-											name="friendName" id="friendsSearch"
-											style="margin-left: 20px;border-bottom:1px solid #ccc">
-									</div>
-									<button class="btn btn-default" type="submit"
-										ng-show="friendsSearch.length"
-										style="position: absolute; margin-top: -48px; left: 240px">Add
-										friend</button>
-								</form>
-							</div>
-						</div>
-						<div class="row" style="margin-top: 20px">
-							<c:forEach var="friend" items="${logedUser.starter_friend}">
-								<div class="col-lg-4">
-									<div class="contact-box">
-										<a href="profile.html">
-											<div class="col-sm-4">
-												<div class="text-center">
-													<img alt="image" class="img-circle m-t-xs img-responsive"
-														src="../springmvc/resources/img/a2.jpg">
-												</div>
-											</div>
-											<div class="col-sm-8">
-												<h3>
-													<strong>${friend.firstName} ${friend.lastName}</strong>
-												</h3>
-												<p>
-													<i class="fa fa-map-marker"></i> Riviera State 32/106
-												</p>
-												<address>
-													<strong>CodeVsion</strong>
-												</address>
-											</div>
-											<a href="removeFriend/${friend.id}"><button type="button" class="close" data-dismiss="modal" style="top:5px;position:absolute">&times;</button></a>
-											<div class="clearfix"></div>
-										</a>
-									</div>
-									<div class="clearfix"></div>
-									</a>
-								</div>
-							</c:forEach>
-						</div>
+						
+					
 						<div class="footer">
 							<div>
 								<strong>Copyright</strong> Quest For Chef &copy; 2016
 							</div>
 						</div>
 					</div>
-				</c:when>
-			</c:choose>
-			<!-- Admin central part -->
-			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Admin'}">
-					<!-- List of restaurants -->
-					<div class="wrapper wrapper-content">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="ibox float-e-margins">
-									<div class="ibox-title">
-										<h5>Restaurants</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-										</div>
-									</div>
-									<div class="ibox-content ibox-heading" style="background-color: #fff;">
-										<h3>
-											<i class="fa fa-glass"></i> Restaurant list
-										</h3>
-									</div>
-									<div class="ibox-content">
-										<div class="feed-activity-list">
-											<c:forEach var="restaurant" items="${restaurants}">
-												<div class="feed-element">
-													<div>
-														<small class="pull-right">1m ago</small> <strong><a
-															href="restaurant/${restaurant.id}" style="color: #676a6c">${restaurant.name}</a></strong>
-														<div>Lorem Ipsum is simply dummy text of the
-															printing and typesetting industry. Lorem Ipsum</div>
-														<small class="text-muted">Open 9 am - 11 pm</small>
-													</div>
-												</div>
-											</c:forEach>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Modal for restaurant registration -->
-					<div id="registerRestaurantModal" class="modal fade" role="dialog">
-						<div class="modal-dialog" style="width: 400px">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Register restaurant</h4>
-								</div>
-								<form action="registerRestaurant" method="POST">
-									<input class="form-control" type="text" id="name" name="name"
-										placeholder="Restaurant name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" />
-
-									<!-- <input class="form-control" type="text" id="restType"
-										placeholder="Restaurant type"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										/> -->
-									<input class="form-control" type="text" id="address"
-										placeholder="Address" name="address"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-									<input class="form-control" type="text" id="manName"
-										name="manName" placeholder="Manager's first name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-									<input class="form-control" type="text" id="manLastName"
-										name="manLastName" placeholder="Manager's last name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-
-									<input class="form-control" type="text" id="manEmail"
-										name="manEmail" placeholder="Manager's email"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-
-									<div class="modal-footer" style="margin-top: 15px;">
-										<button type="submit" class="btn btn-success"
-											style="background: #1ab394">Register</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-
-						</div>
-					</div>
-					
-					<!-- Modal for bidder registration -->
-					<div id="registerBidderModal" class="modal fade" role="dialog">
-						<div class="modal-dialog" style="width: 400px">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Register bidder</h4>
-								</div>
-								<form action="registerBidder" method="POST">
-									<input class="form-control" name="email" type="text" id="regEmail"
-										placeholder="Email"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
-
-									<input class="form-control" type="text" id="firstName"
-										placeholder="First name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										name="firstName" /> 
-									<input class="form-control" name="lastName"
-										type="text" id="lastName" placeholder="Last name"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										ng-model="username_model" /> <input class="form-control"
-										type="password" id="regPassword" name="password"
-										placeholder="Password"
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-										ng-model="reg_password_model" />
-	
-									<div class="modal-footer" style="margin-top: 15px;">
-										<button type="submit" class="btn btn-success"
-											style="background: #1ab394">Register</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-
-						</div>
-					</div>
-
-				</c:when>
-			</c:choose>
+				
+			
+			
 			<!-- Waiter central part -->
 			<c:choose>
 				<c:when test="${logedUser.role.roleName == 'Waiter'}">
@@ -2248,7 +1680,7 @@
 														</h3>
 														<strong>Waiter</strong><br>
 														<p style="font-size:14px">Former achieved revenues: 5021 $</p>
-														<p style="font-size:14px">Raiting: 4.3</p>		
+														<p style="font-size:14px">Raiting: ${hrana.rate}</p>		
 													</div>
 													<div class="clearfix"></div>
 												</div>
@@ -2280,7 +1712,7 @@
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
 																<strong>Price: ${hrana.price} $</strong><br>
-																<p style="font-size:14px">Raiting: 4.3</p>		
+																<p style="font-size:14px">Raiting: ${hrana.rate}</p>		
 															</div>
 															<div class="clearfix"></div>
 														</div>
@@ -2305,7 +1737,7 @@
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
 																<strong>Price: ${hrana.price} $</strong><br>
-																<p style="font-size:14px">Raiting: 4.3</p>		
+																<p style="font-size:14px">Raiting: ${hrana.rate}</p>		
 															</div>
 															<div class="clearfix"></div>
 														</div>
@@ -2330,7 +1762,31 @@
 																	<strong style="font-size:20px">${hrana.name}</strong>
 																</h3>
 																<strong>Price: ${hrana.price} $</strong><br>
-																<p style="font-size:14px">Raiting: 4.3</p>		
+																<p style="font-size:14px">Raiting: ${hrana.rate }</p>		
+															</div>
+															<div class="clearfix"></div>
+														</div>
+													</div>
+											  </c:forEach>
+										 </div>	
+									 </div>
+									 <div>
+										 <div class="row" style="margin-top: 6px;">
+											 <c:forEach var="hrana" items="${alchDrink}">
+													<div class="col-lg-4">
+														<div class="contact-box">
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${hrana.picture}">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong style="font-size:20px">${hrana.name}</strong>
+																</h3>
+																<strong>Price: ${hrana.price} $</strong><br>
+																<p style="font-size:14px">Raiting: ${hrana.rate }</p>		
 															</div>
 															<div class="clearfix"></div>
 														</div>
@@ -2338,6 +1794,30 @@
 											  </c:forEach>
 										 </div>	
 									 </div>	
+									 <div>
+										 <div class="row" style="margin-top: 6px;">
+											 <c:forEach var="hrana" items="${NonalchDrink}">
+													<div class="col-lg-4">
+														<div class="contact-box">
+															<div class="col-sm-4">
+																<div class="text-center">
+																	<img alt="image" class="img-circle m-t-xs img-responsive"
+																		src="../springmvc/resources/img/${hrana.picture}">
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<h3>
+																	<strong style="font-size:20px">${hrana.name}</strong>
+																</h3>
+																<strong>Price: ${hrana.price} $</strong><br>
+																<p style="font-size:14px">Raiting: ${hrana.rate }</p>		
+															</div>
+															<div class="clearfix"></div>
+														</div>
+													</div>
+											  </c:forEach>
+										 </div>	
+									 </div>		
 								 </div>
 							 </c:if>
 						 <h2>Revenues restaurants on a monthly basis</h2>
@@ -2597,10 +2077,18 @@
 	<!-- FooTable -->
 	<script
 		src="../springmvc/resources/js/plugins/footable/footable.all.min.js"></script>
+		
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+	<script type="text/javascript" src="../springmvc/resources/js/validationByPage/homePage.js"></script>
 	<script type="text/javascript">
+	
 			var gridster;
 
 			$(document).ready(function() {
+				/* get user */
+				
 				gridtster = $(".gridster > .ull").gridster({
 					widget_margins: [10, 10],
 					widget_base_dimensions: [110, 110],
@@ -3001,15 +2489,14 @@
 	
 	
 	<!-- Socket.IO -->
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
+	
 	
 
 	<script>
+	
 		$(document)
-				.ready(
+				.ready(	
+						
 						function() {
 							$('.chart').easyPieChart({
 								barColor : '#f8ac59',

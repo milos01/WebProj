@@ -57,7 +57,8 @@
 								required="">
 							<input type="hidden" name="loginEmailSecond" value="${user.email}">
 						</div>
-						<button type="submit" class="btn btn-primary block full-width">Login</button>
+						<input type="hidden" name="resid" value="${resid}">
+						<button type="submit" class="btn btn-primary block full-width">Login </button>
 					</form>
 				</div>
 			</div>
@@ -74,9 +75,12 @@
 
 								<c:when test="${user.id != logedUser.id}">
 									<div class="col-lg-6">
+									<form action="logoutSecond" method="POST">
+										<input type="hidden" name="resid" value="${resid}">
 										<span class=""><h2>Currently logged as
 												${logedUser.firstName} ${logedUser.lastName}. You need to
-												<a href="logoutSecond">logout</a>.</h2></span>
+												<button type="submit">logout.</h2></span>
+									</form>
 									</div>
 								</c:when>
 
@@ -229,6 +233,7 @@
 													</tbody>
 
 												</table>
+												<input type="hidden" name="ordId" value="${resid}">
 												<button class="btn btn-primary" type="submit">Place
 													order</button>
 												<div class="btn-group pull-right">

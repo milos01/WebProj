@@ -1,6 +1,18 @@
 var myApp = angular.module('qfcApp', []);
-myApp.controller('loginController', function($scope) {
-    
+myApp.controller('loginController', function($scope, $http) {
+    $scope.submitLoginForm = function(){
+    	return $http({
+            method: 'POST',
+            url: 'login',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: { loginEmail: $scope.loginEmail, loginPassword: $scope.loginPassword}
+        }).then(function(res){
+            console.log(res)
+            window.location = "home"
+        });
+    }
 });
 
 myApp.directive('emailAvailable', function($timeout, $q, $http) {

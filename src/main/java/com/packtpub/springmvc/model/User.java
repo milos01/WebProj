@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -51,45 +52,18 @@ public class User {
 	@Column(length = 60)
 	private String password;
 
-	private boolean enabled;
 
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
-	private boolean tokenExpired;
-	
 	@OneToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false, name = "role_id")
 	private Role role;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private Set<Order> orders;
-
-	@ManyToMany
-	@JoinTable(name="Friends",
-	 joinColumns=@JoinColumn(name="starter_friend"),
-	 inverseJoinColumns=@JoinColumn(name="terminal_friend")
-	)
-	private Set<User> starter_friend;
-
-	@ManyToMany
-	@JoinTable(name="Friends",
-	 joinColumns=@JoinColumn(name="terminal_friend"),
-	 inverseJoinColumns=@JoinColumn(name="starter_friend")
-	)
-	private Set<User> terminal_friend;
 	
-	public User() {
-		super();
-		this.enabled = false;
-		this.tokenExpired = false;
-	}
-
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Restaurant> restaurants;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -130,22 +104,6 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public boolean isTokenExpired() {
-		return tokenExpired;
-	}
-
-	public void setTokenExpired(boolean tokenExpired) {
-		this.tokenExpired = tokenExpired;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -154,20 +112,12 @@ public class User {
 		this.role = role;
 	}
 
-	public Set<User> getStarter_friend() {
-		return starter_friend;
+	public Set<Restaurant> getRestaurants() {
+		return restaurants;
 	}
 
-	public void setStarter_friend(Set<User> starter_friend) {
-		this.starter_friend = starter_friend;
-	}
-
-	public Set<User> getTerminal_friend() {
-		return terminal_friend;
-	}
-
-	public void setTerminal_friend(Set<User> terminal_friend) {
-		this.terminal_friend = terminal_friend;
+	public void setRestaurants(Set<Restaurant> restaurants) {
+		this.restaurants = restaurants;
 	}
 	
 	

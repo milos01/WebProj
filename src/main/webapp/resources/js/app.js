@@ -1,7 +1,4 @@
-//var myApp = angular.module('App',[]);
-//myApp.controller('addFriendController', ['$scope','$http', function($scope, $http) {
-//
-//}]);
+
 window.onbeforeunload = function() {
 	var fromNum = $("#typedFrom").val();
 	var toNum = $("#typedTo").val();
@@ -19,21 +16,15 @@ $(function() {
 	$("#typedFrom").val(r);
 	$("#typedTo").val(r2);
 	$("#typedDate").val(r3);
-	socket = io.connect('http://localhost:3000');
+	
 
 	$('.resButtons').click(function() {
 		buttonTextId = $(this).attr("id");
 		buttonIdNumber = buttonTextId.replace(/[^\d]/g, '');
-		socket.emit('reserve', buttonIdNumber);
+		
 	});
 
-	socket.on('reserveTable', function(data) {
-		$('#reserveButton' + data.id).html("Watching");
-		$('#reserveButton' + data.id).css("background-color", "#ccc");
-		$('#reserveButton' + data.id).css("color", "black");
-		$('#reserveButton' + data.id).css("border", "1px solid gray");
 
-	});
 	
 	$(".menuButton").click(function(){
 		var divId = $(this).attr("id");
@@ -47,15 +38,10 @@ $(function() {
 		$(".reserveDiv").hide();
 		closeTextId = $(this).attr("id");
 		closeIdNumber = closeTextId.replace(/[^\d]/g, '');
-		socket.emit('closeReserve', closeIdNumber);
+		
 	});
 
-	socket.on('closeReserveTable', function(data) {
-		$('#reserveButton' + data.id).html("Reserve");
-		$('#reserveButton' + data.id).css("background-color", "#1ab394");
-		$('#reserveButton' + data.id).css("color", "#fff");
-		$('#reserveButton' + data.id).css("border", "1px solid #1ab394");
-	});
+	
 	
 	$('.reserveDiv').on('shown.bs.modal', function() {
 		$(document).idleTimer(60000);
@@ -75,7 +61,7 @@ $(function() {
 				$('.reserveDiv').modal("hide");
 				toastr.warning('We did not receve your activity for 1 minute.',
 						'Idle time');
-				socket.emit('closeReserve', buttonIdNumber);
+				
 				$('.custom-alert').fadeIn();
 				$('.custom-alert-active').fadeOut();
 

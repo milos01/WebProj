@@ -37,6 +37,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" />
+		<!-- <beans:property name="username" value="milosa942@gmail.com" />
+ 		<beans:property name="password" value="mikasumaher" /> -->
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
@@ -69,38 +71,18 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.packtpub.springmvc.model.User</beans:value>
-				<beans:value>com.packtpub.springmvc.model.VerificationToken
-				</beans:value>
+				
 				<beans:value>com.packtpub.springmvc.model.Role</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Staff</beans:value>
+
 				<beans:value>com.packtpub.springmvc.model.Restaurant</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Reservation</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Table_schedule</beans:value>
+				
 
-				<beans:value>com.packtpub.springmvc.model.Shift</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Shift_schedule</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Reon</beans:value>
-
-				<beans:value>com.packtpub.springmvc.model.TableOne</beans:value>
 				
-				<beans:value>com.packtpub.springmvc.model.Menu</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Desert</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Appetizer</beans:value>
-				<beans:value>com.packtpub.springmvc.model.MainCourse</beans:value>
 				
-				<beans:value>com.packtpub.springmvc.model.NonAlcoholicDrink</beans:value>
-				<beans:value>com.packtpub.springmvc.model.AlcoholicDrink</beans:value>
-				<beans:value>com.packtpub.springmvc.model.VineCard</beans:value>
 				
-				<beans:value>com.packtpub.springmvc.model.TablePosition</beans:value>
+		
 				
-				<beans:value>com.packtpub.springmvc.model.FoodItem</beans:value>
-				<beans:value>com.packtpub.springmvc.model.FoodListItem</beans:value>
-				<beans:value>com.packtpub.springmvc.model.GrocaryList</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Offer</beans:value>
-				<beans:value>com.packtpub.springmvc.model.ReonTypes</beans:value>
-				<beans:value>com.packtpub.springmvc.model.Order</beans:value>
-				<beans:value>com.packtpub.springmvc.model.OrderedItem</beans:value>
+				
 
 			</beans:list>
 		</beans:property>
@@ -111,7 +93,7 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
-				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>-->
+				<!-- <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop> -->
 			</beans:props>
 		</beans:property>
 	</beans:bean>
@@ -121,15 +103,9 @@
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-	<beans:bean id="orderDAO" class="com.packtpub.springmvc.dao.OrderDAOImpl">
-		<beans:property name="sessionFactory"
-			ref="hibernate4AnnotatedSessionFactory" />
-	</beans:bean>
 
-	<beans:bean id="tokenDAO" class="com.packtpub.springmvc.dao.TokenDAOImpl">
-		<beans:property name="sessionFactory"
-			ref="hibernate4AnnotatedSessionFactory" />
-	</beans:bean>
+
+	
 
 	<beans:bean id="personService"
 		class="com.packtpub.springmvc.service.PersonServiceImpl">

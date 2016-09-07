@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.packtpub.springmvc.model.User;
-import com.packtpub.springmvc.model.VerificationToken;
 
 @Repository
 public class PersonDAOImpl implements PersonDAO {

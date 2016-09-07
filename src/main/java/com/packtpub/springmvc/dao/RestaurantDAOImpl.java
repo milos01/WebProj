@@ -9,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
-import com.packtpub.springmvc.model.Reon;
-import com.packtpub.springmvc.model.ReonTypes;
 
-import com.packtpub.springmvc.model.Reservation;
+
 import com.packtpub.springmvc.model.Restaurant;
-import com.packtpub.springmvc.model.TableOne;
+
 import com.packtpub.springmvc.model.User;
-import com.packtpub.springmvc.model.VerificationToken;
+
 
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
@@ -72,54 +70,13 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	}
 
 	@Override
-	public void addNewReonType(ReonTypes rt) {
+	public List<Restaurant> getUsersRestaurants(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(rt);
-	}
-
-	@Override
-	public List<ReonTypes> getAllReaonTypes() {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM ReonTypes");
-		List<ReonTypes> restaurantList = query1.list();
-		return restaurantList;
-	}
-
-	@Override
-	public void referesType(ReonTypes rt) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.merge(rt);
-	}
-
-	@Override
-	public ReonTypes findReonTypes(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM ReonTypes rs WHERE rs.id = :id");
+        System.out.println("aki caki");
+        Query query1 = session.createQuery("from Restaurant rs WHERE rs.user.id = :id");
 		query1.setParameter("id",id);
-		List<ReonTypes> restaurantList = query1.list();
-		ReonTypes rs = null;
-		for ( ReonTypes restaurant: restaurantList ) {
-		   rs = restaurant;
-		}
-		return rs; 
-	}
-
-	@Override
-	public void addNewReonToRest(Reon r) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(r);
-	}
-	public Reservation findReservation(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query1 =  session.createQuery("FROM Reservation to WHERE to.id =:string_id");
-		query1.setParameter("string_id", id);
-		Reservation tt = null;
-		List<Reservation> tables = query1.list();
-		for(Reservation to:tables){
-			tt = to;
-		}
-	
-		return tt;
+		List<Restaurant> restaurantList = query1.list();
+        return restaurantList;
 	}
 
 }

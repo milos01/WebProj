@@ -139,13 +139,13 @@ body {
 			</div>
 			<p style="margin-top: -30px; font-family: 'Lobster Two', cursive;">Quest
 				For Chef</p>
-			<form action="login" method="POST" name="lognForm" novalidate>
+			<form  ng-submit="submitLoginForm()" name="lognForm" novalidate>
 
                 <div class="form-group" ng-class="{ 'has-error' : lognForm.loginEmail.$invalid && lognForm.loginEmail.$error && !lognForm.loginEmail.$pristine }">
 				<input class="form-control" name="loginEmail" type="email"
 					placeholder="Email"
 					style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" ng-model-options="{ updateOn: 'blur' }"
-					ng-model="user.loginEmail" email-available required>
+					ng-model="loginEmail" email-available required>
                 </div>
                 <p ng-show="lognForm.loginEmail.$error.required && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is required.</p>
                 <p ng-show="lognForm.loginEmail.$error.email && !lognForm.loginEmail.$pristine" style="font-size:17px;position:absolute;margin-left:-58px;color:#a94442;margin-top:-48px">Email is not valid.</p>
