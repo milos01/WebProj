@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.pojo.NewRestaurantPojo;
+import com.packtpub.springmvc.pojo.userParamsPojo;
 import com.packtpub.springmvc.service.PersonService;
 
 @Controller
@@ -46,6 +49,48 @@ public class RerstaurantController {
 		User u = (User)session.getAttribute("logedUser");
 		List <Restaurant> res = personService.getUsersRestaurants(u.getId());
 		return new ResponseEntity<List<Restaurant>>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addRestaurant", method = RequestMethod.POST ,headers="Accept=*/*")
+	public ResponseEntity <Restaurant>addRestaurants(@RequestBody NewRestaurantPojo rpp,HttpSession session){
+		User u = (User)session.getAttribute("logedUser");
+		
+		Restaurant res = new Restaurant();
+		res.setUser(u);
+		res.setAddress(rpp.getAddress());
+		res.setCity(rpp.getCity());
+		res.setEmail(rpp.getEmail());
+		res.setName(rpp.getName());
+		res.setPhone(rpp.getPhone());
+		res.setPib(rpp.getPib());
+		res.setPicture(rpp.getPicture());
+		res.setSite(rpp.getSite());
+		res.setZiroRacun(rpp.getZiroRacun());
+		
+		this.personService.addRestaurant(res);
+		
+		return new ResponseEntity<Restaurant> (res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/updateRestaurant", method = RequestMethod.POST ,headers="Accept=*/*")
+	public ResponseEntity <Restaurant>updateRestaurants(@RequestBody NewRestaurantPojo rpp,HttpSession session){
+		User u = (User)session.getAttribute("logedUser");
+		
+		Restaurant res = new Restaurant();
+		res.setUser(u);
+		res.setAddress(rpp.getAddress());
+		res.setCity(rpp.getCity());
+		res.setEmail(rpp.getEmail());
+		res.setName(rpp.getName());
+		res.setPhone(rpp.getPhone());
+		res.setPib(rpp.getPib());
+		res.setPicture(rpp.getPicture());
+		res.setSite(rpp.getSite());
+		res.setZiroRacun(rpp.getZiroRacun());
+		
+		this.personService.addRestaurant(res);
+		
+		return new ResponseEntity<Restaurant> (res, HttpStatus.OK);
 	}
 
 //	@RequestMapping("/restaurant/{id}")

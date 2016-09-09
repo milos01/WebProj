@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -39,7 +40,7 @@ public class Restaurant {
 	
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ziroRacun;
+	private String ziroRacun;
 	
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,10 +64,29 @@ public class Restaurant {
 	@JsonBackReference
 	@NotNull
 	private User user;
+	
+
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Event> events;
 
 	public User getUser() {
 		return user;
 	}
+	
+	
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+
+
 
 	public void setUser(User user) {
 		this.user = user;
@@ -122,11 +142,11 @@ public class Restaurant {
 		this.city = city;
 	}
 
-	public int getZiroRacun() {
+	public String getZiroRacun() {
 		return ziroRacun;
 	}
 
-	public void setZiroRacun(int ziroRacun) {
+	public void setZiroRacun(String ziroRacun) {
 		this.ziroRacun = ziroRacun;
 	}
 
