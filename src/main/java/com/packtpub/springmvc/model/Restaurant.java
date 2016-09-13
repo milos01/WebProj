@@ -78,12 +78,31 @@ public class Restaurant {
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Event> events;
+	
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Recension> recensions;
+	
+	
+	
 	@JsonBackReference
 	public User getUser() {
 		return user;
 	}
 	
 	
+
+	public Set<Recension> getRecensions() {
+		return recensions;
+	}
+
+
+
+	public void setRecensions(Set<Recension> recensions) {
+		this.recensions = recensions;
+	}
+
+
 
 	public Set<Event> getEvents() {
 		return events;

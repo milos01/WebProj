@@ -76,6 +76,7 @@
 
 				<beans:value>com.packtpub.springmvc.model.Restaurant</beans:value>
 				<beans:value>com.packtpub.springmvc.model.Event</beans:value>
+				<beans:value>com.packtpub.springmvc.model.Recension</beans:value>
 				
 
 				

@@ -17,3 +17,5 @@ INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `p
 INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `phone`, `picture`, `ziroRacun`,`city`,`pib`,`user_id`) VALUES ('Momcila Tapavice 18',     'test.com', 'hgarrett3@ed.gov',   'Twitternation4', '380-(257)526-4752', 'a1.png','421312312312','Novi Sad','42131212123','1');
 INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'pic.ic', '5');
 INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'pic.ic', '2');
+INSERT INTO `questforchef`.`Recensions` (`datum`, `ocena`, `text`, `res_id`) VALUES ('2016-08-31', 'Extra je', '4', '1');
+INSERT INTO `questforchef`.`Recensions` (`datum`, `ocena`, `text`, `res_id`) VALUES ('2016-08-31', 'Description', '5', '1');
