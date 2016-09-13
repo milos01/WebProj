@@ -1,7 +1,23 @@
 
-var myApp = angular.module('qfcApp', ['ui.bootstrap']);
+var myApp = angular.module('qfcApp', ['ui.bootstrap', 'ngRoute']);
 
-
+myApp.config(
+	    function($routeProvider) {
+	        $routeProvider.
+	          
+	            when('/springmvc/home/restaurant', 
+	                {   
+	                    controller:'resView', 
+	                    templateUrl: 'restaurant.jsp'
+	                }
+	            ).
+	            otherwise({redirectTo:'/'});
+	    }
+);
+myApp.controller('resView', function($scope, $routeParams){
+	var param1 = $routeParams.res_id;
+	console.log(param1);
+});
 myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
 	
 	
@@ -38,7 +54,7 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
 	      },
 	      data: {}
 	  }).then(function(res){
-		  console.log(res);
+		  
 		  $scope.friends = res.data;
 		  
 		  
@@ -51,7 +67,7 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
 	
 });
 myApp.directive('nop', function($compile,$http,$uibModal){
-	
+	console.log('aaaaa');
 	
 	return {
 		restrict: 'AE',
@@ -61,7 +77,7 @@ myApp.directive('nop', function($compile,$http,$uibModal){
 			fs: '='
 		},
         link: function(scope, elm, attr){ 
-        	console.log("asd");
+        	
         	return $http({
                 method: 'GET',
                 url: 'getuser',
@@ -75,22 +91,63 @@ myApp.directive('nop', function($compile,$http,$uibModal){
                 	var el = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="removeTask('+ scope.idx +')">Delete</button>');
                 	var el2 = angular.element('<button class="btn btn-info btn-xs" style="margin-top:10px;margin-right:5px" data-toggle="modal" ng-click="open('+scope.idx+')">Update</button>');
                 	var el3 = angular.element('<button class="btn btn-info btn-xs" style="margin-top:10px;margin-right:5px" data-toggle="modal" ng-click="openEvent('+scope.idx+')">Add event</button>');
-                	 $compile(el)(scope);
+                	var el4 = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="restaurantPage('+scope.idx+')">View</button>');
+                	$compile(el)(scope);
                 	 $compile(el2)(scope);
                 	 $compile(el3)(scope);
+                	 $compile(el4)(scope);
                 	 elm.children().append(el3);
                      elm.children().append(el2);
                      elm.children().append(el);
-                     console.log(scope.fs);
+                     elm.children().append(el4);
+                     
 //                     angular.element(document.getElementById('deletea')).append($compile(el)(scope));
                      
                 	}
+            	console.log(scope.fs);
+//            	scope.friendss.forEach(function(entry){
+            		if(scope.fs.user != res.data.id){
+            			
+            			scope.fs.events.forEach(function(entry2){
+            				var currDate = new Date();
+            				var k = entry2.date;
+ 
+            				if(k.toString().substring(0, 10) > currDate.getTime().toString().substring(0,10)){
+	            				var el = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="signEvent('+ entry2.id +')">Go!</button>');
+	                			$compile(el)(scope); 
+	                			var place = elm.find("#eve"+entry2.id);
+	                			console.log(place);
+	                			place.append(el);
+            				}else{
+            					var el = angular.element('<span class="" style="margin-top:10px;color:red;padding:10px" >Passed</span>');
+	                			$compile(el)(scope); 
+	                			var place = elm.find("#eve"+entry2.id);
+	                			place.append(el);
+            				}
+//                			console.log(place.children());
+            			});
+//            			var el = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px">Go!</button>');
+//            			$compile(el)(scope); 
+//            			elm.children().append(el);
+            		}
+//            		console.log(entry.user);
+//            	});
+//            	if(res.data.id ==  ){
+//            		
+//            	}
+            		scope.restaurantPage= function(id){
+            			window.location = "restaurant/"+id;
+            		}
+            		
+            	scope.signEvent = function(ideve){
+            		alert(ideve);
+            	}
             	
             	scope.removeTask = function(idscope){
 //            		scope.friendss.splice(idscope,1);
             		
             		scope.friendss.forEach(function(entry) {
-            			console.log(idscope +"aa"+entry.id);
+            		
             		    if(idscope == entry.id){
             		    	var index = scope.friendss.indexOf(entry);
             		    	scope.friendss.splice(index,1);
@@ -110,7 +167,7 @@ myApp.directive('nop', function($compile,$http,$uibModal){
                               resolve: {
                                     customer: function()
                                     {
-                                    	console.log(entry);
+                                 
                                         return entry;
                                     }
                                 }
@@ -119,7 +176,7 @@ myApp.directive('nop', function($compile,$http,$uibModal){
             		});
             		
             		
-            		console.log(fs);
+         
                     
 
                 };
@@ -133,7 +190,7 @@ myApp.directive('nop', function($compile,$http,$uibModal){
                               resolve: {
                                     customer: function()
                                     {
-                                    	console.log(entry);
+                     
                                         return entry;
                                     }
                                 }
@@ -160,7 +217,7 @@ myApp.controller('addResController', function($scope, $http) {
         }).then(function(res){
         	$scope.friends.push(res.data);
 //        	console.log(res.data);
-        	console.log($scope.friends);
+        	
         });
      };
 });
@@ -183,6 +240,7 @@ myApp.controller('ModalInstanceCtrl', function ($scope, customer)
 
 
 myApp.controller('ModalInstanceCtrl2', function ($scope, customer){
+		$scope.restaurantId = customer.id;
 		$scope.restaurantObj = customer;
 		$scope.customer = customer;
 });
@@ -216,10 +274,32 @@ myApp.controller('updateResController', function($scope, $http){
 	
 });
 
-myApp.controller('addEventController', function($scope){
+myApp.controller('addEventController', function($scope, $http){
 	$scope.submitAddEvent = function(){
-//		http request for adding new event for this restaurant
+		return $http({
+            method: 'POST',
+            url: 'addEvent',
+            headers: {
+            	'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            data:{description: $scope.eventDescription, exdate:$scope.eventDate,picture:$scope.eventPicture,resid:$scope.restaurantId}
+        }).then(function(res){
+        	$scope.restaurantObj.events.push(res.data);
+        
+        });
+//		http request for adding new event for this restaurantF
 //		$scope.restaurantObj.events.push('[{"description":"aaaa"}]');
-		console.log($scope.restaurantObj);
+//		console.log($scope.restaurantObj);
 	}
 });
+
+myApp.directive('eveDir', function(){
+	return {
+	    template: '<div>{{flavor}}</div>',
+	    link: function(scope, element, attrs) {
+	    	console.log("aaaaaaaaaaaa");
+	    }
+	  };
+});
+

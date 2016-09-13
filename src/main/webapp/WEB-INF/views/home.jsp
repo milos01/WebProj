@@ -28,7 +28,8 @@
 	href='../springmvc/resources/fullcalendar/fullcalendar.css' />
 <link href='../springmvc/resources/fullcalendar/fullcalendar.print.css'
 	rel='stylesheet' media='print' />
-
+<link rel="stylesheet" type="text/css"
+	href="../springmvc/resources/css/dropzone.css">
 
 <script
 	src='../springmvc/resources/timePicker/bootstrap-datetimepicker.min.js'></script>
@@ -330,7 +331,7 @@
 							</div>
 							
 							<div class="ibox-content">
-							
+								
 								<div class="feed-activity-list">
 									<div>
 										
@@ -345,8 +346,7 @@
 														<p style="text-align: center; margin-top: 40px">[image]</p>
 													</div>
 													<div>
-														<small class="pull-right">1m ago</small> <strong><a
-															href="restaurant/{{friend.id}}" style="color: #676a6c">{{friend.name}}</a></strong>
+														<small class="pull-right">1m ago</small> <strong >{{friend.name}}</strong>
 														<div>Lorem Ipsum is simply dummy text of the
 															printing and typesetting industry. Lorem Ipsum</div>
 														<small class="text-muted"></small>
@@ -355,9 +355,10 @@
 														</div>
 														
 													</div>
-													<div class="animate-repeat" ng-repeat="event in friend.events">
-															{{event.description}}
+													<div class="animate-repeat" ng-repeat="event in friend.events " eveDir>
+															<div id="eve{{event.id}}">{{event.description}}</div>
 													</div>
+											
 													<!--MODAL WINDOW-->
 													<script type="text/ng-template" id="myModalContent.html">
                     				<div class="modal-header">
@@ -426,14 +427,18 @@
 									style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"> 
 						
 									<input class="form-control"
-									type="text" ng-model="eventDate" placeholder="Address"
+									type="date" ng-model="eventDate" placeholder="Date"
 									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-									name="firstName" /> 
+									name="eventName" /> 
 									<input
-									class="form-control" name="city" type="text" ng-model="eventPicture"
+									 name="eventPicture" type="file" ng-model="eventPicture"
 									placeholder="Picture"
 									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" /> 
-									<input type="hidden" ng-model="restaurantObj"
+								
+									
+
+									<input type="hidden" ng-model="restaurantObj" />
+									<input type="hidden" ng-model="restaurantId" />
                     				</div>
                     				<div class="modal-footer" style="margin-top: 15px;">
 										<button type="submit" class="btn btn-success"
@@ -441,8 +446,11 @@
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
+		
                 				</script>
-
+                				
+	
+                                	
 												</div>
 
 
@@ -2336,15 +2344,24 @@
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
 	<script
 		src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
 	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
 	<script type="text/javascript"
 		src="../springmvc/resources/js/validationByPage/homePage.js"></script>
+	
+	<!-- Dropzone  -->
+	<script type="text/javascript"
+		src="../springmvc/resources/js/dropzone.js"></script>
+	
 	<script type="text/javascript">
 		var gridster;
 
 		$(document).ready(function() {
+			
 			/* get user */
 
 			gridtster = $(".gridster > .ull").gridster({
@@ -2363,6 +2380,7 @@
 			}).data('gridster');
 			//		var json = JSON.stringify(gridster.serialize());
 			//		alert(json);
+			
 		});
 
 		function saveP() {

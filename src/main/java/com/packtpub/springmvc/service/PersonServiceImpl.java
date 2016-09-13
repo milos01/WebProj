@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.packtpub.springmvc.dao.EventDAO;
 import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
+import com.packtpub.springmvc.model.Event;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
@@ -28,7 +29,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private RoleDAO roleDAO;
-
+	
+	@Autowired
+	private EventDAO eventDAO;
 	
 	@Override
 	@Transactional
@@ -77,6 +80,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	@Transactional
 	public List<Restaurant> listRestaurants() {
+		
 		return this.restaurantDAO.listRestaurants();
 	}
 
@@ -151,6 +155,19 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public List<Restaurant> getUsersRestaurants(int id) {
 		return this.restaurantDAO.getUsersRestaurants(id);
+	}
+
+	@Override
+	@Transactional
+	public Restaurant findRestaurant(int resid) {
+		return this.restaurantDAO.getRestaurant(resid);
+	}
+
+	@Override
+	@Transactional
+	public void addEvent(Event eve) {
+		// TODO Auto-generated method stub
+		this.eventDAO.addEvent(eve);
 	}
 
 }

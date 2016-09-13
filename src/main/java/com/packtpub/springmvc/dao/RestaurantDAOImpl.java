@@ -73,8 +73,8 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	public List<Restaurant> getUsersRestaurants(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
         System.out.println("aki caki");
-        Query query1 = session.createQuery("from Restaurant rs WHERE rs.user.id = :id");
-		query1.setParameter("id",id);
+        Query query1 = session.createQuery("from Restaurant rs ");
+//		query1.setParameter("id",id);
 		List<Restaurant> restaurantList = query1.list();
         return restaurantList;
 	}

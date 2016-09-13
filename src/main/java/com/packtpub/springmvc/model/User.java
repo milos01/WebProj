@@ -17,9 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Entity bean with JPA annotations Hibernate provides JPA implementation
@@ -29,6 +34,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Users")
 public class User {
 
@@ -60,7 +66,7 @@ public class User {
 	
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@JsonIdentityReference(alwaysAsId = true)
 	private Set<Restaurant> restaurants;
 	
 	
@@ -112,7 +118,8 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
+	
+	@JsonManagedReference
 	public Set<Restaurant> getRestaurants() {
 		return restaurants;
 	}

@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.packtpub.springmvc.model.Event;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.pojo.NewEventPojo;
 import com.packtpub.springmvc.pojo.NewRestaurantPojo;
+import com.packtpub.springmvc.pojo.getRestaurantPojo;
 import com.packtpub.springmvc.pojo.userParamsPojo;
 import com.packtpub.springmvc.service.PersonService;
 
@@ -48,7 +50,18 @@ public class RerstaurantController {
 	public ResponseEntity<List<Restaurant>> getUserRestaurants(HttpSession session){
 		User u = (User)session.getAttribute("logedUser");
 		List <Restaurant> res = personService.getUsersRestaurants(u.getId());
+		for (Restaurant restaurant : res) {
+			System.err.println(restaurant.getUser().getFirstName());
+		}
 		return new ResponseEntity<List<Restaurant>>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/restaurant/{id}/getRestaurantObj", method = RequestMethod.POST ,headers="Accept=*/*")
+	public ResponseEntity <Restaurant>getRestaurantf(@RequestBody getRestaurantPojo rpp){	
+		Restaurant res = this.personService.findRestaurant(rpp.getIdd());
+
+		return new ResponseEntity<Restaurant> (res, HttpStatus.OK);
+
 	}
 	
 	@RequestMapping(value="/addRestaurant", method = RequestMethod.POST ,headers="Accept=*/*")
@@ -93,8 +106,8 @@ public class RerstaurantController {
 		return new ResponseEntity<Restaurant> (res, HttpStatus.OK);
 	}
 
-//	@RequestMapping("/restaurant/{id}")
-//	public String restaurantHome(@PathVariable(value = "id") final int id, RedirectAttributes redirectAttributes,Model model, HttpSession session ) {
+	@RequestMapping("/restaurant/{id}")
+	public String restaurantHome(@PathVariable(value = "id") final int id, RedirectAttributes redirectAttributes,Model model, HttpSession session ) {
 //		if(null == session.getAttribute("logedUser")){
 //			return "redirect:/";
 //		}
@@ -142,9 +155,9 @@ public class RerstaurantController {
 //			model.addAttribute("ponude",ponude);
 //			model.addAttribute("restaurant", restaurant);
 //		}
-//		return "restaurant";
-//
-//	}
+		return "restaurant";
+
+	}
 	
 //	
 //	@RequestMapping(value = "/registerRestaurant", method = RequestMethod.POST)

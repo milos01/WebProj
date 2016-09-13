@@ -1,5 +1,6 @@
 package com.packtpub.springmvc.model;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,13 +16,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Restaurants")
 public class Restaurant {
 	@Id
@@ -61,7 +70,7 @@ public class Restaurant {
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	@JsonBackReference
+	@JsonIdentityReference(alwaysAsId = true)
 	@NotNull
 	private User user;
 	
@@ -69,7 +78,7 @@ public class Restaurant {
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Event> events;
-
+	@JsonBackReference
 	public User getUser() {
 		return user;
 	}
@@ -85,8 +94,6 @@ public class Restaurant {
 	public void setEvents(Set<Event> events) {
 		this.events = events;
 	}
-
-
 
 	public void setUser(User user) {
 		this.user = user;

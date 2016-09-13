@@ -88,36 +88,8 @@
 	cursor: pointer;
 }
 </style>
-<body>
+<body ng-app="qfcApp" ng-controller="MyCtrl">
 
-	<c:if test="${!empty addedNewOffer}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
-			<strong>${addedNewOffer}</strong>
-		</div>
-	</c:if>
-
-
-	<c:if test="${!empty addedNewOffer2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
-			<strong>${addedNewOffer2}</strong>
-		</div>
-	</c:if>
-
-	<c:if test="${!empty updatedOffer}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
-			<strong>${updatedOffer}</strong>
-		</div>
-	</c:if>
-
-	<c:if test="${!empty updatedOffer2}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%; z-index: 10000;">
-			<strong>${updatedOffer2}</strong>
-		</div>
-	</c:if>
 	<!-- Update user modal-->
 	<div id="updateUserModal" class="modal fade" role="dialog">
 		<div class="modal-dialog" style="width: 400px">
@@ -133,7 +105,7 @@
 						value="${logedUser.email}"> <input class="form-control"
 						type="text" id="firstName" placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" ; value="${logedUser.firstName}" /> <input
+						name="firstName" ; value="${logedUser.firstName} aaaaa" /> <input
 						class="form-control" name="lastName" type="text" id="lastName"
 						placeholder="Last name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
@@ -174,7 +146,7 @@
 									</div>
 									<div class="col-sm-8">
 										<h3>
-											<strong>${staff.firstName} ${staff.lastName}</strong>
+											<strong>${staff.firstName} asdasdasdasd ${staff.lastName}</strong>
 
 										</h3>
 										<p>
@@ -205,7 +177,7 @@
 							src="../resources/img/profile_small.jpg" />
 						</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span
 							class="clear"> <span class="block m-t-xs"> <strong
-									class="font-bold">${logedUser.firstName }
+									class="font-bold">${logedUser.firstName } asdaszdasdasdasd
 										${logedUser.lastName}</strong>
 							</span> <span class="text-muted text-xs block">${logedUser.role.roleName}</span>
 						</span>
@@ -297,8 +269,6 @@
 			</div>
 
 			<!-- Regular user central part -->
-			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Regular user'}">
 					<div class="wrapper wrapper-content animated fadeInRight">
 						<div class="row">
 							<div class="col-lg-12">
@@ -320,14 +290,14 @@
 											</div>
 											<div class="col-md-7">
 
-												<h2 class="font-bold m-b-xs">${restaurant.name}</h2>
+												<h2 class="font-bold m-b-xs" ng-model="resName">{{resName}}</h2>
 												<small>Restaurant type</small>
 												<hr>
 												<div class="starrr"></div>
 
 												<div>
 
-													<h1 class="product-main-price">${restaurant.email}</h1>
+													<h1 class="product-main-price" ng-model="resEmail">{{resEmail}}</h1>
 												</div>
 												<hr>
 												<h4>Restaurant description</h4>
@@ -346,28 +316,16 @@
 												</div>
 												<dl class="dl-horizontal m-t-md small">
 													<dt>Address</dt>
-													<dd>${restaurant.address}</dd>
+													<dd ng-model="resAddress">{{resAddress}}</dd>
 													<dt>City</dt>
-													<dd>${restaurant.city}</dd>
-													<dt>Phone
-													</dd>
-													<dd>${restaurant.phone}
-													</dt>
-													<dt>Open hours
-													</dd>
-													<dd>${restaurant.open_hours}
-													</dt>
+													<dd ng-model="resCity">{{resCity}}</dd>
+													<dt>Phone</dt>
+													<dd ng-model="resPhone">{{resPhone}}<dd>
+													
+													
 												</dl>
 												<div class="text-right">
-													<div class="btn-group">
-														<button class="btn btn-white btn-sm" data-toggle="modal"
-															data-target="#staffListModal">
-															<i class="fa fa-star"></i> Staff list
-														</button>
-														<button class="btn btn-white btn-sm">
-															<i class="fa fa-envelope"></i> Contact with author
-														</button>
-													</div>
+													
 												</div>
 
 
@@ -392,726 +350,22 @@
 
 									<div class="ibox-content">
 										<div class="row">
-											<form action="${restaurant.id}/check" method="POST">
-												<div class="col-md-3">
-
-													<p class="font-bold">Date:</p>
-
-													<input class="form-control" name="res_date" type="date"
-														value="" name="demo1" id="typedDate">
-												</div>
-												<div class="col-md-2">
-													<!-- From date -->
-													<p class="font-bold">From:</p>
-													<div class="input-group clockpicker" data-autoclose="true">
-
-														<input class="form-control" name="res_from" type="text"
-															value="16:00" name="demo2" id="typedFrom"> <span
-															class="input-group-addon"> <span
-															class="fa fa-clock-o"></span>
-														</span>
-													</div>
-													<!-- End From date -->
-
-												</div>
-												<div class="col-md-2">
-													<p class="font-bold">To:</p>
-													<!-- To date -->
-													<div class="input-group clockpicker" data-autoclose="true">
-														<input class="form-control" name="res_to" type="text"
-															value="17" name="demo3" id="typedTo"> <span
-															class="input-group-addon"> <span
-															class="fa fa-clock-o"></span>
-														</span>
-													</div>
-													<!-- End To date -->
-												</div>
-												<div class="col-md-1 pull-right" style="margin-right: 15px">
-													<button type="submit" class="btn btn-primary"
-														style="margin-top: 27px;"check">Check</button>
-												</div>
-											</form>
+											
 										</div>
 
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							
-							<c:forEach var="i" begin="1" end="7">
-							   <c:forEach var="j" begin="1" end="7">
-							   		<div class="container" style="border:1px solid #fff;width:145px;height:145px; float:left">
-							   			<c:forEach var="table" items="${tables}">
-							   				<c:if test="${table.tableposition.row == j and table.tableposition.col == i}">
-								<%
-									int check = 0;
-												pageContext.setAttribute("check", check);
-								%>
-								<%
-									int eql = 0;
-												pageContext.setAttribute("eql", eql);
-								%>
-								<%
-									int timeFrom = 0;
-												pageContext.setAttribute("timeFrom", timeFrom);
-								%>
-								<%
-									int timeTo = 0;
-												pageContext.setAttribute("timeTo", timeTo);
-								%>
-
-								<c:forEach var="checked" items="${checkedTables}">
-								
-									
-									<c:choose>
-										<c:when
-											test="${checked.table.reon_id.restaurant.id == restaurant.id}">
-
-											<c:choose>
-												<c:when test="${table.id == checked.table.id}">
-													<%
-														check = 1;
-																						pageContext.setAttribute("check", check);
-													%>
-													<%
-														eql = 1;
-																						pageContext.setAttribute("eql", eql);
-													%>
-													<c:set var="from" value="${checked.reserved_from}" />
-													<c:set var="to" value="${checked.reserved_to}" />
-
-													<%
-														String timeFrom1 = pageContext.getAttribute("from").toString();
-																						timeFrom1 = timeFrom1.substring(0, timeFrom1.length() - 3);
-																						String timeTo1 = pageContext.getAttribute("to").toString();
-																						timeTo1 = timeTo1.substring(0, timeTo1.length() - 3);
-																						pageContext.setAttribute("timeFrom1", timeFrom1);
-																						pageContext.setAttribute("timeTo1", timeTo1);
-													%>
-												</c:when>
-											</c:choose>
-										</c:when>
-									</c:choose>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${eql == 1}">
-										<div
-											style="width: 100px; height: 100px; border-radius: 50px;margin-top:20px; text-align: center; background: #fff; border: 1px solid #ccc; margin-right: 10px; float: left">
-											<%
-												int test = 0;
-																	pageContext.setAttribute("test", test);
-											%>
-											<c:forEach var="myTable" items="${table.tables}">
-												<c:forEach var="myTable2" items="${myTable.reservations}">
-													<c:choose>
-														<c:when test="${myTable2.user.id == logedUser.id}">
-															<%
-																test = 1;
-																									pageContext.setAttribute("test", test);
-															%>
-														</c:when>
-													</c:choose>
-												</c:forEach>
-											</c:forEach>
-											<c:if test="${test == 1}">
-												<span class="menuButton" id="mennu${table.id}"
-													style="position: absolute; margin-left: -22px; margin-top: 15px; color: orange">Orders
-													<i class="fa fa-angle-down" aria-hidden="true"></i>
-												</span>
-											</c:if>
-
-											<div
-												style="border: 1px solid gray; box-shadow: 0px 0px 2px #afafaf; display: none; width: 120px; border-radius: 5px; position: absolute; z-index: 999; margin-top: 37px; margin-left: -13px; background: #fff"
-												id="menuDiv${table.id}" class="menuDiv">
-												<c:forEach var="myTable" items="${table.tables}">
-
-													<c:forEach var="myTable2" items="${myTable.reservations}">
-														<c:choose>
-															<c:when test="${myTable2.user.id == logedUser.id}">
-																<span type="button" class="resSpan" data-toggle="modal"
-																	data-target="#myModal${myTable2.id}"
-																	style="float: left; padding: 3px">R:
-																	${myTable2.table_schedule.reserved_from.toString().substring(0,5)}h
-																	-
-																	${myTable2.table_schedule.reserved_to.toString().substring(0,5)}h</span>
-																<br>
-
-															</c:when>
-														</c:choose>
-														<!-- Modal -->
-														<div id="myModal${myTable2.id}" class="modal fade"
-															role="dialog">
-															<div class="modal-dialog">
-
-																<!-- Modal content-->
-																<div class="modal-content">
-																	<form
-																		action="${myTable2.res_restaurant.id}/placeOrderSecond"
-																		method="POST">
-																		<div class="modal-header">
-																			<button type="button" class="close"
-																				data-dismiss="modal">&times;</button>
-																			<h4 class="modal-title">Modal Header</h4>
-																		</div>
-																		<div class="modal-body" style="padding: 0px">
-
-																			<div class="ibox">
-																				<div class="ibox-content">
-																					<table
-																						class="footable table table-stripped toggle-arrow-tiny"
-																						data-page-size="15">
-																						<thead>
-
-																							<tr>
-
-																								<th data-toggle="true">Product Name</th>
-																								<th data-hide="phone">Price</th>
-																								<th data-hide="all"></th>
-																								<th data-sort-ignore="true"></th>
-																								<th data-hide="" data-sort-ignore="true"></th>
-																								<th data-hide="phone" data-sort-ignore="true">Quantity</th>
-																								<th class="text-right" data-sort-ignore="true">Select</th>
-
-																							</tr>
-																						</thead>
-																						<tbody>
-
-																							<c:forEach var="menuItem"
-																								items="${myTable2.res_restaurant.menu.appetizer}">
-																								<tr>
-																									<td>${menuItem.name}</td>
-
-																									<td>$ ${menuItem.price}.00</td>
-																									<td><img alt="image"
-																										class="img-circle m-t-xs img-responsive"
-																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
-																									
-																									</td>
-																									
-																									<td></td>
-																									<td></td>
-																									<td><input type="text" name="quantity"
-																										style="width: 60px"></td>
-																									<td class="text-right">
-																										<div class="btn-group">
-																											<input type="checkbox" value="1-${menuItem.id}" name="meals">
-																										</div>
-																									</td>
-																								</tr>
-																							</c:forEach>
-																							<c:forEach var="menuItem"
-																								items="${myTable2.res_restaurant.menu.mainCourse}">
-																								<tr>
-																									<td>${menuItem.name}</td>
-																									<td>$ ${menuItem.price}.00</td>
-																									<td>
-																										<img alt="image"
-																										class="img-circle m-t-xs img-responsive"
-																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
-																									
-																									</td>
-																									<td></td>
-																									<td></td>
-																									<td><input type="text" name="quantity"
-																										style="width: 60px"></td>
-																									<td class="text-right">
-																										<div class="btn-group">
-																											<input type="checkbox" value="2-${menuItem.id}"
-																												name="meals">
-																										</div>
-																									</td>
-																								</tr>
-																							</c:forEach>
-																							<c:forEach var="menuItem"
-																								items="${myTable2.res_restaurant.menu.desert}">
-																								<tr>
-																									<td>${menuItem.name}</td>
-																									<td>$ ${menuItem.price}.00</td>
-																									<td>
-																										<img alt="image"
-																										class="img-circle m-t-xs img-responsive"
-																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
-																									
-																									</td>
-																									<td></td>
-																									<td></td>
-																									<td><input type="text" name="quantity"
-																										style="width: 60px"></td>
-																									<td class="text-right">
-																										<div class="btn-group">
-																											<input type="checkbox" value="3-${menuItem.id}" name="meals">
-																										</div>
-																									</td>
-																								</tr>
-																								
-																							</c:forEach>
-																							<c:forEach var="menuItem"
-																								items="${myTable2.res_restaurant.vineCard.alcoholicDrink}">
-																								<tr>
-																									<td>${menuItem.name}</td>
-																									<td>$ ${menuItem.price}.00</td>
-																									<td>
-																										<img alt="image"
-																										class="img-circle m-t-xs img-responsive"
-																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
-																									
-																									</td>
-																									<td></td>
-																									<td></td>
-																									<td><input type="text" name="quantity"
-																										style="width: 60px"></td>
-																									<td class="text-right">
-																										<div class="btn-group">
-																											<input type="checkbox" value="4-${menuItem.id}" name="meals">
-																										</div>
-																									</td>
-																								</tr>
-																								
-																							</c:forEach>
-																							<c:forEach var="menuItem"
-																								items="${myTable2.res_restaurant.vineCard.nonAlcoholicDrink}">
-																								<tr>
-																									<td>${menuItem.name}</td>
-																									<td>$ ${menuItem.price}.00</td>
-																									<td>
-																										<img alt="image"
-																										class="img-circle m-t-xs img-responsive"
-																										src="../resources/img/${menuItem.picture}" width="200" style="float:left">
-																									
-																									</td>
-																									<td></td>
-																									<td></td>
-																									<td><input type="text" name="quantity"
-																										style="width: 60px"></td>
-																									<td class="text-right">
-																										<div class="btn-group">
-																											<input type="checkbox" value="5-${menuItem.id}" name="meals">
-																										</div>
-																									</td>
-																								</tr>
-																								
-																							</c:forEach>
-																						</tbody>
-
-																					</table>
-
-																				</div>
-																			</div>
-
-
-																		</div>
-																		<div class="modal-footer">
-																			<input type="hidden" name="resId"
-																				value="${myTable2.id}">
-																			<div class="btn-group pull-left"
-																				style="margin-top: 6px">
-																				Ready on arrival time <input type="checkbox"
-																					value="1" name="OnTime">
-																			</div>
-																			<input type="hidden" value="">
-																			<button type="button" class="btn btn-default"
-																				data-dismiss="modal">Close</button>
-																			<button type="submit" class="btn btn-primary">Order</button>
-																		</div>
-																	</form>
-																</div>
-
-															</div>
-														</div>
-													</c:forEach>
-												</c:forEach>
-											</div>
-											<p style="text-align: center; margin-top: 40px">
-												<i>Unavailable ${table.id}</i> <i>
-
-													<p style="text-align: center; color: red;">${timeFrom1}h
-														- ${timeTo1}h</p>
-												</i>
-											</p>
-
-										</div>
-
-									</c:when>
-									<c:otherwise>
-										<div style="float: left; margin-left: 7px;margin-top:4px; z-index: -1">
-											<div class="" style="width: 102px;">
-												<input type="text" value="${table.guest_num}"
-													name="guestNum" class="dial m-r-sm" data-fgColor="#1AB394"
-													data-width="100" data-height="100" disabled />
-												<button class="btn btn-primary resButtons" type="submit"
-													style="margin-top: 1px;margin-left:5px" id="reserveButton${table.id}"
-													data-toggle="modal" data-target="#reserve${table.id}">${table.id}
-													Reserve</button>
-											</div>
-										</div>
-
-									</c:otherwise>
-								</c:choose>
-
-								<!-- Reservating dialog -->
-								<div class="modal fade reserveDiv" role="dialog"
-									id="reserve${table.id}">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header" style="">
-												<button type="button" class="close closeButt"
-													id="closeButton${table.id}" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title">Table reservating</h4>
-											</div>
-											<div class="text-center p-lg h-150">
-
-												<h3>Dialog will disappear after 1 minute of your
-													inactivity</h3>
-												<i class="fa fa-hand-o-up fa-4x"></i>
-
-											</div>
-											<div class="wrapper wrapper-content animated fadeIn">
-												<form action="${restaurant.id}/reserveTable" method="post">
-													<div class="row">
-														<div class="col-lg-12">
-															<div class="tabs-container">
-																<ul class="nav nav-tabs">
-																	<li class="active"><a data-toggle="tab"
-																		href="#tab-3${table.id}"> <i class="fa fa-clock-o"></i></a></li>
-																	<li class=""><a data-toggle="tab"
-																		href="#tab-4${table.id}"><i class="fa fa-user-plus"></i></a></li>
-																	<li class=""><a data-toggle="tab"
-																		href="#tab-5${table.id}"><i class="fa fa-flag-checkered"></i></a></li>
-																</ul>
-																<div class="tab-content">
-
-																	<div id="tab-3${table.id}" class="tab-pane active">
-																		<div class="panel-body">
-																			<div class="col-md-4">
-
-																				<p class="font-bold">Date:</p>
-																				<input class="touchspin1" name="date_res" type="text"
-																					value="17" name="demo3" id="dateInput${table.id}">
-																				
-																			</div>
-																			<div class="col-md-4">
-																				<p class="font-bold">From:</p>
-																				<input class="touchspin1" name="res_from"
-																					type="text" value="16" name="demo2"
-																					id="fromInput${table.id}">
-																			</div>
-																			<div class="col-md-4">
-
-																				<p class="font-bold">To:</p>
-																				<input class="touchspin1" name="res_to" type="text"
-																					value="17" name="demo3" id="toInput${table.id}">
-																				
-																			</div>
-																		</div>
-																	</div>
-																	<div id="tab-4${table.id}" class="tab-pane">
-																		<div class="panel-body">
-
-																			<div class="col-md-12">
-																				<div class="chat-users" style="max-height: 300px">
-																					<div class="users-list">
-																						<c:forEach var="friend"
-																							items="${logedUser.starter_friend}">
-																							<div class="chat-user"
-																								style="border-bottom: none">
-																								<img class="chat-avatar"
-																									src="/springmvc/resources/img/a1.jpg" alt="">
-																								<div class="chat-user-name">
-																									<a href="#">${friend.firstName}
-																										${friend.lastName}</a>
-																								</div>
-																								<div
-																									class="checkbox checkbox-default pull-right"
-																									style="margin-top: -25px; margin-right: -10px">
-																									<input value="${friend.id}" type="checkbox"
-																										name="userIds"> <label for="checkbox6"></label>
-																								</div>
-																							</div>
-
-																						</c:forEach>
-																					</div>
-
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div id="tab-5${table.id}" class="tab-pane">
-																		<div class="panel-body" style="text-align: center;">
-																			<button type="submit" class="btn btn-primary"
-																				style="margin: 20px 0px">Finish reservating</button>
-																		</div>
-																	</div>
-																	<input type="hidden" value="${table.id}" name="tableId">
-																	
-																	<input type="hidden" value="${table.guest_num}"
-																		name="guestNum"> <input type="hidden"
-																		value="${restaurant.id}" name="resId">
-																</div>
-															</div>
-														</div>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							</c:forEach>
-							
-							   		</div>
-								</c:forEach>
-							</c:forEach>
-							
-						</div>
+						
 						</div>
 					</div>
 
 
-				</c:when>
-			</c:choose>
+		
 
-			<!-- Manager central part -->
-			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Manager'}">
+			
 
-				</c:when>
-			</c:choose>
-
-			<c:choose>
-				<c:when test="${logedUser.role.roleName == 'Bidder'}">
-
-					<c:forEach var="grocary" items="${grocList}">
-
-						<h3 style="margin-top: 15px;">Offer from ${grocary.GLfrom} to
-							${grocary.GLto}</h3>
-						<div style="height: 214px;">
-							<div
-								style="width: 426px; height: 210px; overflow-y: scroll; float: left;">
-								<table id="customers">
-									<tr>
-										<th>Name</th>
-										<th>Quantity</th>
-										<th>Type</th>
-									</tr>
-									<c:forEach var="item" items="${ponude}">
-										<c:if test="${grocary.id == item.grocaryList.id}">
-											<tr>
-												<td>${item.fooditem.name}</td>
-												<td>${item.quantity}</td>
-												<td>${item.fooditem.type}</td>
-											</tr>
-										</c:if>
-
-									</c:forEach>
-								</table>
-							</div>
-							<div style="margin-top: 10px;">
-								<button data-toggle="modal"
-									data-target="#openMenuRest1${grocary.id}"
-									class="btn btn-primary btn-md" style="margin-left: 14px">Leave
-									bid</button>
-								</br>
-								<button data-toggle="modal" data-target="#ponudaZa${grocary.id}"
-									class="btn btn-primary btn-md"
-									style="margin-top: 10px; margin-left: 14px">Show my
-									offer</button>
-								<c:forEach var="offers" items="${listaPonuda}">
-									<c:if test="${grocary.id==offers.grocaryList.id}">
-										<c:if test="${logedUser.id==offers.user.id}">
-											<c:choose>
-												<c:when test="${offers.accepted==0}">
-													<p style="margin-top: 10px; margin-left: 440px; color: red">
-														Close</p>
-												</c:when>
-												<c:when test="${offers.accepted==1}">
-													<p
-														style="margin-top: 10px; margin-left: 440px; color: green">
-														Accepted</p>
-												</c:when>
-												<c:when test="${offers.accepted==2}">
-													<p style="margin-top: 10px; margin-left: 440px">
-														Waiting to answer...</p>
-												</c:when>
-												<c:otherwise>
-													<p style="margin-top: 10px; margin-left: 440px">No
-														offer</p>
-												</c:otherwise>
-											</c:choose>
-										</c:if>
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-						</br>
-
-
-
-						<div id="openMenuRest1${grocary.id}" class="modal fade"
-							role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Offer from ${grocary.GLfrom} to
-											${grocary.GLto}</h4>
-									</div>
-
-									<h3 align="center">Create offer</h3>
-									<form action="${restaurant.id}/createOffer" method="POST">
-										<input class="form-control" name="price" type="text"
-											placeholder="Price"
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-										<select class="form-control" name="warranty"
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-											value=1>
-											<option value="">Warranty</option>
-											<option value=50>50 %</option>
-											<option value=60>60 %</option>
-											<option value=70>70 %</option>
-											<option value=80>80 %</option>
-											<option value=90>90 %</option>
-											<option value=100>100 %</option>
-										</select> <input class="form-control" name="deadline" type="date"
-											required
-											style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-										<input type="hidden" name="groc_id" value="${grocary.id}">
-										<div class="modal-footer" style="margin-top: 115px;">
-											<button type="submit" class="btn btn-success"
-												style="background: #1ab394; border: 1px solid #1ab394">Create</button>
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">Close</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<!-- End adding items-->
-
-						<!-- Proveri ponudu -->
-						<c:forEach var="offer" items="${listaPonuda}">
-							<c:if test="${grocary.id==offer.grocaryList.id}">
-								<c:if test="${logedUser.id==offer.user.id}">
-									<div id="ponudaZa${grocary.id}" class="modal fade"
-										role="dialog">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title">My offer</h4>
-												</div>
-
-												<form action="${restaurant.id}/changeOffer" method="POST">
-													<input class="form-control" name="price" type="text"
-														id="price" placeholder="Price" required
-														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-														value="${offer.price}"> <select
-														class="form-control warr${grocary.id}" name="warranty"
-														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-														<option value="50">50 %</option>
-														<option value="60">60 %</option>
-														<option value="70">70 %</option>
-														<option value="80">80 %</option>
-														<option value="90">90 %</option>
-														<option value="100">100 %</option>
-													</select> <input class="form-control" name="deadline" type="date"
-														id="price" placeholder="Price" required
-														style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-														value="${offer.deadline}"> <input type="hidden"
-														name="grocaryId" value="${grocary.id}"> <input
-														type="hidden" name="accepted" value="${offer.accepted}">
-													<input type="hidden" name="id" value="${offer.id}">
-
-													<div class="modal-footer" style="margin-top: 115px;">
-														<button type="submit" class="btn btn-success"
-															style="background: #1ab394; border: 1px solid #1ab394">Change</button>
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">Close</button>
-													</div>
-												</form>
-												<script type="text/javascript">
-													$(
-															".warr${grocary.id} > option")
-															.each(
-																	function() {
-																		text1 = "${offer.warranty}";
-																		if (text1 == this.value) {
-																			this.selected = true;
-																		}
-																	});
-												</script>
-											</div>
-										</div>
-									</div>
-								</c:if>
-							</c:if>
-						</c:forEach>
-					</c:forEach>
-
-					<div id="bidderPassword" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Password</h4>
-								</div>
-
-								<form action="bidderPasswordChange" method="POST">
-									<input class="form-control" name="oldPass" type="password"
-										placeholder="Old password" required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-									<input class="form-control" name="newPass1" type="password"
-										placeholder="New passwod" required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-									<input class="form-control" name="newPass2" type="password"
-										placeholder="Repeat new passwod" required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-
-									<div class="modal-footer" style="margin-top: 115px;">
-										<button type="submit" class="btn btn-success"
-											style="background: #1ab394; border: 1px solid #1ab394">Update</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div id="bidderProfilUp" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Password</h4>
-								</div>
-
-								<form action="bidderProfUpdate" method="POST">
-									<input class="form-control" name="fName" type="text"
-										placeholder="First name" value="${logedUser.firstName} "
-										required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-									<input class="form-control" name="lName" type="text"
-										placeholder="Last name" value="${logedUser.lastName} "
-										required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-									<input class="form-control" name="NewMail" type="email"
-										value="${logedUser.email}" placeholder="Email" required
-										style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;">
-
-									<div class="modal-footer" style="margin-top: 115px;">
-										<button type="submit" class="btn btn-success"
-											style="background: #1ab394; border: 1px solid #1ab394">Update</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-				</c:when>
-			</c:choose>
 		</div>
 	</div>
 	<!-- Mainly scripts -->
@@ -1175,81 +429,22 @@
 
 	<!-- Toastr script -->
 	<script src="../resources/js/plugins/toastr/toastr.min.js"></script>
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+	<script
+		src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
 	<!-- TouchSpin -->
-	<script src="../resources/js/app.js"></script>
 
-	<script type="text/javascript">
-		$(".dial").knob();
+	<script src="../resources/js/validationByPage/restaurantPage.js"></script>
 
-		var el = document.querySelector('#el');
+	
+	
 
-		// current rating, or initial rating
-		var currentRating = 0;
-
-		// max rating, i.e. number of stars you want
-		var maxRating = 5;
-
-		// callback to run after setting the rating
-		var callback = function(rating) {
-			alert(rating);
-		};
-	</script>
-	<!-- Promena centralnog diva -->
-	<script type="text/javascript">
-		$(".touchspin1").TouchSpin({
-			verticalbuttons : true,
-			buttondown_class : 'btn btn-white',
-			buttonup_class : 'btn btn-white'
-		});
-
-		$(function() {
-			$("#example_id").ionRangeSlider({
-				min : 0,
-				max : 24,
-				type : 'double',
-				postfix : "h",
-				prettify : false,
-				hasGrid : true
-			});
-			$("#example_id").click(function() {
-				alert("aa");
-			});
-
-			$('.promeniCent').on('click', function() {
-
-				$('.promeniCent.active').removeClass('active');
-				$(this).addClass('active');
-
-				var panelToSHow = $(this).attr('rel');
-
-				$('.panel.active').show(100, function() {
-					$(this).removeClass('active');
-					$('#' + panelToSHow).hide(100, function() {
-						$(this).addClass('active');
-					});
-				});
-			});
-		});
-	</script>
-
-	<!-- Sparkline demo data  -->
-	<script src="../springmvc/resources/js/demo/sparkline-demo.js"></script>
-	<script type="text/javascript" src="../springmvc/resources/js/app.js"></script>
-	<script src="../resources/js/plugins/pace/pace.min.js"></script>
-
-	<!-- FooTable -->
-	<script src="../resources/js/plugins/footable/footable.all.min.js"></script>
-	<!-- Clock picker -->
-	<script src="../resources/js/plugins/clockpicker/clockpicker.js"></script>
-	<!-- Page-Level Scripts -->
-	<script>
-		$(document).ready(function() {
-
-			$('.footable').footable();
-			$('.clockpicker').clockpicker();
-
-		});
-	</script>
+	
+	
 	<script type="text/javascript">
 		
 	</script>

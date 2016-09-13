@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.packtpub.springmvc.model.Event;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
@@ -55,6 +56,10 @@ public interface PersonService {
 	public void removeTableSchedule(int id);
 
 	public List<Restaurant> getUsersRestaurants(int id);
+
+	public Restaurant findRestaurant(int resid);
+
+	public void addEvent(Event eve);
 	
 	
 }
