@@ -95,6 +95,27 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/getuser/{id}", method = RequestMethod.POST ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<User> getusser(@PathVariable(value = "id") final int id,HttpSession session){
+//		if(loginEmail.equals("") || loginPassword.equals("")){
+//			redirectAttributes.addFlashAttribute("errorMessage", "Username and password must not be empty");
+////			return "redirect:/";
+//		}
+		
+//		if (u == null) {
+////			redirectAttributes.addFlashAttribute("errorMessage", "User not exists!");
+//			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+//		}else{
+//			
+//				return new ResponseEntity<User>(u, HttpStatus.OK);
+//			
+//		}
+		System.err.println(id);
+		User u = this.personService.findUser(id);
+		
+		return new ResponseEntity<User>(u, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/restaurant/{id}/user/{userid}/from/{fromId}/loginSecond", method = RequestMethod.POST)
 	public String userLoginSecond(@PathVariable(value = "id") final String resId,@PathVariable(value = "userid") final String userid,@PathVariable(value = "fromId") final String fromId,@RequestParam String loginEmailSecond,@RequestParam String loginPasswordSecond,@RequestParam String resid, Model model, RedirectAttributes redirectAttributes, HttpSession session,HttpServletRequest request){
 		if(loginEmailSecond.equals("") || loginPasswordSecond.equals("")){

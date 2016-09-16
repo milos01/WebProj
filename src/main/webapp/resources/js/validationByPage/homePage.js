@@ -67,7 +67,7 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
 	
 });
 myApp.directive('nop', function($compile,$http,$uibModal){
-	console.log('aaaaa');
+	
 	
 	return {
 		restrict: 'AE',
@@ -106,13 +106,16 @@ myApp.directive('nop', function($compile,$http,$uibModal){
                 	}
             	console.log(scope.fs);
 //            	scope.friendss.forEach(function(entry){
+            	console.log(scope.fs.user)
+            	console.log(res.data.id)
             		if(scope.fs.user != res.data.id){
-            			
+            			console.log("aaaaaaaaa");
             			scope.fs.events.forEach(function(entry2){
             				var currDate = new Date();
             				var k = entry2.date;
  
             				if(k.toString().substring(0, 10) > currDate.getTime().toString().substring(0,10)){
+            					
 	            				var el = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="signEvent('+ entry2.id +')">Go!</button>');
 	                			$compile(el)(scope); 
 	                			var place = elm.find("#eve"+entry2.id);
@@ -151,6 +154,19 @@ myApp.directive('nop', function($compile,$http,$uibModal){
             		    if(idscope == entry.id){
             		    	var index = scope.friendss.indexOf(entry);
             		    	scope.friendss.splice(index,1);
+            		    	$http({
+                    	        method: 'POST',
+                    	        url: '/springmvc/removeRestaurant',
+                    	        
+                    	        headers: {
+                    	        	'Accept': 'application/json',
+                    	            'Content-Type': 'application/json' 
+                    	        },
+                    	        data: {resid:idscope},
+                    	    }).then(function(res){
+                    	    	
+//                    	    	$scope.friends.push(res.data)
+                    	    });
             		    }
             		   
             		});

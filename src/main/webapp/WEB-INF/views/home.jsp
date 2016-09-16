@@ -455,9 +455,7 @@
 
 
 											</li>
-											<!-- <li class="animate-repeat" ng-if="results.length === 0">
-												<strong>No results found...</strong>
-											</li> -->
+											 <p ng-show="(friends | filter:q | filter:qd | filter:qc).length == 0" style="text-align:center">No results found!</p>
 										</ul>
 									</div>
 								</div>

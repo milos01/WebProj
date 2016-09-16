@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.packtpub.springmvc.model.Event;
+import com.packtpub.springmvc.model.Recension;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
@@ -60,6 +61,12 @@ public interface PersonService {
 	public Restaurant findRestaurant(int resid);
 
 	public void addEvent(Event eve);
-	
+	public void addRecension(Recension rec);
+
+	public void removeRecension(int resid);
+
+	public User findUser(int id);
+
+	public void removeRestaurant(int resid);
 	
 }

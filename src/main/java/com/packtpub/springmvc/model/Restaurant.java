@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityReference(alwaysAsId = true)
 @Table(name = "Restaurants")
 public class Restaurant {
 	@Id
@@ -70,17 +71,21 @@ public class Restaurant {
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	@JsonIdentityReference(alwaysAsId = true)
+//	@JsonIdentityReference(alwaysAsId = true)
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@JsonIdentityReference(alwaysAsId=true)
 	@NotNull
 	private User user;
 	
 
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
-	@JsonManagedReference
+//	@JsonManagedReference
+//	@JsonIdentityReference(alwaysAsId = true)
 	private Set<Event> events;
 	
 	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
-	@JsonManagedReference
+//	@JsonManagedReference
+//	@JsonIdentityReference(alwaysAsId = true)
 	private Set<Recension> recensions;
 	
 	
@@ -91,7 +96,7 @@ public class Restaurant {
 	}
 	
 	
-
+	@JsonManagedReference
 	public Set<Recension> getRecensions() {
 		return recensions;
 	}

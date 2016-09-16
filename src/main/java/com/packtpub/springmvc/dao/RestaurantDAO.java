@@ -2,6 +2,7 @@ package com.packtpub.springmvc.dao;
 
 import java.util.List;
 
+import com.packtpub.springmvc.model.Recension;
 import com.packtpub.springmvc.model.Restaurant;
 
 public interface RestaurantDAO {
@@ -16,5 +17,10 @@ public interface RestaurantDAO {
 	public void updateRestaurant(Restaurant r);
 
 	public List<Restaurant> getUsersRestaurants(int id);
+
+	public void addRecension(Recension rec);
+
+	public void removeRecension(int resid);
+
 	
 }

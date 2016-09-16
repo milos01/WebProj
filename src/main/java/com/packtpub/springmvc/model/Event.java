@@ -16,7 +16,13 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityReference(alwaysAsId = true)
 @Table(name = "Events")
 public class Event {
 	
@@ -32,8 +38,11 @@ public class Event {
 	private String picture;
 	
 	@ManyToOne(targetEntity = Restaurant.class, fetch = FetchType.EAGER)
+	
 	@JoinColumn(name = "res_id")
-	@JsonBackReference
+//	@JsonBackReference
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@JsonIdentityReference(alwaysAsId=true)
 	@NotNull
 	private Restaurant restaurant;
 	

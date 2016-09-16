@@ -40,6 +40,8 @@
 <link
 	href="../resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
 	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/dropzone.css">
 <script src="../resources/js/jquery-2.1.1.js"></script>
 <style type="text/css">
 .starrr {
@@ -146,7 +148,7 @@
 									</div>
 									<div class="col-sm-8">
 										<h3>
-											<strong>${staff.firstName} asdasdasdasd ${staff.lastName}</strong>
+											<strong>${staff.firstName} ${staff.lastName}</strong>
 
 										</h3>
 										<p>
@@ -177,7 +179,7 @@
 							src="../resources/img/profile_small.jpg" />
 						</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span
 							class="clear"> <span class="block m-t-xs"> <strong
-									class="font-bold">${logedUser.firstName } asdaszdasdasdasd
+									class="font-bold">${logedUser.firstName }
 										${logedUser.lastName}</strong>
 							</span> <span class="text-muted text-xs block">${logedUser.role.roleName}</span>
 						</span>
@@ -185,55 +187,14 @@
 					</div>
 					<div class="logo-element">QFC</div>
 				</li>
-				<!-- Admin side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Admin'}">
-						<li><a href="layouts.html"><i class="fa fa-plus"></i> <span
-								class="nav-label">Add restaurant</span></a></li>
-					</c:when>
-				</c:choose>
+			
 
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Bidder'}">
-						<li><a data-toggle="modal" data-target="#bidderProfilUp"><i
-								class="fa fa-user"></i> <span class="nav-label">Update
-									profil</span></a></li>
-						<li><a data-toggle="modal" data-target="#bidderPassword"><i
-								class="fa fa-key"></i> <span class="nav-label">Change
-									password</span></a></li>
-					</c:when>
-				</c:choose>
-				<!-- Regular user side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName == 'Regular user'}">
-						<li><a href="layouts.html"><i class="fa fa-user-plus"></i>
-								<span class="nav-label">Add friends</span></a></li>
-						<li><a href="#"><i class="fa fa-wrench"></i> <span
-								class="nav-label" data-toggle="modal"
-								data-target="#updateUserModal">Update profile</span></a></li>
-					</c:when>
-				</c:choose>
+			
+				
 
-				<!-- Manager side menu -->
-				<c:choose>
-					<c:when test="${logedUser.role.roleName	 == 'Manager'}">
+			
 
-
-						<li class="promeniCent" rel="panel1" class="active"><a><i
-								class="fa fa-share-square-o"></i> <span class="nav-label">Update
-									restaurant</span></a></li>
-						<li class="promeniCent" rel="panel2"><a><i
-								class="fa fa-users"></i> <span class="nav-label">Employees</span></a></li>
-						<li class="promeniCent" rel="panel3"><a><i
-								class="fa fa-line-chart"></i> <span class="nav-label">Reports</span></a></li>
-
-
-
-					</c:when>
-				</c:choose>
-
-				<li><a href="grid_options.html"><i class="fa fa-user"></i>
-						<span class="nav-label">View profile</span></a></li>
+				
 			</ul>
 
 		</div>
@@ -283,7 +244,7 @@
 												<div class="product-images">
 
 													<div>
-														<div class="image-imitation">[IMAGE 1]</div>
+														<div class="image-imitation" id="map">[IMAGE 1]</div>
 													</div>
 												</div>
 
@@ -327,6 +288,9 @@
 												<div class="text-right">
 													
 											</div>
+											 <div class="dropzone" id="dropzoneFileUpload">
+                                    
+                                			</div>
 										</div>
 
 									</div>
@@ -338,38 +302,43 @@
 							<div class="col-lg-12">
 								<div class="ibox">
 									<div class="ibox-title">
-										<h5>
-											Reservating <small>Here you can select date and time
-												and see is there any available tables in this restaurant for
-												you.</small>
-										</h5>
+									
+											<input class="form-control" type="search" ng-model="rc.ocena"
+											placeholder="filter by rate..." aria-label="filter friends"
+											style="margin-top: -7px;width:30%;float:right;margin-left:15px" />
+									
 									</div>
 
 									<div class="ibox-content">
 										<div class="row">
+											
+											<div id="inputHolder">
+												
+											</div>
 											<li class="animate-repeat"
-														ng-repeat="friend in friends " nop>
+														ng-repeat="friend in friends | filter:rc" nop fs="friend" friendss="friends">
 														<div class="feed-element">
 															<div
-																style="background: #f8f8f9; float: left; height: 100px; width: 100px; margin-right: 10px">
-																<p style="text-align: center; margin-top: 40px">[image]</p>
+																style="background: #f8f8f9; float: left; height: 100px; width: 100px; margin-right: 10px;overflow:hidden" id="userPic{{friend.id}}">
+																
 															</div>
 															<div>
-																<small class="pull-right">1m ago</small> <strong >{{friend. }}</strong>
-																<div>Lorem Ipsum is simply dummy text of the
-																	printing and typesetting industry. Lorem Ipsum</div>
+																<big class="pull-right" style="padding:15px">{{friend.ocena}}</big> <strong ng-model="userRecName" id="userDet{{friend.id}}">{{userRecName}}</strong>
+																<div>{{friend.text}}</div>
+																
 																<small class="text-muted"></small>
-																<div id="deletea">
+																<div id="deletea{{friend.id}}">
 																
 																</div>
 																
 															</div>
-															<div class="animate-repeat" ng-repeat="event in friend.events " eveDir>
-																	<div id="eve{{event.id}}">{{event.description}}</div>
-															</div>
+															
 														</div>
 		
 													</li>
+													<p ng-show="(friends | filter:rc).length == 0" style="text-align:center">No results found!</p>
+
+</div>
 										</div>
 
 									</div>
@@ -456,17 +425,51 @@
 	<script
 		src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
 	<!-- TouchSpin -->
-
+	<script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 9
+        });
+        
+        var marker = new google.maps.Marker({
+            position: {lat: -34, lng: 150.644},
+            map: map,
+            title: 'Hello World!'
+          });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBC9R42hOf-nWbmlKe_CWuBvV8G3RMzzkI&callback=initMap"
+    async defer></script>
 	<script src="../resources/js/validationByPage/restaurantPage.js"></script>
+	
+	
+	<script type="text/javascript"
+		src="../resources/js/dropzone.js"></script>
 
 	
 	
-
-	
-	
-	<script type="text/javascript">
-		
-	</script>
+	 <script type="text/javascript">
+	 	
+        var baseUrl = "/springmvc/saveImage";
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("div#dropzoneFileUpload", {
+            url: baseUrl,
+            params: {
+           		id: 2
+            }
+        });
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            addRemoveLinks: true,
+            maxFiles: 1,
+            accept: function(file, done) {
+ 
+            },
+        };
+    </script>
 	<script>
 		$(document)
 				.ready(

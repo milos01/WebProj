@@ -24,14 +24,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.packtpub.springmvc.model.Event;
+import com.packtpub.springmvc.model.Recension;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.pojo.AddRecensionPojo;
 import com.packtpub.springmvc.pojo.NewEventPojo;
 import com.packtpub.springmvc.pojo.NewRestaurantPojo;
+import com.packtpub.springmvc.pojo.RemoveRecensionPojo;
 import com.packtpub.springmvc.pojo.getRestaurantPojo;
 import com.packtpub.springmvc.pojo.userParamsPojo;
 import com.packtpub.springmvc.service.PersonService;
@@ -48,6 +52,7 @@ public class RerstaurantController {
 	
 	@RequestMapping(value="/getusersrestaurant", method = RequestMethod.GET ,headers="Accept=*/*",  produces="application/json")
 	public ResponseEntity<List<Restaurant>> getUserRestaurants(HttpSession session){
+		System.err.println("aaaaaaaa");
 		User u = (User)session.getAttribute("logedUser");
 		List <Restaurant> res = personService.getUsersRestaurants(u.getId());
 		for (Restaurant restaurant : res) {
@@ -104,6 +109,48 @@ public class RerstaurantController {
 		this.personService.addRestaurant(res);
 		
 		return new ResponseEntity<Restaurant> (res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addRecension", method = RequestMethod.POST ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<Recension> addRece(@RequestBody AddRecensionPojo rpp,HttpSession session){
+			User u = (User)session.getAttribute("logedUser");
+			Restaurant rr = this.personService.getRestaurant(rpp.getRid());
+			Recension rec = new Recension();
+			rec.setOcena(rpp.getOcena());
+			rec.setRestaurant(rr);
+			rec.setText(rpp.getText());
+			rec.setDatum(rpp.getDatum());
+			rec.setUser(u);
+			this.personService.addRecension(rec);
+			return new ResponseEntity<Recension>(rec, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/removeRecension", method = RequestMethod.POST ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<Recension> removeRecension(@RequestBody RemoveRecensionPojo rpp,HttpSession session){
+			
+			
+			this.personService.removeRecension(rpp.getResid());
+			return new ResponseEntity<Recension>(HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/removeRestaurant", method = RequestMethod.POST ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<Restaurant> removeRestaurant(@RequestBody RemoveRecensionPojo rpp,HttpSession session){
+			
+			
+			this.personService.removeRestaurant(rpp.getResid());
+			return new ResponseEntity<Restaurant>(HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/saveImage", method = RequestMethod.POST )
+	public ResponseEntity<Recension> saveImage(@RequestParam("file") MultipartFile file,HttpSession session){
+			
+			
+			System.err.println("aa");
+			return null;
+		
 	}
 
 	@RequestMapping("/restaurant/{id}")

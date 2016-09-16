@@ -53,12 +53,15 @@ public class User {
 	@NotBlank(message = "Email must not be empty")
 	@Email
 	private String email;
+	
+	
 
 	@NotBlank(message = "Password must not be empty")
 	@Column(length = 60)
 	private String password;
 
-
+	private String picture;
+	
 	@OneToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false, name = "role_id")
 	private Role role;
@@ -71,6 +74,14 @@ public class User {
 	
 	
 	
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -119,7 +130,7 @@ public class User {
 		this.role = role;
 	}
 	
-	@JsonManagedReference
+//	@JsonManagedReference
 	public Set<Restaurant> getRestaurants() {
 		return restaurants;
 	}

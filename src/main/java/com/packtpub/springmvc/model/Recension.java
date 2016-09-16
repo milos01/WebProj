@@ -15,12 +15,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityReference(alwaysAsId = true)
 @Table(name = "Recensions")
 public class Recension {
 	@Id
@@ -39,7 +43,9 @@ public class Recension {
 	
 	@ManyToOne(targetEntity = Restaurant.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "res_id")
-	@JsonBackReference
+//	@JsonBackReference
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@JsonIdentityReference(alwaysAsId=true)
 	@NotNull
 	private Restaurant restaurant;
 	
@@ -47,6 +53,16 @@ public class Recension {
 	@JoinColumn(nullable=false, name = "user_id")
 	private User user;
 	
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Restaurant getRestaurant() {
 		return restaurant;

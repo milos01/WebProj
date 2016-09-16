@@ -11,6 +11,7 @@ import com.packtpub.springmvc.dao.PersonDAO;
 import com.packtpub.springmvc.dao.RestaurantDAO;
 import com.packtpub.springmvc.dao.RoleDAO;
 import com.packtpub.springmvc.model.Event;
+import com.packtpub.springmvc.model.Recension;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
@@ -168,6 +169,37 @@ public class PersonServiceImpl implements PersonService {
 	public void addEvent(Event eve) {
 		// TODO Auto-generated method stub
 		this.eventDAO.addEvent(eve);
+	}
+
+	@Override
+	@Transactional
+	public void addRecension(Recension rec) {
+		// TODO Auto-generated method stub
+		this.restaurantDAO.addRecension(rec);
+		
+	}
+
+	@Override
+	@Transactional
+	public void removeRecension(int resid) {
+		// TODO Auto-generated method stub
+		this.restaurantDAO.removeRecension(resid);
+		
+	}
+
+	@Override
+	@Transactional
+	public User findUser(int id) {
+		// TODO Auto-generated method stub
+		return this.personDAO.findUser(id);
+	}
+
+	@Override
+	@Transactional
+	public void removeRestaurant(int resid) {
+		// TODO Auto-generated method stub
+		this.restaurantDAO.removeRestaurant(resid);
+		
 	}
 
 }
