@@ -29,10 +29,12 @@ import org.springframework.core.SpringVersion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
+import com.packtpub.springmvc.model.Recension;
 import com.packtpub.springmvc.model.Restaurant;
 import com.packtpub.springmvc.model.Role;
 import com.packtpub.springmvc.model.User;
+import com.packtpub.springmvc.pojo.NewUserPojo;
+import com.packtpub.springmvc.pojo.RemoveRecensionPojo;
 import com.packtpub.springmvc.pojo.UserIdPojo;
 import com.packtpub.springmvc.pojo.userParamsPojo;
 import com.packtpub.springmvc.service.PersonService;
@@ -116,6 +118,20 @@ public class UserController {
 		return new ResponseEntity<User>(u, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/register", method = RequestMethod.POST ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<User> registerUser(@RequestBody NewUserPojo rpp,HttpSession session){
+		User u = new User();
+		Role role = personService.getRole(2);
+		System.err.println(rpp.getLastName());
+		u.setRole(role);
+		u.setEmail(rpp.getEmail());
+		u.setFirstName(rpp.getFirstName());
+		u.setLastName(rpp.getLastName());
+		u.setPassword(rpp.getPassword());
+		this.personService.addPerson(u);
+		return new ResponseEntity<User>(u, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/restaurant/{id}/user/{userid}/from/{fromId}/loginSecond", method = RequestMethod.POST)
 	public String userLoginSecond(@PathVariable(value = "id") final String resId,@PathVariable(value = "userid") final String userid,@PathVariable(value = "fromId") final String fromId,@RequestParam String loginEmailSecond,@RequestParam String loginPasswordSecond,@RequestParam String resid, Model model, RedirectAttributes redirectAttributes, HttpSession session,HttpServletRequest request){
 		if(loginEmailSecond.equals("") || loginPasswordSecond.equals("")){
@@ -161,18 +177,15 @@ public class UserController {
 		personService.updatePerson((User)session.getAttribute("logedUser"),u);
 		return "redirect:/home";
 	}
-	 
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET ,headers="Accept=*/*",  produces="application/json")
+	public ResponseEntity<User> removeRecension(HttpSession session){
+			
+			session.removeAttribute("logedUser");
+			return new ResponseEntity<User>(HttpStatus.OK);
+		
+	}
 	
-	
-	
-	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session, HttpServletRequest req ) {
-        session.removeAttribute("logedUser");
-        
-        return "redirect:/";
-    }
 	
 	@RequestMapping(value = "/restaurant/{id}/user/{userid}/from/{fromId}/logoutSecond", method = RequestMethod.POST)
     public String logout2(@PathVariable("id")String resid,@PathVariable("userid")String userid,@PathVariable("fromId")String fromid ,@RequestParam("resid") String ressid,HttpSession session) {

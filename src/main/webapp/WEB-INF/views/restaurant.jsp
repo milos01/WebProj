@@ -1,9 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -127,48 +121,7 @@
 		</div>
 	</div>
 	<!-- End update user -->
-	<!-- Staff list modal-->
-	<div id="staffListModal" class="modal fade" role="dialog">
-		<div class="modal-dialog" style="width: 490px">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Staff list</h4>
-				</div>
-				<c:forEach var="staff" items="${restaurant.staff}">
-					<div class="row">
-						<div class="col-lg-4" style="width: 500px; heigh: 300px;">
-							<div class="contact-box" style="border: none">
-								<a href="profile.html">
-									<div class="col-sm-4" style="width: 23%">
-										<div class="text-center">
-											<img alt="image" class="img-circle m-t-xs img-responsive"
-												src="../resources/img/${staff.picture}">
-										</div>
-									</div>
-									<div class="col-sm-8">
-										<h3>
-											<strong>${staff.firstName} ${staff.lastName}</strong>
-
-										</h3>
-										<p>
-											<i class="fa fa-map-marker"></i> ${staff.role.roleName}
-										</p>
-										<p>
-											<i class="fa fa-envelope"></i> ${staff.email}
-										</p>
-
-									</div>
-									<div class="clearfix"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
-	<!-- End update user -->
+	
 	<div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 		<div class="sidebar-collapse">
@@ -179,9 +132,9 @@
 							src="../resources/img/profile_small.jpg" />
 						</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span
 							class="clear"> <span class="block m-t-xs"> <strong
-									class="font-bold">${logedUser.firstName }
-										${logedUser.lastName}</strong>
-							</span> <span class="text-muted text-xs block">${logedUser.role.roleName}</span>
+									class="font-bold" ng-model="userCred">{{userCred}}
+										</strong>
+							</span> <span class="text-muted text-xs block" ng-model="userRole">{{userRole}}</span>
 						</span>
 						</a>
 					</div>
@@ -207,17 +160,7 @@
 				<div class="navbar-header">
 					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
 						href="#"><i class="fa fa-bars"></i> </a>
-					<c:choose>
-						<c:when test="${logedUser.role.roleName == 'Admin'}">
-							<form role="search" class="navbar-form-custom"
-								action="search_results.html">
-								<div class="form-group">
-									<input type="text" placeholder="Search for something..."
-										class="form-control" name="top-search" id="top-search">
-								</div>
-							</form>
-						</c:when>
-					</c:choose>
+					
 
 				</div>
 				<ul class="nav navbar-top-links navbar-right">

@@ -15,6 +15,24 @@ myApp.controller('loginController', function($scope, $http) {
     }
 });
 
+myApp.controller('registerController',function($scope, $http){
+	$scope.registerUser = function(){
+		
+    	return $http({
+            method: 'POST',
+            url: '/springmvc/register',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: { email: $("#regemail").val(), firstName: $("#regfirstName").val(), lastName: $("#reglName").val(), password:$("#regpassword").val()}
+        }).then(function(res){
+            console.log(res)
+            $("#registerModal").modal('toggle');
+//            window.location = "home"
+        });
+    }
+})
+
 myApp.directive('emailAvailable', function($timeout, $q, $http) {
   return {
     restrict: 'AE',

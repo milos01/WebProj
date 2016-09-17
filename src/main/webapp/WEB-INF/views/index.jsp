@@ -1,7 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <html>
 <head>
 <title>Quest For Chef</title>
@@ -18,19 +15,11 @@ body {
 </style>
 </head>
 <body ng-app="qfcApp">
-	<c:if test="${errors.errorCount gt 0}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%">
-			<c:forEach items="${errors.allErrors}" var="error">
-				<strong>${error.defaultMessage}</strong>
-				<br />
-			</c:forEach>
-		</div>
-	</c:if>
+	
 
 	<!-- Modal for registration -->
-	<div id="registerModal" class="modal fade" role="dialog">
-		<div class="modal-dialog" style="width: 400px">
+	<div id="registerModal" class="modal fade" role="dialog" >
+		<div class="modal-dialog" style="width: 400px" >
 
 			<!-- Register modal content-->
 			<div class="modal-content">
@@ -38,63 +27,39 @@ body {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Register</h4>
 				</div>
-				<form action="register" method="POST" name="registerForm" novalidate>
-					<div class="form-group" ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$error && !registerForm.repassword.$error.passwordVerify && !registerForm.email.$pristine }">
-					<input class="form-control" name="email" type="email" id="regEmail"
+				<form method="POST" ng-submit="registerUser()" ng-controller="registerController" novalidate>
+					<div class="form-group" >
+					<input class="form-control" name="regemail" type="email" 
 						placeholder="Email"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" ng-model-options="{ updateOn: 'blur' }"
-						ng-model="user.email" email-notavailable required>
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" 
+						id="regemail">
 					</div>
-					<div ng-show="registerForm.email.$error.required && !registerForm.email.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">
-						<span style="font-size:17px;">Email is required.</span>
-					</div>
-					<div ng-show="registerForm.email.$error.email && !registerForm.email.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:148px;padding: 5px 5px">
-						<span style="font-size:17px;">Email is not valid.</span>
-					</div>
-					<div ng-show="registerForm.email.$error.emailAvailable && !registerForm.email.$error.email && !registerForm.email.$error.required && !registerForm.email.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:110px;padding: 5px 5px">
-						<span style="font-size:17px;">Email exists!</span>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error' : registerForm.firstName.$invalid && !registerForm.firstName.$pristine }">
-					<input class="form-control" type="text" name ="firstName" id="firstName"
+				
+					
+					
+					<div class="form-group" ">
+					<input class="form-control" type="text" name ="firstName" 
 						placeholder="First name"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" ng-model-options="{ updateOn: 'blur' }" ng-model="user.firstName" required>
+						 ng-model-options="{ updateOn: 'blur' }" id="regfirstName" required>
 					</div>
-					<div ng-show="registerForm.firstName.$error.required && !registerForm.firstName.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">
-						<span style="font-size:17px;">Field is required.</span>
+					
+					<div class="form-group" ">
+					<input class="form-control" type="text" name ="lastName" 
+						placeholder="First name"
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
+						 ng-model-options="{ updateOn: 'blur' }" id="reglName" required>
 					</div>
-					<div class="form-group" ng-class="{ 'has-error' : registerForm.lastName.$invalid && !registerForm.lastName.$pristine }">
-					<input class="form-control" name="lastName"
-						type="text" id="lastName" placeholder="Last name"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" ng-model-options="{ updateOn: 'blur' }" ng-model="user.lastName" required>
-					</div>
-					<div ng-show="registerForm.lastName.$error.required && !registerForm.lastName.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">
-						<span style="font-size:17px;">Field is required.</span>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
+					
+					<div class="form-group">
 					<input class="form-control"
-						type="password" id="regPassword" name="password"
+						type="password"  name="regpassword"
 						placeholder="Password"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" ng-model-options="{ updateOn: 'blur' }" ng-model="user.password" required>
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" ng-model-options="{ updateOn: 'blur' }" id="regpassword" required>
 					</div>
-					<div ng-show="registerForm.password.$error.required && !registerForm.password.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">
-						<span style="font-size:17px;">Field is required.</span>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
-						<input class="form-control"
-							   type="password" id="regPassword2" name="repassword"
-							   placeholder="Password"
-							   style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" ng-model-options="{ updateOn: 'blur' }" ng-model="user.repassword" required password-verify="user.password">
-					</div>
-					<div ng-show="registerForm.repassword.$error.required && !registerForm.repassword.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">
-						<span style="font-size:17px;">Field is required.</span>
-					</div>
-					<%--<div ng-show="registerForm.repassword.$error.passwordVerify" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:141px;padding: 5px 5px">--%>
-						<%--<span style="font-size:17px;">Fields are not equal!</span>--%>
-					<%--</div>--%>
-					<div ng-show="registerForm.repassword.$error.passwordVerify && !registerForm.repassword.$pristine" style="background: #f2dede; position:absolute;margin-left:358px;box-shadow:0px 0px 3px #000;color:#a94442;margin-top:-55px;border-radius: 5px;width:165px;padding: 5px 5px">
-						<span style="font-size:17px;">Fields are not equal!</span>
-					</div>
+				
+					
+					
 					<div class="modal-footer" style="margin-top: 15px;">
 						<button type="submit" class="btn btn-success"
 							style="background: #1ab394">Register</button>
@@ -105,31 +70,9 @@ body {
 
 		</div>
 	</div>
-	<%--End register modal--%>
-	<c:if test="${!empty token}">
-		<div class="container" id="expiredToken"
-			style="text-align: center; position: absolute; width: 100%; height: 50px; border-bottom: 1px solid #ccc; padding: 15px; background: #fff">
-			<strong>Your request has expired, click <a
-				href="resendRegistrationToken/${token}">here</a> to resend
-				activation link.
-			</strong>
-			<button id="tokenButton" type="button" class="close"
-				style="position: absolute; right: 10px">&times;</button>
-		</div>
-	</c:if>
-	<!-- End modal for registration -->
-	<c:if test="${!empty errorMessage}">
-		<div class="alert alert-danger" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%">
-			<strong>${errorMessage}</strong>
-		</div>
-	</c:if>
-	<c:if test="${!empty successMessage}">
-		<div class="alert alert-success" id="errorAlert"
-			style="text-align: center; position: absolute; width: 100%">
-			<strong>${successMessage}</strong>
-		</div>
-	</c:if>
+	
+
+	
 <!--    Login Form -->
 	<div class="container" style="width: 500px; color: black" ng-controller="loginController" novalidate>
 		<div

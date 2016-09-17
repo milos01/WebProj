@@ -20,7 +20,19 @@ myApp.controller('resView', function($scope, $routeParams){
 });
 myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
 	
-	
+	$scope.logout  = function(){
+		return $http({
+            method: 'GET',
+            url: '/springmvc/logout',
+            headers: {
+            	'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            data:{}
+        }).then(function(res){
+        	window.location = "/springmvc/";
+        });
+	}
 	return $http({
         method: 'GET',
         url: 'getuser',
@@ -29,6 +41,8 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal) {
         },
         data: {}
     }).then(function(res){
+    	$scope.userCred = res.data.firstName +" "+ res.data.lastName; 
+    	$scope.userRole = res.data.role.roleName;
         console.log(res.data.id);
         if(res.data.role.id == 1){
         	$("#side-menu").append("<li><a data-toggle='modal' data-target='#registerRestaurantModal'><i class='fa fa-plus'></i><span class='nav-label'>Add restaurant</span></a></li>");
