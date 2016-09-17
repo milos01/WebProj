@@ -270,7 +270,7 @@
 														
 													</div>
 													<div class="animate-repeat" ng-repeat="event in friend.events " eveDir>
-															<div id="eve{{event.id}}">{{event.description}}</div>
+															<div><img alt="" src="../springmvc/resources/img/{{event.picture}}" width="20"></div><div id="eve{{event.id}}">{{event.description}}</div>
 													</div>
 											
 													<!--MODAL WINDOW-->

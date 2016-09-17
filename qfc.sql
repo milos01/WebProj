@@ -15,7 +15,7 @@ INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `p
 INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `phone`, `picture`, `ziroRacun`,`city`,`pib`,`user_id`) VALUES ('Momcila Tapavice 18',     'test.com', 'hgarrett3@ed.gov',   'Twitternation2', '380-(257)526-4752', 'a1.png','421312312312','Novi Sad','42131212123','1');
 INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `phone`, `picture`, `ziroRacun`,`city`,`pib`,`user_id`) VALUES ('Momcila Tapavice 18',     'test.com', 'hgarrett3@ed.gov',   'Twitternation3', '380-(257)526-4752', 'a1.png','421312312312','Novi Sad','42131212123','1');
 INSERT INTO `questforchef`.`Restaurants` (`address`, `site`, `email`, `name`, `phone`, `picture`, `ziroRacun`,`city`,`pib`,`user_id`) VALUES ('Momcila Tapavice 18',     'test.com', 'hgarrett3@ed.gov',   'Twitternation4', '380-(257)526-4752', 'a1.png','421312312312','Novi Sad','42131212123','1');
-INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'pic.ic', '5');
-INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'pic.ic', '2');
+INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'def.png', '5');
+INSERT INTO `questforchef`.`Events` (`dateEx`, `description`, `picture`, `res_id`) VALUES ('2016-08-31', 'Description', 'def.png', '2');
 INSERT INTO `questforchef`.`Recensions` (`datum`, `ocena`, `text`, `res_id`,`user_id`) VALUES ('2016-08-31', '4', 'cool', '1','1');
 INSERT INTO `questforchef`.`Recensions` (`datum`, `ocena`, `text`, `res_id`,`user_id`) VALUES ('2016-08-31', '5', 'ma cool', '1','1');

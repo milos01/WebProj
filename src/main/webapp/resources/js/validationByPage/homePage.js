@@ -100,20 +100,23 @@ myApp.directive('nop', function($compile,$http,$uibModal){
                 },
                 data: {}
             }).then(function(res){
+            	var el4 = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="restaurantPage('+scope.idx+')">View</button>');
+            	 $compile(el4)(scope);
+            	 elm.children().append(el4);
             	if(res.data.role.id == 1){
             		
                 	var el = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="removeTask('+ scope.idx +')">Delete</button>');
                 	var el2 = angular.element('<button class="btn btn-info btn-xs" style="margin-top:10px;margin-right:5px" data-toggle="modal" ng-click="open('+scope.idx+')">Update</button>');
                 	var el3 = angular.element('<button class="btn btn-info btn-xs" style="margin-top:10px;margin-right:5px" data-toggle="modal" ng-click="openEvent('+scope.idx+')">Add event</button>');
-                	var el4 = angular.element('<button class="btn btn-danger btn-xs" style="margin-top:10px" ng-click="restaurantPage('+scope.idx+')">View</button>');
+                	
                 	$compile(el)(scope);
                 	 $compile(el2)(scope);
                 	 $compile(el3)(scope);
-                	 $compile(el4)(scope);
+                	
                 	 elm.children().append(el3);
                      elm.children().append(el2);
                      elm.children().append(el);
-                     elm.children().append(el4);
+                    
                      
 //                     angular.element(document.getElementById('deletea')).append($compile(el)(scope));
                      

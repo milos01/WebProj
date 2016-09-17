@@ -80,7 +80,19 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal,$location,$compile,$
 	        		}
         		}
         	});
-        	
+        	$scope.logout  = function(){
+        		return $http({
+                    method: 'GET',
+                    url: '/springmvc/logout',
+                    headers: {
+                    	'Accept': 'application/json',
+                        'Content-Type': 'application/json' 
+                    },
+                    data:{}
+                }).then(function(res){
+                	window.location = "/springmvc/";
+                });
+        	}
         	
         	$scope.submitRec = function(){
         		console.log($scope.resRate)
