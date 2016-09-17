@@ -131,39 +131,39 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add restaurant</h4>
 				</div>
-				<form ng-submit="submitAddRes()" method="POST"
+				<form ng-submit="submitAddRes()" name="addMe"method="POST"
 					ng-controller="addResController" novalidate>
 					<input class="form-control" name="name" type="text"
 						ng-model="resName" placeholder="Name"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;">
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" required>
 
 					<input class="form-control" type="text" ng-model="resAddress"
 						placeholder="Address"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-						name="firstName" /> <input class="form-control" name="city"
+						name="firstName" required/> <input class="form-control" name="city"
 						type="text" ng-model="resCity" placeholder="City"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resPhone"
 						name="Phone" placeholder="Phone"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resEmail"
 						name="Email" placeholder="Email"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resSite"
 						name="site" placeholder="Site"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resPib"
 						name="PIB" placeholder="PIB"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resAcc"
 						name="acc" placeholder="Acc"
-						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 					<input class="form-control" type="text" ng-model="resPicture"
 						name="picture" placeholder="Picture"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-					<div class="modal-footer" style="margin-top: 15px;">
+					<div class="modal-footer" style="margin-top: 15px;" required>
 						<button type="submit" class="btn btn-success"
-							style="background: #1ab394">Add</button>
+							style="background: #1ab394" ng-disabled="addMe.$invalid">Add</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
@@ -278,33 +278,33 @@
                     				<div class="modal-header">
                         				<h3>Restaurant: {{ customer.name }}</h3>
                     				</div>
-									<form ng-submit="submitUpdateRes()" method="POST" ng-controller="updateResController" novalidate>
+									<form ng-submit="submitUpdateRes()" name="addREs" method="POST" ng-controller="updateResController" novalidate>
                     					<div class="modal-body">
                             			
 										<input class="form-control" name="name" type="text" ng-model="resNameU"
 										placeholder="Name"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"> 
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" required/> 
 						
 									<input class="form-control"
 									type="text" ng-model="resAddressU" placeholder="Address"
 									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-									name="firstName" /> 
+									name="firstName" required/> 
 									<input
 									class="form-control" name="city" type="text" ng-model="resCityU"
 									placeholder="City"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" /> 
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/> 
 									<input class="form-control"
 									type="text" ng-model="resPhoneU" name="Phone"
 									placeholder="Phone"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 									<input class="form-control"
 									type="text" ng-model="resEmailU" name="Email"
 									placeholder="Email"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 									<input class="form-control"
 									type="text" ng-model="resSiteU" name="site"
 									placeholder="Site"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
 									<input class="form-control"
 									type="text" ng-model="resPibU" name="PIB"
 									placeholder="PIB"
@@ -316,14 +316,14 @@
 									<input class="form-control"
 									type="text" ng-model="resPictureU" name="picture"
 									placeholder="Picture"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" />
-									<input type="hidden" ng-model="resId"/>
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;" required/>
+									<input type="hidden" ng-model="resId" />
 				
                           
                     				</div>
                     				<div class="modal-footer" style="margin-top: 15px;">
 										<button type="submit" class="btn btn-success"
-										style="background: #1ab394">Update</button>
+										style="background: #1ab394" ng-disabled="addREs.$invalid">Update</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
@@ -333,17 +333,17 @@
                     				<div class="modal-header">
                         				<h3>Restaurant: {{ customer.name }}</h3>
                     				</div>
-									<form ng-submit="submitAddEvent()" method="POST" ng-controller="addEventController" novalidate>
+									<form ng-submit="submitAddEvent()" name="addRss" method="POST" ng-controller="addEventController" novalidate>
                     					<div class="modal-body">
                             			
 										<input class="form-control" name="name" type="text" ng-model="eventDescription"
 										placeholder="Description"
-									style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;"> 
+									style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" required> 
 						
 									<input class="form-control"
 									type="date" ng-model="eventDate" placeholder="Date"
 									style="width: 300px; height: 45px; margin: auto auto; margin-top: 15px;"
-									name="eventName" /> 
+									name="eventName" required/> 
 									<input
 									 name="eventPicture" type="file" ng-model="eventPicture"
 									placeholder="Picture"
@@ -356,7 +356,7 @@
                     				</div>
                     				<div class="modal-footer" style="margin-top: 15px;">
 										<button type="submit" class="btn btn-success"
-										style="background: #1ab394">Add</button>
+										style="background: #1ab394" ng-disabled="addRss.$invalid" >Add</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>

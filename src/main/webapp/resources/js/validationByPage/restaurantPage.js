@@ -40,7 +40,7 @@ myApp.controller('MyCtrl', function($scope,$http, $uibModal,$location,$compile,$
         	$scope.userRole = res.data.role.roleName;
         	var isEnable = true;
         	var isE = true;
-        	var el = angular.element('<form method="post" ng-submit="submitRec()"><textarea class="" style="width:300px" placeholder="your recension..." ng-model="recInput"></textarea><select ng-model="resRate" class="selectpicker"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><button type="submit" class="btn btn-primary" style="margin-top:-35px;">Post</button></form>');
+        	var el = angular.element('<form method="post" name="addReec" ng-submit="submitRec()"><textarea class="" style="width:300px" placeholder="your recension..." ng-model="recInput" required></textarea><select ng-model="resRate" class="selectpicker" required><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><button type="submit" class="btn btn-primary" style="margin-top:-35px;" ng-disabled="addReec.$invalid">Post</button></form>');
 		 	$compile(el)($scope);
 		 	$element.find("#inputHolder").append(el);
         	res.data.restaurants.forEach(function(entry) {

@@ -27,12 +27,12 @@ body {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Register</h4>
 				</div>
-				<form method="POST" ng-submit="registerUser()" ng-controller="registerController" novalidate>
+				<form method="POST" ng-submit="registerUser()" ng-controller="registerController" name="regForm" novalidate>
 					<div class="form-group" >
 					<input class="form-control" name="regemail" type="email" 
 						placeholder="Email"
 						style="width: 300px; height: 45px; margin: auto auto; margin-top: 35px;" 
-						id="regemail">
+						id="regemail" required>
 					</div>
 				
 					
@@ -62,7 +62,7 @@ body {
 					
 					<div class="modal-footer" style="margin-top: 15px;">
 						<button type="submit" class="btn btn-success"
-							style="background: #1ab394">Register</button>
+							style="background: #1ab394" ng-disabled="regForm.$invalid">Register</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
